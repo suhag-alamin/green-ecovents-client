@@ -11,6 +11,12 @@ const theme: ThemeConfig = {
     colorWhite: "#EDF4ED",
     fontFamily: "Montserrat",
   },
+  components: {
+    Layout: {
+      bodyBg: "#fff",
+      headerBg: "#fff",
+    },
+  },
 };
 
 export default theme;
