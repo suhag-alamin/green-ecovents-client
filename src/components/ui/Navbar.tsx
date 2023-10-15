@@ -38,7 +38,7 @@ const menuItems: MenuProps["items"] = [
   },
   {
     label: (
-      <>
+      <Link href="/signin">
         <Button
           icon={<LoginOutlined />}
           type="primary"
@@ -46,10 +46,17 @@ const menuItems: MenuProps["items"] = [
         >
           Sign in
         </Button>
-        <Button>Sign up</Button>
-      </>
+      </Link>
     ),
-    key: "login-signup",
+    key: "signin",
+  },
+  {
+    label: (
+      <Link href="/signup">
+        <Button>Sign up</Button>
+      </Link>
+    ),
+    key: "signup",
   },
 ];
 

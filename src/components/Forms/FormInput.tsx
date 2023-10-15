@@ -1,8 +1,8 @@
 "use client";
 
 import { Input, Typography } from "antd";
+import { ReactElement, ReactNode } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { ReactElement, ReactNode, useEffect } from "react";
 
 type IInput = {
   name: string;
@@ -15,6 +15,7 @@ type IInput = {
   label?: string;
   suffix?: ReactElement | ReactNode;
   prefix?: ReactElement | ReactNode;
+  helperText?: string;
 };
 
 const FormInput = ({
@@ -28,6 +29,7 @@ const FormInput = ({
   label,
   suffix,
   prefix,
+  helperText,
 }: IInput) => {
   const {
     control,
@@ -36,7 +38,14 @@ const FormInput = ({
 
   return (
     <>
-      <Typography.Text>{label}</Typography.Text>
+      <Typography.Text
+        style={{
+          marginBottom: 5,
+          display: "inline-block",
+        }}
+      >
+        {label}
+      </Typography.Text>
       <Controller
         control={control}
         name={name}
@@ -64,6 +73,15 @@ const FormInput = ({
           )
         }
       />
+      <Typography.Text
+        style={{
+          fontSize: 12,
+          lineHeight: "10px",
+        }}
+        type="secondary"
+      >
+        {helperText}
+      </Typography.Text>
     </>
   );
 };
