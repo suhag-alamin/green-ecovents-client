@@ -1,14 +1,22 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import { userRole } from "@/constants/role";
+import instance from "@/helpers/axios/axiosInstance";
 import styles from "@/styles/SignupSignin.module.css";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 import Link from "next/link";
 
 const SignUp = () => {
   const handleSignUp = async (data: any) => {
-    data.role = "USER";
-    console.log(data);
+    data.role = userRole.USER;
+    delete data.confirmPassword;
+    const result = await (await instance.post("/auth/signup", data)).data;
+    if (result?.statusCode === 200) {
+      message.success(result.message + " Please login");
+    } else {
+      message.error("Something went wrong, try again");
+    }
   };
   return (
     <Row className={styles.signupBox}>
