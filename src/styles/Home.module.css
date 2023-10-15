@@ -1,0 +1,22 @@
+.heroSection {
+  background: url(../assets/hero-bg.jpg) center center;
+  background-size: cover;
+  padding: 120px 0;
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+.heroSection::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: -1;
+}
+
+.heroContent {
+  padding: 0 40px;
+}

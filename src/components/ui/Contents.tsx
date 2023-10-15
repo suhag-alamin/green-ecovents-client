@@ -14,7 +14,7 @@ const Contents = ({ children }: { children: React.ReactNode }) => {
       <Navbar />
       <div
         style={{
-          padding: screen.lg ? "0 80px" : "0 20px",
+          // padding: screen.lg ? "0 80px" : "0 20px",
           color: "#1F3C4A",
         }}
       >
