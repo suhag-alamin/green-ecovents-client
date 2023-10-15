@@ -1,3 +1,4 @@
+"use client";
 import Hero from "@/components/Home/Hero";
 
 const Home = () => {

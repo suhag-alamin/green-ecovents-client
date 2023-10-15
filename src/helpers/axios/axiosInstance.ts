@@ -1,19 +1,40 @@
 import { baseApi } from "@/config/api";
+import { authKey } from "@/constants/storageKey";
+import { getNewAccessToken } from "@/services/auth.service";
+import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: baseApi,
   timeout: 60000,
   headers: { "Content-Type": "application/json" },
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
   function (config) {
     // access token
+    const accessToken = getFromLocalStorage(authKey);
+    if (accessToken) {
+      config.headers.Authorization = accessToken;
+    }
     return config;
   },
-  function (error) {
-    return error?.response?.data;
+  async function (error) {
+    const config = error?.config;
+    if (error?.response?.status === 401 && !config?.sent) {
+      config.sent = true;
+
+      const response = await getNewAccessToken();
+      const accessToken = response?.data?.data?.accessToken;
+
+      config.headers.Authorization = accessToken;
+      setToLocalStorage(authKey, accessToken);
+
+      return axiosInstance(config);
+    } else {
+      return error?.response?.data;
+    }
   }
 );
 axiosInstance.interceptors.response.use(
@@ -21,8 +42,21 @@ axiosInstance.interceptors.response.use(
     // access token
     return config;
   },
-  function (error) {
-    return error?.response?.data;
+  async function (error) {
+    const config = error?.config;
+    if (error?.response?.status === 401 && !config?.sent) {
+      config.sent = true;
+
+      const response = await getNewAccessToken();
+      const accessToken = response?.data?.data?.accessToken;
+
+      config.headers.Authorization = accessToken;
+      setToLocalStorage(authKey, accessToken);
+
+      return axiosInstance(config);
+    } else {
+      return error?.response?.data;
+    }
   }
 );
 

@@ -1,4 +1,5 @@
 import { authKey } from "@/constants/storageKey";
+import axiosInstance from "@/helpers/axios/axiosInstance";
 import { decodedToken } from "@/utils/jwt";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 
@@ -25,4 +26,8 @@ export const isLoggedIn = () => {
 
 export const removeUserInfo = (key: string) => {
   return localStorage.removeItem(key);
+};
+
+export const getNewAccessToken = async () => {
+  return await axiosInstance.post("/auth/refresh-token");
 };
