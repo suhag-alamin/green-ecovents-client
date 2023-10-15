@@ -1,5 +1,6 @@
 "use client";
 
+import { getErrorMessage } from "@/utils/schemaValidator";
 import { Input, Typography } from "antd";
 import { ReactElement, ReactNode } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -35,6 +36,8 @@ const FormInput = ({
     control,
     formState: { errors },
   } = useFormContext();
+
+  const errorMessage = getErrorMessage(errors, name);
 
   return (
     <>
@@ -73,15 +76,28 @@ const FormInput = ({
           )
         }
       />
-      <Typography.Text
-        style={{
-          fontSize: 12,
-          lineHeight: "10px",
-        }}
-        type="secondary"
-      >
-        {helperText}
-      </Typography.Text>
+
+      {errorMessage ? (
+        <Typography.Text
+          style={{
+            fontSize: 12,
+            lineHeight: "10px",
+          }}
+          type="danger"
+        >
+          {errorMessage}
+        </Typography.Text>
+      ) : (
+        <Typography.Text
+          style={{
+            fontSize: 12,
+            lineHeight: "10px",
+          }}
+          type="secondary"
+        >
+          {helperText}
+        </Typography.Text>
+      )}
     </>
   );
 };

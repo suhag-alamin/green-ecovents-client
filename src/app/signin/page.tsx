@@ -1,21 +1,35 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import axiosInstance from "@/helpers/axios/axiosInstance";
 import styles from "@/styles/SignupSignin.module.css";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 import Link from "next/link";
+import { useState } from "react";
 
 const SignIn = () => {
-  const handleSignUp = async (data: any) => {
-    data.role = "USER";
-    console.log(data);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleSignIn = async (data: any) => {
+    setIsLoading(true);
+
+    const result = await (await axiosInstance.post("/auth/login", data)).data;
+
+    if (result?.statusCode === 200) {
+      console.log(result.data);
+      message.success(result.message);
+      setIsLoading(false);
+    } else {
+      message.error("Something went wrong, try again");
+      setIsLoading(false);
+    }
   };
   return (
     <Row className={styles.signinBox}>
       <Col xs={24} md={12}>
         <div className={styles.signinLeftContainer}>
           <h3>Sign Up to GreenEcovents</h3>
-          <Form submitHandler={handleSignUp}>
+          <Form submitHandler={handleSignIn}>
             <Row
               style={{
                 margin: "10px 0",
@@ -68,6 +82,7 @@ const SignIn = () => {
                 size="large"
                 type="primary"
                 htmlType="submit"
+                loading={isLoading}
               >
                 Sign In
               </Button>

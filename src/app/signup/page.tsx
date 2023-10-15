@@ -2,20 +2,30 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import { userRole } from "@/constants/role";
-import instance from "@/helpers/axios/axiosInstance";
+import axiosInstance from "@/helpers/axios/axiosInstance";
+import { signupSchema } from "@/schemas/auth";
 import styles from "@/styles/SignupSignin.module.css";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import Link from "next/link";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const handleSignUp = async (data: any) => {
+    setIsLoading(true);
     data.role = userRole.USER;
     delete data.confirmPassword;
-    const result = await (await instance.post("/auth/signup", data)).data;
+
+    const result = await (await axiosInstance.post("/auth/signup", data)).data;
+
     if (result?.statusCode === 200) {
-      message.success(result.message + " Please login");
+      message.success(result.message);
+      setIsLoading(false);
     } else {
       message.error("Something went wrong, try again");
+      setIsLoading(false);
     }
   };
   return (
@@ -41,7 +51,10 @@ const SignUp = () => {
       <Col xs={24} md={14}>
         <div className={styles.signupRightContainer}>
           <h3>Sign Up to GreenEcovents</h3>
-          <Form submitHandler={handleSignUp}>
+          <Form
+            submitHandler={handleSignUp}
+            resolver={yupResolver(signupSchema)}
+          >
             <Row
               gutter={{
                 xs: 6,
@@ -139,6 +152,7 @@ const SignUp = () => {
                 size="large"
                 type="primary"
                 htmlType="submit"
+                loading={isLoading}
               >
                 Sign Up
               </Button>

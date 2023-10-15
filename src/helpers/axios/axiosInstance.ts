@@ -1,13 +1,13 @@
 import { baseApi } from "@/config/api";
 import axios from "axios";
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: baseApi,
   timeout: 60000,
   headers: { "Content-Type": "application/json" },
 });
 
-instance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   function (config) {
     // access token
     return config;
@@ -16,7 +16,7 @@ instance.interceptors.request.use(
     return error?.response?.data;
   }
 );
-instance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   function (config) {
     // access token
     return config;
@@ -26,4 +26,4 @@ instance.interceptors.response.use(
   }
 );
 
-export default instance;
+export default axiosInstance;
