@@ -1,6 +1,7 @@
 import logo from "@/assets/logo.png";
 import {
   HomeOutlined,
+  LoginOutlined,
   MailOutlined,
   MenuOutlined,
   ScheduleOutlined,
@@ -37,7 +38,11 @@ const menuItems: MenuProps["items"] = [
   {
     label: (
       <>
-        <Button type="primary" style={{ marginRight: "10px" }}>
+        <Button
+          icon={<LoginOutlined />}
+          type="primary"
+          style={{ marginRight: "10px" }}
+        >
           Sign in
         </Button>
         <Button>Sign up</Button>
@@ -59,7 +64,12 @@ const Navbar = () => {
   };
 
   return (
-    <Layout>
+    <Layout
+      style={{
+        marginBottom: 20,
+        paddingRight: 10,
+      }}
+    >
       <Header style={{ padding: 0 }}>
         <Row justify="space-between" align="middle">
           <Col xs={20} sm={20} md={4}>

@@ -15,6 +15,8 @@ const theme: ThemeConfig = {
     Layout: {
       bodyBg: "#fff",
       headerBg: "#fff",
+      controlPaddingHorizontal: 200,
+      controlPaddingHorizontalSM: 100,
     },
   },
 };

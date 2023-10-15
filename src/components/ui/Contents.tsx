@@ -1,26 +1,26 @@
 "use client";
-import { Layout } from "antd";
+import { Grid, Layout } from "antd";
+import Footer from "./Footer";
 import Navbar from "./Navbar";
-// import Header from "./Header";
+
 const { Content } = Layout;
+const { useBreakpoint } = Grid;
 
 const Contents = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Content
-      style={{
-        minHeight: "100vh",
-        color: "black",
-      }}
-    >
-      <Navbar />
+  const screen = useBreakpoint();
 
+  return (
+    <Content>
+      <Navbar />
       <div
         style={{
-          padding: 20,
+          padding: screen.lg ? "0 80px" : "0 20px",
+          color: "#1F3C4A",
         }}
       >
         {children}
       </div>
+      <Footer />
     </Content>
   );
 };

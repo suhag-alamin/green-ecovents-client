@@ -17,7 +17,7 @@ https://themes.muffingroup.com/be/event5/
 - Testimonials slider
 - Survey/Overview
 - Blog
-- Footer
+- Footer (Logo with text, Top Categories, Social Icons)
 
 color
 #43934A
