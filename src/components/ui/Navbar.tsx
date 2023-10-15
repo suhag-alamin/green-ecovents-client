@@ -1,7 +1,10 @@
 import logo from "@/assets/logo.png";
+import { authKey } from "@/constants/storageKey";
+import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
 import {
   HomeOutlined,
   LoginOutlined,
+  LogoutOutlined,
   MailOutlined,
   MenuOutlined,
   ScheduleOutlined,
@@ -12,56 +15,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+interface UserInfo {
+  id: string;
+  role: string;
+  iat: number;
+  exp: number;
+}
+
 const { useBreakpoint } = Grid;
 const { Header } = Layout;
 
-const menuItems: MenuProps["items"] = [
-  {
-    label: <Link href="/">Home</Link>,
-    key: "home",
-    icon: <HomeOutlined />,
-  },
-  {
-    label: <Link href="/">Events</Link>,
-    key: "events",
-    icon: <ScheduleOutlined />,
-  },
-  {
-    label: <Link href="/">Cart</Link>,
-    key: "cart",
-    icon: <ShoppingCartOutlined />,
-  },
-  {
-    label: <Link href="/">Contact Us</Link>,
-    key: "contact-us",
-    icon: <MailOutlined />,
-  },
-  {
-    label: (
-      <Link href="/signin">
-        <Button
-          icon={<LoginOutlined />}
-          type="primary"
-          style={{ marginRight: "10px" }}
-        >
-          Sign in
-        </Button>
-      </Link>
-    ),
-    key: "signin",
-  },
-  {
-    label: (
-      <Link href="/signup">
-        <Button>Sign up</Button>
-      </Link>
-    ),
-    key: "signup",
-  },
-];
-
 const Navbar = () => {
   const [visible, setVisible] = useState<boolean>(false);
+
+  const isLogged = isLoggedIn();
+
+  const logout = () => {
+    removeUserInfo(authKey);
+  };
 
   const showDrawer = () => {
     setVisible(true);
@@ -71,6 +42,63 @@ const Navbar = () => {
     setVisible(false);
   };
   const screen = useBreakpoint();
+
+  const menuItems: MenuProps["items"] = [
+    {
+      label: <Link href="/">Home</Link>,
+      key: "home",
+      icon: <HomeOutlined />,
+    },
+    {
+      label: <Link href="/">Events</Link>,
+      key: "events",
+      icon: <ScheduleOutlined />,
+    },
+    {
+      label: <Link href="/">Cart</Link>,
+      key: "cart",
+      icon: <ShoppingCartOutlined />,
+    },
+    {
+      label: <Link href="/">Contact Us</Link>,
+      key: "contact-us",
+      icon: <MailOutlined />,
+    },
+    {
+      label: !isLogged && (
+        <Link href="/signin">
+          <Button
+            icon={<LoginOutlined />}
+            type="primary"
+            style={{ marginRight: "10px" }}
+          >
+            Sign in
+          </Button>
+        </Link>
+      ),
+      key: "signin",
+    },
+    {
+      label: !isLogged && (
+        <Link href="/signup">
+          <Button>Sign up</Button>
+        </Link>
+      ),
+      key: "signup",
+    },
+    {
+      label: isLogged && (
+        <Button
+          onClick={() => logout()}
+          icon={<LogoutOutlined />}
+          type="primary"
+        >
+          Log Out
+        </Button>
+      ),
+      key: "logout",
+    },
+  ];
 
   return (
     <Layout

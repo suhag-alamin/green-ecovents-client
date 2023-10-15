@@ -2,23 +2,36 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import axiosInstance from "@/helpers/axios/axiosInstance";
+import { signInSchema } from "@/schemas/auth";
 import styles from "@/styles/SignupSignin.module.css";
 import { Button, Col, Row, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { storeUserInfo } from "@/services/auth.service";
+
+interface FormValues {
+  email: string;
+  password: string;
+}
 
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSignIn = async (data: any) => {
+  const router = useRouter();
+
+  const handleSignIn: SubmitHandler<FormValues> = async (data: any) => {
     setIsLoading(true);
 
     const result = await (await axiosInstance.post("/auth/login", data)).data;
 
-    if (result?.statusCode === 200) {
-      console.log(result.data);
+    if (result?.statusCode === 200 && result?.data?.accessToken) {
+      storeUserInfo(result?.data?.accessToken);
       message.success(result.message);
       setIsLoading(false);
+      router.push("/profile");
     } else {
       message.error("Something went wrong, try again");
       setIsLoading(false);
@@ -29,7 +42,10 @@ const SignIn = () => {
       <Col xs={24} md={12}>
         <div className={styles.signinLeftContainer}>
           <h3>Sign Up to GreenEcovents</h3>
-          <Form submitHandler={handleSignIn}>
+          <Form
+            submitHandler={handleSignIn}
+            resolver={yupResolver(signInSchema)}
+          >
             <Row
               style={{
                 margin: "10px 0",

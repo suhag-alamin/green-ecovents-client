@@ -9,11 +9,22 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
+import { SubmitHandler } from "react-hook-form";
+
+interface FormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  contactNo: string;
+  password: string;
+  confirmPassword: string;
+  role?: string;
+}
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSignUp = async (data: any) => {
+  const handleSignUp: SubmitHandler<FormValues> = async (data: any) => {
     setIsLoading(true);
     data.role = userRole.USER;
     delete data.confirmPassword;
