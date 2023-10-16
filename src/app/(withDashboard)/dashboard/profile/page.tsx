@@ -1,4 +1,5 @@
 "use client";
+import { userRole } from "@/constants/role";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IUser } from "@/interfaces/global";
@@ -72,8 +73,8 @@ const Profile = () => {
             <Image
               src={profileData.profileImg}
               alt=""
-              width={40}
-              height={40}
+              width={100}
+              height={100}
               style={{ borderRadius: "50%" }}
             />
           ) : (
@@ -85,6 +86,9 @@ const Profile = () => {
           <Typography.Title
             level={2}
           >{`${profileData?.firstName} ${profileData?.lastName}`}</Typography.Title>
+          {profileData.role !== userRole.USER && (
+            <Typography.Text>Role: {profileData?.role}</Typography.Text>
+          )}
           <Typography.Text>{profileData?.email}</Typography.Text>
           <Typography.Text>{profileData?.contactNo}</Typography.Text>
           <Link href="/dashboard/profile/edit">

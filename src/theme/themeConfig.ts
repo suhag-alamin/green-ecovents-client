@@ -14,7 +14,7 @@ const theme: ThemeConfig = {
   components: {
     Layout: {
       bodyBg: "#fff",
-      headerBg: "#EDF4ED",
+      headerBg: "#fff",
       controlPaddingHorizontal: 200,
       controlPaddingHorizontalSM: 100,
       siderBg: "#1F3C4A",
