@@ -19,7 +19,7 @@ const DashboardContents = ({ children }: { children: React.ReactNode }) => {
 
       <div
         style={{
-          padding: 20,
+          paddingLeft: 30,
         }}
       >
         {children}

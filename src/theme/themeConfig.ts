@@ -13,8 +13,8 @@ const theme: ThemeConfig = {
   },
   components: {
     Layout: {
-      bodyBg: "#EDF4ED",
-      headerBg: "#fff",
+      bodyBg: "#fff",
+      headerBg: "#EDF4ED",
       controlPaddingHorizontal: 200,
       controlPaddingHorizontalSM: 100,
       siderBg: "#1F3C4A",
@@ -25,6 +25,9 @@ const theme: ThemeConfig = {
       darkItemColor: "#EDF4ED",
       darkItemHoverBg: "rgba(0, 0, 0, 0.06)",
       darkItemSelectedBg: "#1F3C4A",
+    },
+    Typography: {
+      titleMarginBottom: 10,
     },
   },
 };

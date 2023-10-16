@@ -5,6 +5,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <div className="container">hello</div>
     </div>
   );
 };

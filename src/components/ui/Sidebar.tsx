@@ -30,7 +30,6 @@ const Sidebar = () => {
         left: 0,
         top: 0,
         bottom: 0,
-        marginRight: 30,
       }}
     >
       <div>
@@ -51,7 +50,7 @@ const Sidebar = () => {
         theme="dark"
         defaultSelectedKeys={["1"]}
         mode="inline"
-        items={SidebarItems("SUPER_ADMIN")}
+        items={SidebarItems(role)}
       />
     </Sider>
   );

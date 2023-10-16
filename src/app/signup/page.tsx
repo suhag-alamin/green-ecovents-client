@@ -112,7 +112,7 @@ const SignUp = () => {
               <Col xs={24} md={12}>
                 <FormInput
                   name="contactNo"
-                  type="tell"
+                  type="text"
                   label="Contact Number"
                   placeholder="+88017855555"
                   size="large"

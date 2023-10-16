@@ -73,6 +73,10 @@ const Navbar = () => {
       icon: <MailOutlined />,
     },
     {
+      label: isLoggedUser && <Link href="/profile">Dashboard</Link>,
+      key: "Dashboard",
+    },
+    {
       label: !isLoggedUser && (
         <Link href="/signin">
           <Button
@@ -94,6 +98,7 @@ const Navbar = () => {
       ),
       key: "signup",
     },
+
     {
       label: isLoggedUser && (
         <Button
