@@ -41,7 +41,7 @@ const SignIn = () => {
     <Row className={styles.signinBox}>
       <Col xs={24} md={12}>
         <div className={styles.signinLeftContainer}>
-          <h3>Sign Up to GreenEcovents</h3>
+          <h3>Sign In to GreenEcovents</h3>
           <Form
             submitHandler={handleSignIn}
             resolver={yupResolver(signInSchema)}

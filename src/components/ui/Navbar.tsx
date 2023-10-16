@@ -13,7 +13,7 @@ import {
 import { Button, Col, Drawer, Grid, Layout, Menu, MenuProps, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface UserInfo {
   id: string;
@@ -27,11 +27,20 @@ const { Header } = Layout;
 
 const Navbar = () => {
   const [visible, setVisible] = useState<boolean>(false);
+  const [isLoggedUser, setIsLoggedUser] = useState<boolean>(false);
 
   const isLogged = isLoggedIn();
 
+  useEffect(() => {
+    if (isLogged) {
+      setIsLoggedUser(isLogged);
+    }
+  }, [isLogged]);
+  console.log(isLoggedUser);
+
   const logout = () => {
     removeUserInfo(authKey);
+    setIsLoggedUser(false);
   };
 
   const showDrawer = () => {
@@ -65,7 +74,7 @@ const Navbar = () => {
       icon: <MailOutlined />,
     },
     {
-      label: !isLogged && (
+      label: !isLoggedUser && (
         <Link href="/signin">
           <Button
             icon={<LoginOutlined />}
@@ -79,7 +88,7 @@ const Navbar = () => {
       key: "signin",
     },
     {
-      label: !isLogged && (
+      label: !isLoggedUser && (
         <Link href="/signup">
           <Button>Sign up</Button>
         </Link>
@@ -87,7 +96,7 @@ const Navbar = () => {
       key: "signup",
     },
     {
-      label: isLogged && (
+      label: isLoggedUser && (
         <Button
           onClick={() => logout()}
           icon={<LogoutOutlined />}
@@ -107,7 +116,7 @@ const Navbar = () => {
         padding: screen.lg ? "0px 80px" : "0px 20px",
       }}
     >
-      <Header style={{ padding: 0 }}>
+      <Header suppressHydrationWarning={true} style={{ padding: 0 }}>
         <Row justify="space-between" align="middle">
           <Col xs={20} sm={20} md={4}>
             <div style={{ color: "white", paddingLeft: "20px" }}>
