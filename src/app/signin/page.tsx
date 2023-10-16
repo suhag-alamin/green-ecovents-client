@@ -25,16 +25,28 @@ const SignIn = () => {
   const handleSignIn: SubmitHandler<FormValues> = async (data: any) => {
     setIsLoading(true);
 
-    const result = await (await axiosInstance.post("/auth/login", data)).data;
+    const result = await axiosInstance.post("/auth/login", data);
 
-    if (result?.statusCode === 200 && result?.data?.accessToken) {
-      storeUserInfo(result?.data?.accessToken);
-      message.success(result.message);
+    // if (result?.statusCode === 200 && result?.data?.accessToken) {
+    //   storeUserInfo(result?.data?.accessToken);
+    //   message.success(result.message);
+    //   setIsLoading(false);
+    //   router.push("/dashboard/profile");
+    // } else {
+    //   message.error("Something went wrong, try again");
+    //   setIsLoading(false);
+    // }
+    const response = result.data;
+    if (response?.statusCode === 200) {
+      message.success(response.message);
       setIsLoading(false);
       router.push("/dashboard/profile");
-    } else {
-      message.error("Something went wrong, try again");
+    }
+    // @ts-ignore
+    else if (!result?.success) {
       setIsLoading(false);
+      // @ts-ignore
+      message.error(result?.message);
     }
   };
   return (

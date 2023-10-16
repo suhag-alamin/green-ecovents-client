@@ -1,9 +1,21 @@
 import * as yup from "yup";
 
+const genderEnum = ["male", "female"];
+
+enum Gender {
+  male = "male",
+  female = "female",
+  others = "others",
+}
+
 export const signupSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
   email: yup.string().email().required("Email Address is required"),
+  gender: yup
+    .string()
+    .oneOf(Object.values(Gender), "Select valid gender")
+    .required("Gender is required"),
   contactNo: yup
     .string()
     .min(11, "Contact number is too short")
@@ -25,6 +37,7 @@ export const signupSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match")
     .required("Password confirmation is required"),
 });
+
 export const signInSchema = yup.object().shape({
   email: yup.string().email().required("Email Address is required"),
   password: yup.string().required("Password is required"),

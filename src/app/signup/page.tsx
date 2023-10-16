@@ -1,6 +1,8 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import FormSelectField from "@/components/Forms/FormSelectField";
+import { genderOptions } from "@/constants/global";
 import { userRole } from "@/constants/role";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { signupSchema } from "@/schemas/auth";
@@ -120,6 +122,25 @@ const SignUp = () => {
                   label="Contact Number"
                   placeholder="+88017855555"
                   size="large"
+                />
+              </Col>
+            </Row>
+            <Row
+              style={{
+                margin: "10px 0",
+              }}
+              gutter={{
+                xs: 6,
+                md: 12,
+              }}
+            >
+              <Col xs={24} md={24}>
+                <FormSelectField
+                  name="gender"
+                  label="Gender"
+                  placeholder="Select Gender"
+                  size="large"
+                  options={genderOptions}
                 />
               </Col>
             </Row>

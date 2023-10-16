@@ -1,10 +1,10 @@
 "use client";
+import logo from "@/assets/logo-2.png";
 import { SidebarItems } from "@/constants/sidebarItems";
 import { getUserInfo } from "@/services/auth.service";
-import { Grid, Layout, Menu } from "antd";
+import { Layout, Menu } from "antd";
+import Image from "next/image";
 import { useState } from "react";
-
-const { useBreakpoint } = Grid;
 
 const { Sider } = Layout;
 
@@ -12,8 +12,6 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const { role } = getUserInfo() as any;
-
-  const screen = useBreakpoint();
 
   return (
     <Sider
@@ -32,19 +30,14 @@ const Sidebar = () => {
         bottom: 0,
       }}
     >
-      <div>
-        <h3
-          style={{
-            color: "white",
-            fontSize: screen.lg ? 34 : 24,
-            textAlign: "center",
-            fontWeight: "700",
-            marginBottom: "16px",
-            padding: 10,
-          }}
-        >
-          GreenEcovents
-        </h3>
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: "16px",
+          padding: 10,
+        }}
+      >
+        <Image src={logo} alt="" width={160} height={80} />
       </div>
       <Menu
         theme="dark"

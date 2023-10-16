@@ -127,11 +127,23 @@ export const SidebarItems = (role: string) => {
     ...defaultSidebarItems,
     ...commonAdminSidebarItems,
     {
-      label: (
-        <Link href={`/dashboard/super-admin/manage-admin`}>Manage Admin</Link>
-      ),
+      label: "Manage Admin",
       icon: <TableOutlined />,
       key: `/super-admin/manage-admin`,
+      children: [
+        {
+          label: (
+            <Link href={`/dashboard/super-admin/manage-admin`}>Admins</Link>
+          ),
+          key: `/dashboard/super-admin/manage-admin`,
+        },
+        {
+          label: (
+            <Link href={`/dashboard/super-admin/add-admin`}>Add Admin</Link>
+          ),
+          key: `/dashboard/super-admin/add-admin`,
+        },
+      ],
     },
     {
       label: (
