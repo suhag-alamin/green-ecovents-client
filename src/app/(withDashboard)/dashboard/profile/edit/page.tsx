@@ -1,8 +1,10 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import FormSelectField from "@/components/Forms/FormSelectField";
 import UploadImage from "@/components/Forms/UploadImage";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import { genderOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IUser } from "@/interfaces/global";
@@ -10,7 +12,6 @@ import { updateProfileSchema } from "@/schemas/auth";
 import uploadImage from "@/utils/uploadImage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Flex, Grid, Spin, message } from "antd";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -61,6 +62,7 @@ const EditProfile = () => {
     email: profileData?.email,
     contactNo: profileData?.contactNo,
     profileImg: profileData?.profileImg,
+    gender: profileData?.gender,
   };
 
   if (!profileData) {
@@ -97,7 +99,7 @@ const EditProfile = () => {
             style={{
               width: screen.lg ? "50%" : "100%",
               margin: "auto",
-              marginTop: 50,
+              marginTop: 20,
               padding: 20,
               border: "1px solid #EDF4ED",
               borderRadius: 10,
@@ -112,6 +114,13 @@ const EditProfile = () => {
             <FormInput type="text" name="firstName" label="First Name" />
             <FormInput type="text" name="lastName" label="Last Name" />
             <FormInput disable={true} type="email" name="email" label="Email" />
+            <FormSelectField
+              name="gender"
+              label="Gender"
+              placeholder="Select Gender"
+              size="large"
+              options={genderOptions}
+            />
             <FormInput type="text" name="contactNo" label="Contact Number" />
             <Button
               loading={isLoading}

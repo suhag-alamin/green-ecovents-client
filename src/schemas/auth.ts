@@ -51,6 +51,7 @@ export const updateProfileSchema = yup.object().shape({
     .string()
     .min(11, "Contact number is too short")
     .max(15, "Contact number is too long"),
+  gender: yup.string().oneOf(Object.values(Gender), "Select valid gender"),
 });
 
 export const changePasswordSchema = yup.object().shape({

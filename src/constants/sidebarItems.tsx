@@ -1,7 +1,11 @@
 import {
   HomeOutlined,
   ProfileOutlined,
+  ScheduleOutlined,
   TableOutlined,
+  UserSwitchOutlined,
+  FileTextOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import Link from "next/link";
@@ -41,7 +45,7 @@ export const SidebarItems = (role: string) => {
     {
       label: <Link href={`/dashboard/user/bookings`}>View Bookings</Link>,
       key: "bookings",
-      icon: <ProfileOutlined />,
+      icon: <ScheduleOutlined />,
     },
     {
       label: <Link href={`/dashboard/user/feedback`}>Feedback</Link>,
@@ -53,7 +57,7 @@ export const SidebarItems = (role: string) => {
     {
       label: <Link href={`/dashboard/admin/manage-users`}>Manage Users</Link>,
       key: `/admin/manage-student`,
-      icon: <TableOutlined />,
+      icon: <TeamOutlined />,
     },
     {
       label: (
@@ -67,12 +71,12 @@ export const SidebarItems = (role: string) => {
         <Link href={`/dashboard/admin/manage-bookings`}>Manage Bookings</Link>
       ),
       key: `/admin/manage-bookings`,
-      icon: <TableOutlined />,
+      icon: <ScheduleOutlined />,
     },
     {
       label: "Contents",
       key: "contents",
-      icon: <TableOutlined />,
+      icon: <FileTextOutlined />,
       children: [
         {
           label: <Link href={`/dashboard/admin/blog`}>Blog Post</Link>,
@@ -90,7 +94,7 @@ export const SidebarItems = (role: string) => {
     {
       label: <Link href={`/dashboard/admin/manage-users`}>Manage Users</Link>,
       key: `/admin/manage-student`,
-      icon: <TableOutlined />,
+      icon: <TeamOutlined />,
     },
     {
       label: (
@@ -104,12 +108,12 @@ export const SidebarItems = (role: string) => {
         <Link href={`/dashboard/admin/manage-bookings`}>Manage Bookings</Link>
       ),
       key: `/admin/manage-bookings`,
-      icon: <TableOutlined />,
+      icon: <ScheduleOutlined />,
     },
     {
       label: "Contents",
       key: "contents",
-      icon: <TableOutlined />,
+      icon: <FileTextOutlined />,
       children: [
         {
           label: <Link href={`/dashboard/admin/blog`}>Blog Post</Link>,
@@ -128,7 +132,7 @@ export const SidebarItems = (role: string) => {
     ...commonAdminSidebarItems,
     {
       label: "Manage Admin",
-      icon: <TableOutlined />,
+      icon: <UserSwitchOutlined />,
       key: `/super-admin/manage-admin`,
       children: [
         {
@@ -144,13 +148,6 @@ export const SidebarItems = (role: string) => {
           key: `/dashboard/super-admin/add-admin`,
         },
       ],
-    },
-    {
-      label: (
-        <Link href={`/dashboard/super-admin/manage-user`}>Manage User</Link>
-      ),
-      icon: <TableOutlined />,
-      key: `/super-admin/manage-user`,
     },
   ];
 
