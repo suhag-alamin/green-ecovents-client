@@ -33,3 +33,8 @@ export interface IQuery {
   sortBy?: string;
   sortOrder?: string;
 }
+
+export interface IDeleteInfo {
+  api: string;
+  id: string;
+}

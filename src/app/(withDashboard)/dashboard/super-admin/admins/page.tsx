@@ -2,10 +2,11 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ActionBar from "@/components/ui/ActionBar";
+import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
-import { IMeta, IQuery, IUser } from "@/interfaces/global";
+import { IDeleteInfo, IMeta, IQuery, IUser } from "@/interfaces/global";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -21,12 +22,16 @@ const Admins = () => {
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
-  const [sortBy, setSortBy] = useState<string>("createdAt");
-  const [sortOrder, setSortOrder] = useState<string>("desc");
+  const [sortBy, setSortBy] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<string>("");
   const [admins, setAdmins] = useState<IUser[]>();
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  // modal
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deleteInfo, setDeleteInfo] = useState<IDeleteInfo>();
+  const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
   useMemo(() => {
     const loadAdmin = async () => {
@@ -41,7 +46,7 @@ const Admins = () => {
       setIsLoading(false);
     };
     loadAdmin();
-  }, [query]);
+  }, [query, isDeleted]);
 
   useEffect(() => {
     setQuery({
@@ -113,6 +118,13 @@ const Admins = () => {
             </Link>
             <Button
               //   onClick={() => handleDeleteAdmin(data)}
+              onClick={() => {
+                setModalOpen(true);
+                setDeleteInfo({
+                  api: `admin/${data}`,
+                  id: data,
+                });
+              }}
               type="primary"
               danger
             >
@@ -136,6 +148,9 @@ const Admins = () => {
   const resetFilters = () => {
     setQuery({});
   };
+
+  // delete
+
   return (
     <div>
       <ActionBar title="Admin List">
@@ -182,6 +197,23 @@ const Admins = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+      <div>
+        {/* <Button
+          type="primary"
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Open Modal with async logic
+        </Button> */}
+        <DeleteModal
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          deleteInfo={deleteInfo}
+          setIsDeleted={setIsDeleted}
+          modalText="Are you sure want to delete? Deleting will delete related to this Admin."
+        />
+      </div>
     </div>
   );
 };
