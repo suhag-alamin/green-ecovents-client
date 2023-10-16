@@ -7,14 +7,18 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IUser } from "@/interfaces/global";
 import uploadImage from "@/utils/uploadImage";
-import { Button, Flex, Grid, Spin } from "antd";
+import { Button, Flex, Grid, Spin, message } from "antd";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const { useBreakpoint } = Grid;
 
 const EditProfile = () => {
   const [profileData, setProfileData] = useState<IUser>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const screen = useBreakpoint();
 
@@ -31,30 +35,24 @@ const EditProfile = () => {
   const url = "https://api.cloudinary.com/v1_1/dkw1ovah4/image/upload";
 
   const handleEditProfile = async (data: any) => {
-    const formData = new FormData();
-
-    formData.append("upload_preset", "green-ecovents");
-
-    formData.append("file", data.profileImg);
-    // formData.append("upload_preset", "green-ecovents");
-
-    // upload image to cloudinary
-    // const uploadImage = async () => {
-    //   // setIsLoading(true);
-    //   const pic = await axios.post(url, formData);
-    //   console.log(pic?.data?.secure_url);
-    //   // setIsLoading(false);
-    // };
-    // uploadImage();
-
+    setIsLoading(true);
+    message.loading("Updating...");
     const image = await uploadImage(data?.profileImg);
 
-    console.log(image);
+    data.profileImg = image;
 
-    // const result = await (
-    //   await axiosInstance.patch("/user/profile", formData)
-    // ).data;
-    // console.log(result);
+    const result = await (
+      await axiosInstance.patch("/user/profile", data)
+    ).data;
+
+    if (result?.statusCode === 200) {
+      message.success(result.message);
+      setIsLoading(false);
+      router.push("/dashboard/profile");
+    } else {
+      message.error("Something went wrong, try again");
+      setIsLoading(false);
+    }
   };
 
   const defaultValues = {
@@ -109,9 +107,14 @@ const EditProfile = () => {
             <UploadImage name="profileImg" />
             <FormInput type="text" name="firstName" label="First Name" />
             <FormInput type="text" name="lastName" label="Last Name" />
-            <FormInput type="email" name="email" label="Email" />
+            <FormInput disable={true} type="email" name="email" label="Email" />
             <FormInput type="text" name="contactNo" label="Contact Number" />
-            <Button size="large" type="primary" htmlType="submit">
+            <Button
+              loading={isLoading}
+              size="large"
+              type="primary"
+              htmlType="submit"
+            >
               Update
             </Button>
           </Flex>

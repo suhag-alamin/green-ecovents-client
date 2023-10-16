@@ -73,7 +73,7 @@ const Navbar = () => {
       icon: <MailOutlined />,
     },
     {
-      label: isLoggedUser && <Link href="/profile">Dashboard</Link>,
+      label: isLoggedUser && <Link href="/dashboard/profile">Dashboard</Link>,
       key: "Dashboard",
     },
     {

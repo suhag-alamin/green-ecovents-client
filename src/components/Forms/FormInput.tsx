@@ -18,6 +18,7 @@ type IInput = {
   prefix?: ReactElement | ReactNode;
   helperText?: string;
   styleProp?: any;
+  disable?: boolean;
 };
 
 const FormInput = ({
@@ -33,6 +34,7 @@ const FormInput = ({
   prefix,
   helperText,
   styleProp,
+  disable,
 }: IInput) => {
   const {
     control,
@@ -65,6 +67,7 @@ const FormInput = ({
               suffix={suffix}
               prefix={prefix}
               style={styleProp}
+              disabled={disable}
             />
           ) : (
             <Input
@@ -76,6 +79,7 @@ const FormInput = ({
               suffix={suffix}
               prefix={prefix}
               style={styleProp}
+              disabled={disable}
             />
           )
         }
