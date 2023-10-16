@@ -13,10 +13,18 @@ const theme: ThemeConfig = {
   },
   components: {
     Layout: {
-      bodyBg: "#fff",
+      bodyBg: "#EDF4ED",
       headerBg: "#fff",
       controlPaddingHorizontal: 200,
       controlPaddingHorizontalSM: 100,
+      siderBg: "#1F3C4A",
+    },
+    Menu: {
+      darkItemBg: "#43934A",
+      darkSubMenuItemBg: "#43934A",
+      darkItemColor: "#EDF4ED",
+      darkItemHoverBg: "rgba(0, 0, 0, 0.06)",
+      darkItemSelectedBg: "#1F3C4A",
     },
   },
 };
