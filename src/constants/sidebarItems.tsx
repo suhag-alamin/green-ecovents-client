@@ -136,9 +136,7 @@ export const SidebarItems = (role: string) => {
       key: `/super-admin/manage-admin`,
       children: [
         {
-          label: (
-            <Link href={`/dashboard/super-admin/manage-admin`}>Admins</Link>
-          ),
+          label: <Link href={`/dashboard/super-admin/admins`}>Admins</Link>,
           key: `/dashboard/super-admin/manage-admin`,
         },
         {

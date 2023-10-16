@@ -1,16 +1,21 @@
+import { Grid, Typography } from "antd";
+
+const { useBreakpoint } = Grid;
+
 type ActionBarProps = {
   title?: string;
   children?: React.ReactElement | React.ReactNode;
 };
 
 const ActionBar = ({ title, children }: ActionBarProps) => {
+  const screen = useBreakpoint();
   return (
     <div
       style={{
-        margin: "10px 0",
+        margin: screen.lg ? "10px 20px" : "10px 10px",
       }}
     >
-      <h3>{title}</h3>
+      <Typography.Title level={3}>{title}</Typography.Title>
       <div
         style={{
           display: "flex",

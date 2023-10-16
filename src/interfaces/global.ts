@@ -15,3 +15,21 @@ export interface IUser {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface IMeta {
+  total?: number;
+  page?: number;
+  limit?: number;
+}
+
+export interface IQuery {
+  query?: string;
+  email?: string;
+  fistName?: string;
+  lastName?: string;
+  contactNo?: string;
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: string;
+}
