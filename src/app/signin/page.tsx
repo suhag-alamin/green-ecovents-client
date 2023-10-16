@@ -31,7 +31,7 @@ const SignIn = () => {
       storeUserInfo(result?.data?.accessToken);
       message.success(result.message);
       setIsLoading(false);
-      router.push("/profile");
+      router.push("/dashboard/profile");
     } else {
       message.error("Something went wrong, try again");
       setIsLoading(false);

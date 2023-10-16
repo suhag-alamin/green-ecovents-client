@@ -8,6 +8,7 @@ import styles from "@/styles/SignupSignin.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
@@ -24,6 +25,8 @@ interface FormValues {
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const router = useRouter();
+
   const handleSignUp: SubmitHandler<FormValues> = async (data: any) => {
     setIsLoading(true);
     data.role = userRole.USER;
@@ -34,6 +37,7 @@ const SignUp = () => {
     if (result?.statusCode === 200) {
       message.success(result.message);
       setIsLoading(false);
+      router.push("/signin");
     } else {
       message.error("Something went wrong, try again");
       setIsLoading(false);

@@ -6,7 +6,9 @@ import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IUser } from "@/interfaces/global";
+import { updateProfileSchema } from "@/schemas/auth";
 import uploadImage from "@/utils/uploadImage";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Flex, Grid, Spin, message } from "antd";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -31,8 +33,6 @@ const EditProfile = () => {
     };
     getData();
   }, []);
-
-  const url = "https://api.cloudinary.com/v1_1/dkw1ovah4/image/upload";
 
   const handleEditProfile = async (data: any) => {
     setIsLoading(true);
@@ -88,7 +88,11 @@ const EditProfile = () => {
         ]}
       />
       <div className="container">
-        <Form submitHandler={handleEditProfile} defaultValues={defaultValues}>
+        <Form
+          submitHandler={handleEditProfile}
+          defaultValues={defaultValues}
+          resolver={yupResolver(updateProfileSchema)}
+        >
           <Flex
             style={{
               width: screen.lg ? "50%" : "100%",

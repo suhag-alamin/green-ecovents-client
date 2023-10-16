@@ -25,7 +25,7 @@ export const SidebarItems = (role: string) => {
         },
         {
           label: (
-            <Link href={`/dashboard/user/change-password`}>
+            <Link href={`/dashboard/profile/change-password`}>
               Change password
             </Link>
           ),
