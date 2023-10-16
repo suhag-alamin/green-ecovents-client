@@ -17,6 +17,7 @@ type IInput = {
   suffix?: ReactElement | ReactNode;
   prefix?: ReactElement | ReactNode;
   helperText?: string;
+  styleProp?: any;
 };
 
 const FormInput = ({
@@ -31,6 +32,7 @@ const FormInput = ({
   suffix,
   prefix,
   helperText,
+  styleProp,
 }: IInput) => {
   const {
     control,
@@ -62,6 +64,7 @@ const FormInput = ({
               value={value ? value : field.value}
               suffix={suffix}
               prefix={prefix}
+              style={styleProp}
             />
           ) : (
             <Input
@@ -72,6 +75,7 @@ const FormInput = ({
               value={value ? value : field.value}
               suffix={suffix}
               prefix={prefix}
+              style={styleProp}
             />
           )
         }

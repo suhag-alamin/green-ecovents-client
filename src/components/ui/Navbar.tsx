@@ -36,7 +36,6 @@ const Navbar = () => {
       setIsLoggedUser(isLogged);
     }
   }, [isLogged]);
-  console.log(isLoggedUser);
 
   const logout = () => {
     removeUserInfo(authKey);

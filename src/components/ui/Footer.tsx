@@ -121,6 +121,9 @@ const Footer = () => {
                   size="large"
                   placeholder="Enter your email"
                   prefix={<MailOutlined />}
+                  styleProp={{
+                    background: "#EDF4ED",
+                  }}
                 />
               </Col>
               <Col span={6}>
