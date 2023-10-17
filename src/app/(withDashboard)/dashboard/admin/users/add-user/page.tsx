@@ -4,10 +4,10 @@ import FormInput from "@/components/Forms/FormInput";
 import FormSelectField from "@/components/Forms/FormSelectField";
 import ActionBar from "@/components/ui/ActionBar";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
-import { genderOptions } from "@/constants/global";
+import { genderOptions, roleOptions } from "@/constants/global";
 import { userRole } from "@/constants/role";
 import axiosInstance from "@/helpers/axios/axiosInstance";
-import { signupSchema } from "@/schemas/auth";
+import { addUserSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Grid, Row, message } from "antd";
 import { useRouter } from "next/navigation";
@@ -67,7 +67,7 @@ const AddUser = () => {
         >
           <Form
             submitHandler={handleAddUser}
-            resolver={yupResolver(signupSchema)}
+            resolver={yupResolver(addUserSchema)}
           >
             <Row
               gutter={{
@@ -131,13 +131,22 @@ const AddUser = () => {
                 md: 12,
               }}
             >
-              <Col xs={24} md={24}>
+              <Col xs={24} md={12}>
                 <FormSelectField
                   name="gender"
                   label="Gender"
                   placeholder="Select Gender"
                   size="large"
                   options={genderOptions}
+                />
+              </Col>
+              <Col xs={24} md={12}>
+                <FormSelectField
+                  name="role"
+                  label="User Role"
+                  placeholder="Select Role"
+                  size="large"
+                  options={roleOptions.slice(1, 3)}
                 />
               </Col>
             </Row>
