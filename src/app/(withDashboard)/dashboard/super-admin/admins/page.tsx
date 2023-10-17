@@ -1,12 +1,21 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import FormSelectField from "@/components/Forms/FormSelectField";
 import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
+import UpdateModal from "@/components/ui/UpdateModal";
+import { roleOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
-import { IDeleteInfo, IMeta, IQuery, IUser } from "@/interfaces/global";
+import {
+  IDeleteInfo,
+  IMeta,
+  IQuery,
+  IUpdateInfo,
+  IUser,
+} from "@/interfaces/global";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -15,7 +24,6 @@ import {
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const Admins = () => {
@@ -29,9 +37,12 @@ const Admins = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   // modal
-  const [modalOpen, setModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [deleteInfo, setDeleteInfo] = useState<IDeleteInfo>();
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
+  const [isUpdated, setIsUpdated] = useState<boolean>(false);
+  const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
   useMemo(() => {
     const loadAdmin = async () => {
@@ -46,7 +57,7 @@ const Admins = () => {
       setIsLoading(false);
     };
     loadAdmin();
-  }, [query, isDeleted]);
+  }, [query, isDeleted, isUpdated]);
 
   useEffect(() => {
     setQuery({
@@ -65,6 +76,10 @@ const Admins = () => {
       });
       setSearchTerm(data?.query);
     }
+  };
+
+  const updateDefaultValue = {
+    role: "ADMIN",
   };
 
   const columns = [
@@ -106,22 +121,27 @@ const Admins = () => {
       render: function (data: any) {
         return (
           <Flex gap={2}>
-            <Link href={`/super_admin/manage-admin/edit/${data}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                type="primary"
-              >
-                <EditOutlined />
-              </Button>
-            </Link>
             <Button
-              //   onClick={() => handleDeleteAdmin(data)}
+              style={{
+                margin: "0px 5px",
+              }}
+              type="primary"
               onClick={() => {
-                setModalOpen(true);
+                setUpdateModalOpen(true);
+                setUpdateInfo({
+                  api: `/admin/${data}`,
+                  id: data,
+                });
+              }}
+            >
+              <EditOutlined />
+            </Button>
+
+            <Button
+              onClick={() => {
+                setDeleteModalOpen(true);
                 setDeleteInfo({
-                  api: `admin/${data}`,
+                  api: `/admin/${data}`,
                   id: data,
                 });
               }}
@@ -162,10 +182,6 @@ const Admins = () => {
                 type="search"
                 size="large"
                 placeholder="John"
-                // style={{
-                //   width: "100%",
-                // }}
-                // onChange={(e) => setSearchTerm(e.target.value)}
                 suffix={
                   <Button type="primary" htmlType="submit">
                     <SearchOutlined />
@@ -198,21 +214,27 @@ const Admins = () => {
         showPagination={true}
       />
       <div>
-        {/* <Button
-          type="primary"
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          Open Modal with async logic
-        </Button> */}
         <DeleteModal
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
+          deleteModalOpen={deleteModalOpen}
+          setDeleteModalOpen={setDeleteModalOpen}
           deleteInfo={deleteInfo}
           setIsDeleted={setIsDeleted}
           modalText="Are you sure want to delete? Deleting will delete related to this Admin."
         />
+        <UpdateModal
+          updateModalOpen={updateModalOpen}
+          setUpdateModalOpen={setUpdateModalOpen}
+          updateInfo={updateInfo}
+          setIsUpdated={setIsUpdated}
+          modalText="Update Admin Role"
+          defaultValues={updateDefaultValue}
+        >
+          <FormSelectField
+            name="role"
+            label="User Role"
+            options={roleOptions}
+          />
+        </UpdateModal>
       </div>
     </div>
   );

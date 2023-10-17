@@ -4,16 +4,16 @@ import { Modal, Typography, message } from "antd";
 import React, { useState } from "react";
 
 interface DeleteModalProps {
-  modalOpen: boolean;
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteModalOpen: boolean;
+  setDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDeleted: React.Dispatch<React.SetStateAction<boolean>>;
   modalText: string;
   deleteInfo: IDeleteInfo | undefined;
 }
 
 const DeleteModal = ({
-  modalOpen,
-  setModalOpen,
+  deleteModalOpen,
+  setDeleteModalOpen,
   modalText,
   deleteInfo,
   setIsDeleted,
@@ -30,7 +30,7 @@ const DeleteModal = ({
         message.success(response.message);
         setIsDeleted(true);
         setConfirmLoading(false);
-        setModalOpen(false);
+        setDeleteModalOpen(false);
       }
       // @ts-ignore
       else if (!result?.success) {
@@ -42,13 +42,13 @@ const DeleteModal = ({
   };
 
   const handleCancel = () => {
-    setModalOpen(false);
+    setDeleteModalOpen(false);
   };
 
   return (
     <>
       <Modal
-        open={modalOpen}
+        open={deleteModalOpen}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}

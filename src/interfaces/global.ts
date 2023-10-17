@@ -38,3 +38,7 @@ export interface IDeleteInfo {
   api: string;
   id: string;
 }
+export interface IUpdateInfo {
+  api: string;
+  id: string;
+}

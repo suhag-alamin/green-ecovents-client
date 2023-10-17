@@ -12,3 +12,18 @@ export const genderOptions = [
     value: "others",
   },
 ];
+
+export const roleOptions = [
+  {
+    label: "SUPER_ADMIN",
+    value: "SUPER_ADMIN",
+  },
+  {
+    label: "ADMIN",
+    value: "ADMIN",
+  },
+  {
+    label: "USER",
+    value: "USER",
+  },
+];

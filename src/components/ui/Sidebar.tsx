@@ -37,7 +37,7 @@ const Sidebar = () => {
           padding: 10,
         }}
       >
-        <Image src={logo} alt="" width={160} height={80} />
+        <Image src={logo} alt="" width={160} height={80} priority />
       </div>
       <Menu
         theme="dark"
