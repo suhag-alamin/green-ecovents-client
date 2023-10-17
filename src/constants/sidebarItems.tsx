@@ -25,7 +25,7 @@ export const SidebarItems = (role: string) => {
       children: [
         {
           label: <Link href={`/dashboard/profile`}>Account Profile</Link>,
-          key: `/profile`,
+          key: `/dashboard/profile`,
         },
         {
           label: (
@@ -33,7 +33,7 @@ export const SidebarItems = (role: string) => {
               Change password
             </Link>
           ),
-          key: `/user/change-password`,
+          key: `/dashboard/profile/change-password`,
         },
       ],
     },
@@ -44,33 +44,39 @@ export const SidebarItems = (role: string) => {
 
     {
       label: <Link href={`/dashboard/user/bookings`}>View Bookings</Link>,
-      key: "bookings",
+      key: "/dashboard/user/bookings",
       icon: <ScheduleOutlined />,
     },
     {
       label: <Link href={`/dashboard/user/feedback`}>Feedback</Link>,
-      key: "feedback",
+      key: "/dashboard/user/feedback",
       icon: <ProfileOutlined />,
     },
   ];
   const commonAdminSidebarItems: MenuProps["items"] = [
     {
-      label: <Link href={`/dashboard/admin/manage-users`}>Manage Users</Link>,
-      key: `/admin/manage-student`,
+      label: "Manage Users",
+      key: `/dashboard/admin/users`,
       icon: <TeamOutlined />,
+      children: [
+        {
+          label: <Link href={`/dashboard/admin/users`}>Users</Link>,
+          key: "/dashboard/admin/users",
+        },
+        {
+          label: <Link href={`/dashboard/admin/users/add-user`}>Add User</Link>,
+          key: "/dashboard/admin/users/add-user",
+        },
+      ],
     },
     {
-      label: (
-        <Link href={`/dashboard/admin/manage-services`}>Manage Services</Link>
-      ),
-      key: `/admin/manage-services`,
+      label: <Link href={`/dashboard/admin/services`}>Manage Services</Link>,
+      key: `/dashboard/admin/services`,
       icon: <TableOutlined />,
     },
     {
-      label: (
-        <Link href={`/dashboard/admin/manage-bookings`}>Manage Bookings</Link>
-      ),
-      key: `/admin/manage-bookings`,
+      label: <Link href={`/dashboard/admin/bookings`}>Manage Bookings</Link>,
+      key: `/dashboard/admin/bookings`,
       icon: <ScheduleOutlined />,
     },
     {
@@ -80,11 +86,11 @@ export const SidebarItems = (role: string) => {
       children: [
         {
           label: <Link href={`/dashboard/admin/blog`}>Blog Post</Link>,
-          key: `/admin/blog`,
+          key: `/dashboard/admin/blog`,
         },
         {
           label: <Link href={`/dashboard/admin/faq`}>FAQs</Link>,
-          key: `/admin/faq`,
+          key: `/dashboard/admin/faq`,
         },
       ],
     },
@@ -92,22 +98,28 @@ export const SidebarItems = (role: string) => {
   const adminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
-      label: <Link href={`/dashboard/admin/manage-users`}>Manage Users</Link>,
-      key: `/admin/manage-student`,
+      label: "Manage Users",
+      key: `/dashboard/admin/users`,
       icon: <TeamOutlined />,
+      children: [
+        {
+          label: <Link href={`/dashboard/admin/users`}>Users</Link>,
+          key: "/dashboard/admin/users",
+        },
+        {
+          label: <Link href={`/dashboard/admin/users/add-user`}>Add User</Link>,
+          key: "/dashboard/admin/users/add-user",
+        },
+      ],
     },
     {
-      label: (
-        <Link href={`/dashboard/admin/manage-services`}>Manage Services</Link>
-      ),
-      key: `/admin/manage-services`,
+      label: <Link href={`/dashboard/admin/services`}>Manage Services</Link>,
+      key: `/dashboard/admin/services`,
       icon: <TableOutlined />,
     },
     {
-      label: (
-        <Link href={`/dashboard/admin/manage-bookings`}>Manage Bookings</Link>
-      ),
-      key: `/admin/manage-bookings`,
+      label: <Link href={`/dashboard/admin/bookings`}>Manage Bookings</Link>,
+      key: `/dashboard/admin/bookings`,
       icon: <ScheduleOutlined />,
     },
     {
@@ -117,11 +129,11 @@ export const SidebarItems = (role: string) => {
       children: [
         {
           label: <Link href={`/dashboard/admin/blog`}>Blog Post</Link>,
-          key: `/admin/blog`,
+          key: `/dashboard/admin/blog`,
         },
         {
           label: <Link href={`/dashboard/admin/faq`}>FAQs</Link>,
-          key: `/admin/faq`,
+          key: `/dashboard/admin/faq`,
         },
       ],
     },

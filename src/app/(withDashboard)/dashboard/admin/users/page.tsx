@@ -6,7 +6,7 @@ import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
-import { roleOptions } from "@/constants/global";
+import { genderOptions, roleOptions } from "@/constants/global";
 import { userRole } from "@/constants/role";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
@@ -17,6 +17,7 @@ import {
   IUpdateInfo,
   IUser,
 } from "@/interfaces/global";
+import { updateProfileSchema } from "@/schemas/auth";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -27,13 +28,13 @@ import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 
-const Admins = () => {
+const ManageUsers = () => {
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [admins, setAdmins] = useState<IUser[]>();
+  const [users, setUsers] = useState<IUser[]>();
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -46,20 +47,20 @@ const Admins = () => {
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
   useMemo(() => {
-    const loadAdmin = async () => {
+    const loadUsers = async () => {
       setIsLoading(true);
       const res = (
-        await axiosInstance.get("/admin", {
-          params: query,
+        await axiosInstance.get("/user/get-all", {
+          params: { ...query, role: userRole.USER },
         })
       ).data as IApiResponse;
-      setAdmins(res.data);
+      setUsers(res.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);
     };
-    loadAdmin();
+    loadUsers();
   }, [query, isDeleted, isUpdated]);
 
   useEffect(() => {
@@ -72,7 +73,6 @@ const Admins = () => {
   }, [page, size, sortBy, sortOrder]);
 
   const handleSearch = (data: any) => {
-    console.log(data);
     if (data?.query) {
       setQuery({
         query: data?.query,
@@ -82,7 +82,11 @@ const Admins = () => {
   };
 
   const updateDefaultValue = {
-    role: userRole.ADMIN,
+    firstName: updateInfo?.data?.firstName,
+    lastName: updateInfo?.data?.lastName,
+    email: updateInfo?.data?.email,
+    gender: updateInfo?.data?.gender,
+    contactNo: updateInfo?.data?.contactNo,
   };
 
   const columns = [
@@ -134,8 +138,9 @@ const Admins = () => {
               onClick={() => {
                 setUpdateModalOpen(true);
                 setUpdateInfo({
-                  api: `/admin/${data}`,
+                  api: `/user/${data}`,
                   id: data,
+                  data: users?.find((user) => user.id === data),
                 });
               }}
             >
@@ -146,7 +151,7 @@ const Admins = () => {
               onClick={() => {
                 setDeleteModalOpen(true);
                 setDeleteInfo({
-                  api: `/admin/${data}`,
+                  api: `/user/${data}`,
                   id: data,
                 });
               }}
@@ -174,11 +179,9 @@ const Admins = () => {
     setQuery({});
   };
 
-  // delete
-
   return (
     <div>
-      <ActionBar title="Admin List">
+      <ActionBar title="Users List">
         <Form submitHandler={handleSearch}>
           <Row>
             <Col>
@@ -210,7 +213,7 @@ const Admins = () => {
       <GETable
         loading={isLoading}
         columns={columns}
-        dataSource={admins}
+        dataSource={users}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -224,25 +227,32 @@ const Admins = () => {
           setDeleteModalOpen={setDeleteModalOpen}
           deleteInfo={deleteInfo}
           setIsDeleted={setIsDeleted}
-          modalText="Are you sure want to delete? Deleting will delete related to this Admin."
+          modalText="Are you sure want to delete? Deleting will delete all related to this user."
         />
         <UpdateModal
           updateModalOpen={updateModalOpen}
           setUpdateModalOpen={setUpdateModalOpen}
           updateInfo={updateInfo}
           setIsUpdated={setIsUpdated}
-          modalText="Update Admin Role"
+          modalText="Update User"
           defaultValues={updateDefaultValue}
+          schema={updateProfileSchema}
         >
+          <FormInput type="text" name="firstName" label="First Name" />
+          <FormInput type="text" name="lastName" label="Last Name" />
+          <FormInput disable={true} type="email" name="email" label="Email" />
           <FormSelectField
-            name="role"
-            label="User Role"
-            options={roleOptions}
+            name="gender"
+            label="Gender"
+            placeholder="Select Gender"
+            size="large"
+            options={genderOptions}
           />
+          <FormInput type="text" name="contactNo" label="Contact Number" />
         </UpdateModal>
       </div>
     </div>
   );
 };
 
-export default Admins;
+export default ManageUsers;

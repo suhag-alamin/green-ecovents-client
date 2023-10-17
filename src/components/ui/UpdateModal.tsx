@@ -1,6 +1,7 @@
 import Form from "@/components/Forms/Form";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUpdateInfo } from "@/interfaces/global";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Flex, Modal, message } from "antd";
 import React, { ReactElement, ReactNode, useState } from "react";
 
@@ -12,6 +13,7 @@ interface UpdateModalProps {
   updateInfo: IUpdateInfo | undefined;
   children: ReactElement | ReactNode;
   defaultValues?: any;
+  schema?: any;
 }
 
 const UpdateModal = ({
@@ -22,6 +24,7 @@ const UpdateModal = ({
   setIsUpdated,
   children,
   defaultValues,
+  schema,
 }: UpdateModalProps) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -41,6 +44,7 @@ const UpdateModal = ({
       // @ts-ignore
       else if (!result?.success) {
         setConfirmLoading(false);
+        setIsUpdated(false);
         // @ts-ignore
         message.error(result?.message);
       }
@@ -58,8 +62,13 @@ const UpdateModal = ({
         open={updateModalOpen}
         confirmLoading={confirmLoading}
         footer={false}
+        onCancel={handleCancel}
       >
-        <Form submitHandler={handleUpdate} defaultValues={defaultValues}>
+        <Form
+          submitHandler={handleUpdate}
+          defaultValues={defaultValues}
+          resolver={yupResolver(schema)}
+        >
           {children}
 
           <Flex

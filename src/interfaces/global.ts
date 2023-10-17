@@ -25,6 +25,7 @@ export interface IMeta {
 export interface IQuery {
   query?: string;
   email?: string;
+  role?: string;
   fistName?: string;
   lastName?: string;
   contactNo?: string;
@@ -41,4 +42,5 @@ export interface IDeleteInfo {
 export interface IUpdateInfo {
   api: string;
   id: string;
+  data?: any;
 }
