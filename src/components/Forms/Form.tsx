@@ -4,10 +4,10 @@ import { ReactElement, ReactNode, useEffect } from "react";
 
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-type FormConfig = {
+interface FormConfig {
   defaultValues?: Record<string, any>;
   resolver?: any;
-};
+}
 
 type FormProps = {
   children?: ReactElement | ReactNode;

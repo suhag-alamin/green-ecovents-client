@@ -3,12 +3,12 @@ import { getErrorMessage } from "@/utils/schemaValidator";
 import { Select, Typography } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 
-type SelectOptions = {
+interface SelectOptions {
   label: string;
   value: string;
-};
+}
 
-type SelectFieldProps = {
+interface SelectFieldProps {
   name: string;
   size?: "large" | "small";
   value?: string | string[] | undefined;
@@ -17,7 +17,7 @@ type SelectFieldProps = {
   options: SelectOptions[];
   defaultValue?: SelectOptions;
   helperText?: string;
-};
+}
 
 const FormSelectField = ({
   name,

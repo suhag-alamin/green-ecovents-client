@@ -1,3 +1,4 @@
+"use client";
 import { Grid, Typography } from "antd";
 
 const { useBreakpoint } = Grid;

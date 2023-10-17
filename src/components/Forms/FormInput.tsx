@@ -5,7 +5,7 @@ import { Input, Typography } from "antd";
 import { ReactElement, ReactNode } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
-type IInput = {
+interface IInput {
   name: string;
   type?: string;
   size?: "large" | "small";
@@ -19,7 +19,7 @@ type IInput = {
   helperText?: string;
   styleProp?: any;
   disable?: boolean;
-};
+}
 
 const FormInput = ({
   name,
