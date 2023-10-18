@@ -99,7 +99,7 @@ export interface IUserInfo {
   exp: number;
 }
 
-enum BookingStatus {
+export enum BookingStatus {
   pending,
   confirmed,
   canceled,

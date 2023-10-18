@@ -11,9 +11,10 @@ interface UpdateModalProps {
   setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
   modalText: string;
   updateInfo: IUpdateInfo | undefined;
-  children: ReactElement | ReactNode;
+  children?: ReactElement | ReactNode;
   defaultValues?: any;
   schema?: any;
+  buttonText?: string;
 }
 
 const UpdateModal = ({
@@ -25,6 +26,7 @@ const UpdateModal = ({
   children,
   defaultValues,
   schema,
+  buttonText,
 }: UpdateModalProps) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -87,7 +89,7 @@ const UpdateModal = ({
               Cancel
             </Button>
             <Button loading={confirmLoading} type="primary" htmlType="submit">
-              Update
+              {buttonText || "Update"}
             </Button>
           </Flex>
         </Form>

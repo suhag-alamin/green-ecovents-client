@@ -35,7 +35,10 @@ export const updateBookingStatusSchema = yup.object().shape({
     .string()
     .oneOf(Object.values(status), "Select valid status")
     .required("Status is required"),
+  startDate: yup.date().optional(),
+  endDate: yup.date().optional(),
 });
+export const cancelBookingSchema = yup.object().shape({});
 export const addFaqSchema = yup.object().shape({
   question: yup.string().required("Question is required"),
   answer: yup.string().required("Answer is required"),

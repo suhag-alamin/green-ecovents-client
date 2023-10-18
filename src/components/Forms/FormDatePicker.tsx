@@ -39,6 +39,7 @@ const FormDatePicker = ({
         control={control}
         render={({ field }) => (
           <DatePicker
+            showTime
             defaultValue={dayjs(field.value) || Date.now()}
             size={size}
             onChange={handleOnChange}
