@@ -3,68 +3,58 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUpdateInfo } from "@/interfaces/global";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Flex, Modal, message } from "antd";
-import React, { ReactElement, ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode, useState, useMemo } from "react";
 
-interface UpdateModalProps {
-  updateModalOpen: boolean;
-  setUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
-  modalText: string;
-  updateInfo: IUpdateInfo | undefined;
-  children: ReactElement | ReactNode;
+interface DetailsModalProps {
+  detailsModalOpen: boolean;
+  setDetailsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  modalText?: string;
+  detailsInfo: IUpdateInfo | undefined;
+  children?: ReactElement | ReactNode;
   defaultValues?: any;
   schema?: any;
 }
 
-const UpdateModal = ({
-  updateModalOpen,
-  setUpdateModalOpen,
+const DetailsModal = ({
+  detailsModalOpen,
+  setDetailsModalOpen,
   modalText,
-  updateInfo,
-  setIsUpdated,
+  detailsInfo,
   children,
   defaultValues,
   schema,
-}: UpdateModalProps) => {
+}: DetailsModalProps) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
+  console.log(detailsInfo);
+  const [details, setDetails] = useState({});
+
+  useMemo(() => {
+    const loadDetails = async () => {
+      if (detailsInfo) {
+        const result = await (await axiosInstance.get(detailsInfo.api)).data;
+
+        setDetails(result.data);
+        console.log(result);
+      }
+    };
+    loadDetails();
+  }, [detailsInfo]);
+
+  console.log(details);
 
   const handleUpdate = async (data: any) => {
     setConfirmLoading(true);
-
-    if (data?.price) {
-      data.price = Number(data.price);
-    }
-    if (updateInfo) {
-      const result = await axiosInstance.patch(updateInfo.api, data);
-
-      const response = result.data;
-      if (response?.statusCode === 200) {
-        message.success(response.message);
-        setIsUpdated(true);
-        setConfirmLoading(false);
-        setUpdateModalOpen(false);
-      }
-      // @ts-ignore
-      else if (!result?.success) {
-        setConfirmLoading(false);
-        setIsUpdated(false);
-        message.error(
-          // @ts-ignore
-          result?.message || "Something went wrong try again later"
-        );
-      }
-    }
   };
 
   const handleCancel = () => {
-    setUpdateModalOpen(false);
+    setDetailsModalOpen(false);
   };
 
   return (
     <>
       <Modal
         title={modalText}
-        open={updateModalOpen}
+        open={detailsModalOpen}
         confirmLoading={confirmLoading}
         footer={false}
         onCancel={handleCancel}
@@ -96,4 +86,4 @@ const UpdateModal = ({
   );
 };
 
-export default UpdateModal;
+export default DetailsModal;

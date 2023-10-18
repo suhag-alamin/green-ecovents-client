@@ -7,6 +7,7 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
+import DetailsModal from "@/components/ui/DetailsModal";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
 import axiosInstance from "@/helpers/axios/axiosInstance";
@@ -18,17 +19,18 @@ import {
   IMeta,
   IQuery,
   IUpdateInfo,
-  IUser,
 } from "@/interfaces/global";
-import { addCategorySchema, updateEventSchema } from "@/schemas/events";
+import { updateEventSchema } from "@/schemas/events";
 import {
   DeleteOutlined,
   EditOutlined,
+  EyeOutlined,
   ReloadOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const Events = () => {
@@ -108,7 +110,13 @@ const Events = () => {
   };
 
   const updateDefaultValue = {
-    name: updateInfo?.data?.name,
+    title: updateInfo?.data?.title,
+    categoryId: updateInfo?.data?.categoryId,
+    startDate: updateInfo?.data?.startDate,
+    endDate: updateInfo?.data?.endDate,
+    location: updateInfo?.data?.location,
+    price: updateInfo?.data?.price,
+    description: updateInfo?.data?.description,
   };
 
   const columns = [
@@ -119,14 +127,45 @@ const Events = () => {
     {
       title: "Description",
       dataIndex: "description",
+      render: function (data: string) {
+        return <>{data.slice(0, 10)}..</>;
+      },
     },
     {
       title: "Price",
       dataIndex: "price",
     },
     {
-      title: "Event Title",
-      dataIndex: "title",
+      title: "Start Date",
+      dataIndex: "startDate",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
+      sorter: true,
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
+      sorter: true,
+    },
+    {
+      title: "Bookings",
+      dataIndex: "bookings",
+      render: function (data: any) {
+        return data.length ? <span>{data?.length}</span> : <span>0</span>;
+      },
+      sorter: true,
+    },
+    {
+      title: "Reviews",
+      dataIndex: "reviews",
+      render: function (data: any) {
+        return data.length ? <span>{data?.length}</span> : <span>0</span>;
+      },
+      sorter: true,
     },
 
     {
@@ -152,6 +191,16 @@ const Events = () => {
       render: function (data: any) {
         return (
           <Flex gap={2}>
+            <Link href={`/events/${data}`} target="_blank">
+              <Button
+                style={{
+                  margin: "0px 5px",
+                }}
+                type="default"
+              >
+                <EyeOutlined />
+              </Button>
+            </Link>
             <Button
               style={{
                 margin: "0px 5px",
@@ -200,7 +249,6 @@ const Events = () => {
   const resetFilters = () => {
     setQuery({});
   };
-  console.log(query);
 
   return (
     <div>
@@ -252,6 +300,7 @@ const Events = () => {
           setIsDeleted={setIsDeleted}
           modalText="Are you sure want to delete? Deleting will delete all related to this event."
         />
+
         <UpdateModal
           updateModalOpen={updateModalOpen}
           setUpdateModalOpen={setUpdateModalOpen}
@@ -279,7 +328,7 @@ const Events = () => {
 
           <FormRangePicker
             name={["startDate", "endDate"]}
-            label="End Date"
+            label="Select Date Range"
             // placeholder="Eco-Chic Garden Wedding"
             size="large"
           />

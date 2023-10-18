@@ -89,7 +89,7 @@ export const SidebarItems = (role: string) => {
           key: "/dashboard/admin/events/categories/add",
         },
         {
-          label: <Link href={`/dashboard/admin/events`}>Manage Events</Link>,
+          label: <Link href={`/dashboard/admin/events`}>Events</Link>,
           key: "/dashboard/admin/events",
         },
         {
@@ -156,7 +156,7 @@ export const SidebarItems = (role: string) => {
           key: "/dashboard/admin/events/categories/add",
         },
         {
-          label: <Link href={`/dashboard/admin/events`}>Manage Events</Link>,
+          label: <Link href={`/dashboard/admin/events`}>Events</Link>,
           key: "/dashboard/admin/events",
         },
         {

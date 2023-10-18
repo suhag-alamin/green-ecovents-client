@@ -151,8 +151,7 @@ const AddEvent = () => {
               <Col xs={24} md={24}>
                 <FormRangePicker
                   name={["startDate", "endDate"]}
-                  label="End Date"
-                  // placeholder="Eco-Chic Garden Wedding"
+                  label="Select Date Range"
                   size="large"
                 />
               </Col>

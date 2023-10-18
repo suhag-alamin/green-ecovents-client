@@ -52,7 +52,6 @@ const FormRangePicker = ({
         render={({ field }) => (
           <RangePicker
             showTime
-            // defaultValue={dayjs(field.value) || Date.now()}
             size={size}
             onOk={onOk}
             style={{ width: "100%" }}

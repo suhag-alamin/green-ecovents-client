@@ -160,7 +160,6 @@ const Categories = () => {
   const resetFilters = () => {
     setQuery({});
   };
-  console.log(query);
 
   return (
     <div>
