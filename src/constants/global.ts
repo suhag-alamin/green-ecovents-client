@@ -27,3 +27,18 @@ export const roleOptions = [
     value: "USER",
   },
 ];
+
+export const statusOptions = [
+  {
+    label: "pending",
+    value: "pending",
+  },
+  {
+    label: "confirmed",
+    value: "confirmed",
+  },
+  {
+    label: "canceled",
+    value: "canceled",
+  },
+];

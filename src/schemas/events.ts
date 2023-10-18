@@ -1,5 +1,11 @@
 import * as yup from "yup";
 
+enum status {
+  pending = "pending",
+  confirmed = "confirmed",
+  canceled = "canceled",
+}
+
 export const addCategorySchema = yup.object().shape({
   name: yup.string().required("Category name is required"),
 });
@@ -22,4 +28,11 @@ export const updateEventSchema = yup.object().shape({
   location: yup.string().optional(),
   price: yup.string().optional(),
   categoryId: yup.string().optional(),
+});
+
+export const updateBookingStatus = yup.object().shape({
+  status: yup
+    .string()
+    .oneOf(Object.values(status), "Select valid gender")
+    .required("Gender is required"),
 });

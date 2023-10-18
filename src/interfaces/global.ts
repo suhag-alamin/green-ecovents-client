@@ -52,7 +52,7 @@ export interface ICategory {
   updatedAt: string;
   events: any;
 }
-export interface IEvents {
+export interface IEvent {
   id: string;
   title: string;
   description: string;
@@ -65,9 +65,22 @@ export interface IEvents {
   categoryId: string;
   createdAt: string;
   updatedAt: string;
-  bookings: any;
-  categories: ICategory[];
+  bookings: IBooking[];
+  categories: ICategory;
   reviews: any;
+}
+export interface IBooking {
+  id: string;
+  status: BookingStatus;
+  startDate: string;
+  endDate: string;
+  userId: string;
+  eventId: string;
+  createdAt: string;
+  updatedAt: string;
+  categories: ICategory;
+  user: IUser;
+  event: IEvent;
 }
 
 export interface IUserInfo {
@@ -75,4 +88,10 @@ export interface IUserInfo {
   role: string;
   iat: number;
   exp: number;
+}
+
+enum BookingStatus {
+  pending,
+  confirmed,
+  canceled,
 }

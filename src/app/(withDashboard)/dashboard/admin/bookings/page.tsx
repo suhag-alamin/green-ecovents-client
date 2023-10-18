@@ -1,44 +1,41 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import { SelectOptions } from "@/components/Forms/FormMultiSelectField";
-import FormRangePicker from "@/components/Forms/FormRangePicker";
 import FormSelectField from "@/components/Forms/FormSelectField";
-import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
+import { statusOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import {
-  ICategory,
+  IBooking,
   IDeleteInfo,
   IEvent,
   IMeta,
   IQuery,
   IUpdateInfo,
+  IUser,
 } from "@/interfaces/global";
-import { updateEventSchema } from "@/schemas/events";
+import { updateBookingStatus } from "@/schemas/events";
 import {
   DeleteOutlined,
   EditOutlined,
-  EyeOutlined,
   ReloadOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-const Events = () => {
+const Bookings = () => {
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [events, setEvents] = useState<IEvent[]>();
+  const [bookings, setBookings] = useState<IBooking[]>();
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -49,45 +46,22 @@ const Events = () => {
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
-  const [categories, setCategories] = useState<ICategory[]>();
 
   useMemo(() => {
-    const loadCategories = async () => {
-      setIsLoading(true);
-      const res = (await axiosInstance.get("/categories")).data as IApiResponse;
-      setCategories(res.data);
-      setIsLoading(false);
-    };
-    loadCategories();
-  }, []);
-
-  const categoryOptions: SelectOptions[] = [];
-
-  if (categories?.length) {
-    for (let i = 0; i < categories.length; i++) {
-      const category = categories[i];
-      categoryOptions.push({
-        label: category.name,
-        value: category.id,
-      });
-    }
-  }
-
-  useMemo(() => {
-    const loadEvents = async () => {
+    const loadBookings = async () => {
       setIsLoading(true);
       const res = (
-        await axiosInstance.get("/events", {
+        await axiosInstance.get("/bookings", {
           params: query,
         })
       ).data as IApiResponse;
-      setEvents(res.data);
+      setBookings(res.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);
     };
-    loadEvents();
+    loadBookings();
   }, [query, isDeleted, isUpdated]);
 
   useEffect(() => {
@@ -109,31 +83,32 @@ const Events = () => {
   };
 
   const updateDefaultValue = {
-    title: updateInfo?.data?.title,
-    categoryId: updateInfo?.data?.categoryId,
-    startDate: updateInfo?.data?.startDate,
-    endDate: updateInfo?.data?.endDate,
-    location: updateInfo?.data?.location,
-    price: updateInfo?.data?.price,
-    description: updateInfo?.data?.description,
+    status: updateInfo?.data?.status,
   };
 
   const columns = [
     {
       title: "Event Title",
-      dataIndex: "title",
-    },
-    {
-      title: "Description",
-      dataIndex: "description",
-      render: function (data: string) {
-        return <>{data.slice(0, 10)}..</>;
+      dataIndex: "event",
+      render: function (data: IEvent) {
+        return <>{data.title}</>;
       },
     },
     {
-      title: "Price",
-      dataIndex: "price",
+      title: "User emaill",
+      dataIndex: "user",
+      render: function (data: IUser) {
+        return <>{data.email}</>;
+      },
     },
+    {
+      title: "Category",
+      dataIndex: "event",
+      render: function (data: IEvent) {
+        return <>{data.categories.name}</>;
+      },
+    },
+
     {
       title: "Start Date",
       dataIndex: "startDate",
@@ -147,22 +122,6 @@ const Events = () => {
       dataIndex: "endDate",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
-    },
-    {
-      title: "Bookings",
-      dataIndex: "bookings",
-      render: function (data: any) {
-        return data.length ? <span>{data?.length}</span> : <span>0</span>;
-      },
-      sorter: true,
-    },
-    {
-      title: "Reviews",
-      dataIndex: "reviews",
-      render: function (data: any) {
-        return data.length ? <span>{data?.length}</span> : <span>0</span>;
       },
       sorter: true,
     },
@@ -183,6 +142,11 @@ const Events = () => {
       },
       sorter: true,
     },
+    {
+      title: "Status",
+      dataIndex: "status",
+      sorter: true,
+    },
 
     {
       title: "Action",
@@ -190,16 +154,6 @@ const Events = () => {
       render: function (data: any) {
         return (
           <Flex gap={2}>
-            <Link href={`/events/${data}`} target="_blank">
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                type="default"
-              >
-                <EyeOutlined />
-              </Button>
-            </Link>
             <Button
               style={{
                 margin: "0px 5px",
@@ -208,9 +162,9 @@ const Events = () => {
               onClick={() => {
                 setUpdateModalOpen(true);
                 setUpdateInfo({
-                  api: `/events/${data}`,
+                  api: `/bookings/${data}`,
                   id: data,
-                  data: events?.find((event) => event.id === data),
+                  data: bookings?.find((event) => event.id === data),
                 });
               }}
             >
@@ -221,7 +175,7 @@ const Events = () => {
               onClick={() => {
                 setDeleteModalOpen(true);
                 setDeleteInfo({
-                  api: `/events/${data}`,
+                  api: `/bookings/${data}`,
                   id: data,
                 });
               }}
@@ -251,7 +205,7 @@ const Events = () => {
 
   return (
     <div>
-      <ActionBar title="Events List">
+      <ActionBar title="Bookings List">
         <Form submitHandler={handleSearch}>
           <Row>
             <Col>
@@ -283,7 +237,7 @@ const Events = () => {
       <GETable
         loading={isLoading}
         columns={columns}
-        dataSource={events}
+        dataSource={bookings}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -297,7 +251,7 @@ const Events = () => {
           setDeleteModalOpen={setDeleteModalOpen}
           deleteInfo={deleteInfo}
           setIsDeleted={setIsDeleted}
-          modalText="Are you sure want to delete? Deleting will delete all related to this event."
+          modalText="Are you sure want to delete? Deleting will delete all related to this booking."
         />
 
         <UpdateModal
@@ -305,52 +259,15 @@ const Events = () => {
           setUpdateModalOpen={setUpdateModalOpen}
           updateInfo={updateInfo}
           setIsUpdated={setIsUpdated}
-          modalText="Update Event"
+          modalText="Update Booking Status"
           defaultValues={updateDefaultValue}
-          schema={updateEventSchema}
+          schema={updateBookingStatus}
         >
-          <UploadImage name="image" />
-          <FormInput
-            name="title"
-            type="text"
-            label="Event title"
-            placeholder="Eco-Chic Garden Wedding"
-            size="large"
-          />
           <FormSelectField
-            name="categoryId"
-            label="Category"
-            placeholder="Select category"
-            size="large"
-            options={categoryOptions}
-          />
-
-          <FormRangePicker
-            name={["startDate", "endDate"]}
-            label="Select Date Range"
-            // placeholder="Eco-Chic Garden Wedding"
-            size="large"
-          />
-          <FormInput
-            name="location"
-            type="text"
-            label="Event Location"
-            placeholder="Dhaka"
-            size="large"
-          />
-          <FormInput
-            name="price"
-            type="text"
-            label="Price"
-            placeholder="99.9"
-            size="large"
-          />
-          <FormInput
-            name="description"
-            type="text-area"
-            label="Event description"
-            size="large"
-            rows={4}
+            name="status"
+            options={statusOptions}
+            label="Change Status"
+            placeholder="Select Status"
           />
         </UpdateModal>
       </div>
@@ -358,4 +275,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default Bookings;
