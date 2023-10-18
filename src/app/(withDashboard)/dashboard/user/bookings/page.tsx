@@ -63,8 +63,6 @@ const UserBookings = () => {
     loadBookings();
   }, [query, isDeleted, isUpdated]);
 
-  console.log(bookings);
-
   useEffect(() => {
     setQuery({
       page,

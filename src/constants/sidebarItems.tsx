@@ -6,6 +6,7 @@ import {
   UserSwitchOutlined,
   FileTextOutlined,
   TeamOutlined,
+  CommentOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import Link from "next/link";
@@ -50,85 +51,10 @@ export const SidebarItems = (role: string) => {
     {
       label: <Link href={`/dashboard/user/feedback`}>Feedback</Link>,
       key: "/dashboard/user/feedback",
-      icon: <ProfileOutlined />,
+      icon: <CommentOutlined />,
     },
   ];
-  const commonAdminSidebarItems: MenuProps["items"] = [
-    {
-      label: "Manage Users",
-      key: `/dashboard/admin/users`,
-      icon: <TeamOutlined />,
-      children: [
-        {
-          label: <Link href={`/dashboard/admin/users`}>Users</Link>,
-          key: "/dashboard/admin/users",
-        },
-        {
-          label: <Link href={`/dashboard/admin/users/add-user`}>Add User</Link>,
-          key: "/dashboard/admin/users/add-user",
-        },
-      ],
-    },
-    {
-      label: "Manage Events",
-      key: `/dashboard/admin/events`,
-      icon: <TableOutlined />,
-      children: [
-        {
-          label: (
-            <Link href={`/dashboard/admin/events/categories`}>Categories</Link>
-          ),
-          key: "/dashboard/admin/events/categories",
-        },
-        {
-          label: (
-            <Link href={`/dashboard/admin/events/categories/add`}>
-              Add Category
-            </Link>
-          ),
-          key: "/dashboard/admin/events/categories/add",
-        },
-        {
-          label: <Link href={`/dashboard/admin/events`}>Events</Link>,
-          key: "/dashboard/admin/events",
-        },
-        {
-          label: <Link href={`/dashboard/admin/events/add`}>Add Event</Link>,
-          key: "/dashboard/admin/events/add",
-        },
-      ],
-    },
-    {
-      label: <Link href={`/dashboard/admin/bookings`}>Manage Bookings</Link>,
-      key: `/dashboard/admin/bookings`,
-      icon: <ScheduleOutlined />,
-    },
-    {
-      label: "Contents",
-      key: "contents",
-      icon: <FileTextOutlined />,
-      children: [
-        {
-          label: <Link href={`/dashboard/admin/blog`}>Blog Post</Link>,
-          key: `/dashboard/admin/blog`,
-        },
-        {
-          label: "FAQs",
-          key: `/dashboard/admin/faq`,
-          children: [
-            {
-              label: <Link href={`/dashboard/admin/faq`}>Manage FAQs</Link>,
-              key: "/dashboard/admin/faq",
-            },
-            {
-              label: <Link href={`/dashboard/admin/faq/add`}>Add FAQs</Link>,
-              key: "/dashboard/admin/faq/add",
-            },
-          ],
-        },
-      ],
-    },
-  ];
+
   const adminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
@@ -205,11 +131,16 @@ export const SidebarItems = (role: string) => {
         },
       ],
     },
+    {
+      label: <Link href={`/dashboard/admin/feedbacks`}>Feedbacks</Link>,
+      key: "/dashboard/admin/feedbacks",
+      icon: <CommentOutlined />,
+    },
   ];
 
   const superAdminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
-    ...commonAdminSidebarItems,
+    ...adminSidebarItems,
     {
       label: "Manage Admin",
       icon: <UserSwitchOutlined />,

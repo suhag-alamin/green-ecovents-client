@@ -91,6 +91,14 @@ export interface IFaq {
   createdAt: string;
   updatedAt: string;
 }
+export interface IFeedback {
+  id: string;
+  feedback: string;
+  userId: string;
+  user?: IUser;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface IUserInfo {
   id: string;
