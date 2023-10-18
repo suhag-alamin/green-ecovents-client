@@ -16,13 +16,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-interface UserInfo {
-  id: string;
-  role: string;
-  iat: number;
-  exp: number;
-}
-
 const { useBreakpoint } = Grid;
 const { Header } = Layout;
 
@@ -76,7 +69,7 @@ const Navbar = () => {
     {
       label: isLoggedUser && <Link href="/dashboard/profile">Dashboard</Link>,
       key: "Dashboard",
-      icon: <DashboardOutlined />,
+      icon: isLoggedUser && <DashboardOutlined />,
     },
     {
       label: !isLoggedUser && (

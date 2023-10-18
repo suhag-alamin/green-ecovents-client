@@ -1,6 +1,6 @@
 import { baseApi } from "@/config/api";
 import { authKey } from "@/constants/storageKey";
-import { getNewAccessToken } from "@/services/auth.service";
+import { getNewAccessToken, removeUserInfo } from "@/services/auth.service";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 import axios from "axios";
 
@@ -22,6 +22,11 @@ axiosInstance.interceptors.request.use(
   },
   async function (error) {
     const config = error?.config;
+
+    if (error?.response?.data?.message === "jwt expired") {
+      removeUserInfo(authKey);
+    }
+
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true;
 
@@ -43,6 +48,9 @@ axiosInstance.interceptors.response.use(
     return config;
   },
   async function (error) {
+    if (error?.response?.data?.message === "jwt expired") {
+      removeUserInfo(authKey);
+    }
     const config = error?.config;
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true;

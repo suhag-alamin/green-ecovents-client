@@ -37,7 +37,8 @@ const SignIn = () => {
     //   setIsLoading(false);
     // }
     const response = result.data;
-    if (response?.statusCode === 200) {
+    if (response?.statusCode === 200 && response?.data?.accessToken) {
+      storeUserInfo(response?.data?.accessToken);
       message.success(response.message);
       setIsLoading(false);
       router.push("/dashboard/profile");
