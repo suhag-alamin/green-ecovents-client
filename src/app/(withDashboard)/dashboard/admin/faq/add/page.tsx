@@ -10,7 +10,7 @@ import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { ICategory, IUserInfo } from "@/interfaces/global";
-import { addFaqSchema } from "@/schemas/events";
+import { addFaqSchema } from "@/schemas/global";
 import { getUserInfo } from "@/services/auth.service";
 import uploadImage from "@/utils/uploadImage";
 import { yupResolver } from "@hookform/resolvers/yup";

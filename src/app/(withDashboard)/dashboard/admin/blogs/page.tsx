@@ -1,6 +1,10 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import { SelectOptions } from "@/components/Forms/FormMultiSelectField";
+import FormRangePicker from "@/components/Forms/FormRangePicker";
+import FormSelectField from "@/components/Forms/FormSelectField";
+import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
@@ -8,30 +12,34 @@ import UpdateModal from "@/components/ui/UpdateModal";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import {
+  IBlog,
+  ICategory,
   IDeleteInfo,
-  IFaq,
+  IEvent,
   IMeta,
   IQuery,
   IUpdateInfo,
 } from "@/interfaces/global";
-import { updateFaqSchema } from "@/schemas/global";
+import { updateEventSchema } from "@/schemas/events";
 import {
   DeleteOutlined,
   EditOutlined,
+  EyeOutlined,
   ReloadOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useMemo, useState } from "react";
 
-const FAQs = () => {
+const Blogs = () => {
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [faqs, setFaqs] = useState<IFaq[]>();
+  const [blogs, setBlogs] = useState<IBlog[]>();
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -44,20 +52,20 @@ const FAQs = () => {
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
   useMemo(() => {
-    const loadFaqs = async () => {
+    const loadBlogs = async () => {
       setIsLoading(true);
       const res = (
-        await axiosInstance.get("/faq", {
+        await axiosInstance.get("/blogs", {
           params: query,
         })
       ).data as IApiResponse;
-      setFaqs(res.data);
+      setBlogs(res.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);
     };
-    loadFaqs();
+    loadBlogs();
   }, [query, isDeleted, isUpdated]);
 
   useEffect(() => {
@@ -79,18 +87,38 @@ const FAQs = () => {
   };
 
   const updateDefaultValue = {
-    question: updateInfo?.data?.question,
-    answer: updateInfo?.data?.answer,
+    title: updateInfo?.data?.title,
+    content: updateInfo?.data?.content,
+    image: updateInfo?.data?.image,
   };
+
+  const renderHTML = (rawHTML: any) =>
+    React.createElement("div", {
+      dangerouslySetInnerHTML: { __html: rawHTML },
+    });
 
   const columns = [
     {
-      title: "Question",
-      dataIndex: "question",
+      title: "Title",
+      dataIndex: "title",
     },
     {
-      title: "Answer",
-      dataIndex: "answer",
+      title: "Content",
+      dataIndex: "content",
+      render: function (data: string) {
+        return (
+          <div
+            style={{
+              minWidth: 300,
+              maxWidth: 400,
+              maxHeight: 200,
+              overflow: "auto",
+            }}
+          >
+            {renderHTML(data)}
+          </div>
+        );
+      },
     },
 
     {
@@ -116,6 +144,16 @@ const FAQs = () => {
       render: function (data: any) {
         return (
           <Flex gap={2}>
+            <Link href={`/blogs/${data}`} target="_blank">
+              <Button
+                style={{
+                  margin: "0px 5px",
+                }}
+                type="default"
+              >
+                <EyeOutlined />
+              </Button>
+            </Link>
             <Button
               style={{
                 margin: "0px 5px",
@@ -124,9 +162,9 @@ const FAQs = () => {
               onClick={() => {
                 setUpdateModalOpen(true);
                 setUpdateInfo({
-                  api: `/faq/${data}`,
+                  api: `/blogs/${data}`,
                   id: data,
-                  data: faqs?.find((event) => event.id === data),
+                  data: blogs?.find((blog) => blog.id === data),
                 });
               }}
             >
@@ -137,7 +175,7 @@ const FAQs = () => {
               onClick={() => {
                 setDeleteModalOpen(true);
                 setDeleteInfo({
-                  api: `/faq/${data}`,
+                  api: `/blogs/${data}`,
                   id: data,
                 });
               }}
@@ -167,7 +205,7 @@ const FAQs = () => {
 
   return (
     <div>
-      <ActionBar title="Bookings List">
+      <ActionBar title="Blogs List">
         <Form submitHandler={handleSearch}>
           <Row>
             <Col>
@@ -175,7 +213,7 @@ const FAQs = () => {
                 name="query"
                 type="search"
                 size="large"
-                placeholder="Eco friendly wedding"
+                placeholder="Eco friendly"
                 suffix={
                   <Button type="primary" htmlType="submit">
                     <SearchOutlined />
@@ -199,7 +237,7 @@ const FAQs = () => {
       <GETable
         loading={isLoading}
         columns={columns}
-        dataSource={faqs}
+        dataSource={blogs}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -221,16 +259,22 @@ const FAQs = () => {
           setUpdateModalOpen={setUpdateModalOpen}
           updateInfo={updateInfo}
           setIsUpdated={setIsUpdated}
-          modalText="Update FAQ"
+          modalText="Update Event"
           defaultValues={updateDefaultValue}
-          schema={updateFaqSchema}
+          schema={updateEventSchema}
         >
-          <FormInput name="question" label="Question" size="large" />
-          <FormInput name="answer" label="Answer" size="large" />
+          <UploadImage name="image" />
+          <FormInput
+            name="title"
+            type="text"
+            label="Event title"
+            placeholder="Eco-Chic Garden Wedding"
+            size="large"
+          />
         </UpdateModal>
       </div>
     </div>
   );
 };
 
-export default FAQs;
+export default Blogs;

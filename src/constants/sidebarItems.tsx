@@ -1,12 +1,12 @@
 import {
+  CommentOutlined,
+  FileTextOutlined,
   HomeOutlined,
   ProfileOutlined,
   ScheduleOutlined,
   TableOutlined,
-  UserSwitchOutlined,
-  FileTextOutlined,
   TeamOutlined,
-  CommentOutlined,
+  UserSwitchOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import Link from "next/link";
@@ -112,8 +112,18 @@ export const SidebarItems = (role: string) => {
       icon: <FileTextOutlined />,
       children: [
         {
-          label: <Link href={`/dashboard/admin/blog`}>Blog Post</Link>,
-          key: `/dashboard/admin/blog`,
+          label: "Blog Post",
+          key: `/dashboard/admin/blogs`,
+          children: [
+            {
+              label: <Link href={`/dashboard/admin/blogs`}>Blogs</Link>,
+              key: `/dashboard/admin/blogs`,
+            },
+            {
+              label: <Link href={`/dashboard/admin/blogs/add`}>Add Blog</Link>,
+              key: `/dashboard/admin/blogs/add`,
+            },
+          ],
         },
         {
           label: "FAQs",

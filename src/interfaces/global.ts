@@ -99,6 +99,15 @@ export interface IFeedback {
   createdAt: string;
   updatedAt: string;
 }
+export interface IBlog {
+  id: string;
+  title: string;
+  content: any;
+  userId: string;
+  user?: IUser;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface IUserInfo {
   id: string;

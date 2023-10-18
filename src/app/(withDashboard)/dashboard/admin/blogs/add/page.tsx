@@ -1,32 +1,44 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUserInfo } from "@/interfaces/global";
-import { addFeedback } from "@/schemas/global";
+import { addBlogSchema } from "@/schemas/global";
 import { getUserInfo } from "@/services/auth.service";
+import uploadImage from "@/utils/uploadImage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
-const AddFeedback = () => {
+const AddBlog = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [value, setValue] = useState("");
 
   const user = getUserInfo() as IUserInfo;
 
-  const handleAddFeedback = async (data: any) => {
+  const router = useRouter();
+
+  const handleAddBlog = async (data: any) => {
     if (user?.id) {
       setIsLoading(true);
+      const image = await uploadImage(data?.image);
 
       data.userId = user.id;
+      data.image = image;
+      data.content = value;
 
-      const result = await axiosInstance.post("/feedbacks", data);
+      const result = await axiosInstance.post("/blogs", data);
 
       const response = result.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsLoading(false);
+        router.push("/dashboard/admin/blogs");
       }
       // @ts-ignore
       else if (!result?.success) {
@@ -43,7 +55,7 @@ const AddFeedback = () => {
 
   return (
     <div>
-      <ActionBar title="Provide Feedback" />
+      <ActionBar title="Add Blog" />
       <div className="container">
         <div
           style={{
@@ -56,8 +68,8 @@ const AddFeedback = () => {
           }}
         >
           <Form
-            submitHandler={handleAddFeedback}
-            resolver={yupResolver(addFeedback)}
+            submitHandler={handleAddBlog}
+            resolver={yupResolver(addBlogSchema)}
           >
             <Row
               gutter={{
@@ -66,12 +78,24 @@ const AddFeedback = () => {
               }}
             >
               <Col xs={24} md={24}>
+                <UploadImage name="image" />
+              </Col>
+              <Col xs={24} md={24}>
                 <FormInput
-                  name="feedback"
-                  label="Your feedback"
+                  name="title"
+                  type="text"
+                  label="Blog title"
                   size="large"
-                  type="text-area"
-                  rows={8}
+                />
+              </Col>
+              <Col xs={24} md={24}>
+                <ReactQuill
+                  style={{
+                    margin: "20px 0",
+                  }}
+                  theme="snow"
+                  value={value}
+                  onChange={setValue}
                 />
               </Col>
             </Row>
@@ -92,7 +116,7 @@ const AddFeedback = () => {
                 htmlType="submit"
                 loading={isLoading}
               >
-                Provide Feedback
+                Add Block
               </Button>
             </div>
           </Form>
@@ -102,4 +126,4 @@ const AddFeedback = () => {
   );
 };
 
-export default AddFeedback;
+export default AddBlog;
