@@ -82,6 +82,15 @@ export interface IBooking {
   user: IUser;
   event: IEvent;
 }
+export interface IFaq {
+  id: string;
+  question: string;
+  answer: string;
+  userId: string;
+  user?: IUser;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface IUserInfo {
   id: string;

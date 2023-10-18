@@ -113,8 +113,18 @@ export const SidebarItems = (role: string) => {
           key: `/dashboard/admin/blog`,
         },
         {
-          label: <Link href={`/dashboard/admin/faq`}>FAQs</Link>,
+          label: "FAQs",
           key: `/dashboard/admin/faq`,
+          children: [
+            {
+              label: <Link href={`/dashboard/admin/faq`}>Manage FAQs</Link>,
+              key: "/dashboard/admin/faq",
+            },
+            {
+              label: <Link href={`/dashboard/admin/faq/add`}>Add FAQs</Link>,
+              key: "/dashboard/admin/faq/add",
+            },
+          ],
         },
       ],
     },
@@ -180,8 +190,18 @@ export const SidebarItems = (role: string) => {
           key: `/dashboard/admin/blog`,
         },
         {
-          label: <Link href={`/dashboard/admin/faq`}>FAQs</Link>,
+          label: "FAQs",
           key: `/dashboard/admin/faq`,
+          children: [
+            {
+              label: <Link href={`/dashboard/admin/faq`}>Manage FAQs</Link>,
+              key: "/dashboard/admin/faq",
+            },
+            {
+              label: <Link href={`/dashboard/admin/faq/add`}>Add FAQs</Link>,
+              key: "/dashboard/admin/faq/add",
+            },
+          ],
         },
       ],
     },

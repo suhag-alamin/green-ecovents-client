@@ -10,8 +10,10 @@ import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { ICategory, IUserInfo } from "@/interfaces/global";
+import { addEventSchema } from "@/schemas/events";
 import { getUserInfo } from "@/services/auth.service";
 import uploadImage from "@/utils/uploadImage";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -37,7 +39,6 @@ const AddEvent = () => {
   const handleAddEvent = async (data: any) => {
     if (user?.id) {
       setIsLoading(true);
-      console.log(data);
 
       const image = await uploadImage(data?.image);
 
@@ -103,7 +104,7 @@ const AddEvent = () => {
         >
           <Form
             submitHandler={handleAddEvent}
-            // resolver={yupResolver(addEventSchema)}
+            resolver={yupResolver(addEventSchema)}
           >
             <Row
               gutter={{

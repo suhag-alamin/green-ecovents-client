@@ -30,9 +30,17 @@ export const updateEventSchema = yup.object().shape({
   categoryId: yup.string().optional(),
 });
 
-export const updateBookingStatus = yup.object().shape({
+export const updateBookingStatusSchema = yup.object().shape({
   status: yup
     .string()
-    .oneOf(Object.values(status), "Select valid gender")
-    .required("Gender is required"),
+    .oneOf(Object.values(status), "Select valid status")
+    .required("Status is required"),
+});
+export const addFaqSchema = yup.object().shape({
+  question: yup.string().required("Question is required"),
+  answer: yup.string().required("Answer is required"),
+});
+export const updateFaqSchema = yup.object().shape({
+  question: yup.string().optional(),
+  answer: yup.string().optional(),
 });

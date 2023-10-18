@@ -1,24 +1,20 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import FormSelectField from "@/components/Forms/FormSelectField";
 import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
-import { statusOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import {
-  IBooking,
   IDeleteInfo,
-  IEvent,
+  IFaq,
   IMeta,
   IQuery,
   IUpdateInfo,
-  IUser,
 } from "@/interfaces/global";
-import { updateBookingStatusSchema } from "@/schemas/events";
+import { updateFaqSchema } from "@/schemas/events";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -29,13 +25,13 @@ import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 
-const Bookings = () => {
+const FAQs = () => {
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [bookings, setBookings] = useState<IBooking[]>();
+  const [faqs, setFaqs] = useState<IFaq[]>();
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -48,20 +44,20 @@ const Bookings = () => {
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
   useMemo(() => {
-    const loadBookings = async () => {
+    const loadFaqs = async () => {
       setIsLoading(true);
       const res = (
-        await axiosInstance.get("/bookings", {
+        await axiosInstance.get("/faq", {
           params: query,
         })
       ).data as IApiResponse;
-      setBookings(res.data);
+      setFaqs(res.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);
     };
-    loadBookings();
+    loadFaqs();
   }, [query, isDeleted, isUpdated]);
 
   useEffect(() => {
@@ -83,47 +79,18 @@ const Bookings = () => {
   };
 
   const updateDefaultValue = {
-    status: updateInfo?.data?.status,
+    question: updateInfo?.data?.question,
+    answer: updateInfo?.data?.answer,
   };
 
   const columns = [
     {
-      title: "Event Title",
-      dataIndex: "event",
-      render: function (data: IEvent) {
-        return <>{data.title}</>;
-      },
+      title: "Question",
+      dataIndex: "question",
     },
     {
-      title: "User emaill",
-      dataIndex: "user",
-      render: function (data: IUser) {
-        return <>{data.email}</>;
-      },
-    },
-    {
-      title: "Category",
-      dataIndex: "event",
-      render: function (data: IEvent) {
-        return <>{data.categories.name}</>;
-      },
-    },
-
-    {
-      title: "Start Date",
-      dataIndex: "startDate",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
-    },
-    {
-      title: "End Date",
-      dataIndex: "endDate",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
+      title: "Answer",
+      dataIndex: "answer",
     },
 
     {
@@ -142,11 +109,6 @@ const Bookings = () => {
       },
       sorter: true,
     },
-    {
-      title: "Status",
-      dataIndex: "status",
-      sorter: true,
-    },
 
     {
       title: "Action",
@@ -162,9 +124,9 @@ const Bookings = () => {
               onClick={() => {
                 setUpdateModalOpen(true);
                 setUpdateInfo({
-                  api: `/bookings/${data}`,
+                  api: `/faq/${data}`,
                   id: data,
-                  data: bookings?.find((event) => event.id === data),
+                  data: faqs?.find((event) => event.id === data),
                 });
               }}
             >
@@ -175,7 +137,7 @@ const Bookings = () => {
               onClick={() => {
                 setDeleteModalOpen(true);
                 setDeleteInfo({
-                  api: `/bookings/${data}`,
+                  api: `/faq/${data}`,
                   id: data,
                 });
               }}
@@ -237,7 +199,7 @@ const Bookings = () => {
       <GETable
         loading={isLoading}
         columns={columns}
-        dataSource={bookings}
+        dataSource={faqs}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -251,7 +213,7 @@ const Bookings = () => {
           setDeleteModalOpen={setDeleteModalOpen}
           deleteInfo={deleteInfo}
           setIsDeleted={setIsDeleted}
-          modalText="Are you sure want to delete? Deleting will delete all related to this booking."
+          modalText="Are you sure want to delete?"
         />
 
         <UpdateModal
@@ -259,20 +221,16 @@ const Bookings = () => {
           setUpdateModalOpen={setUpdateModalOpen}
           updateInfo={updateInfo}
           setIsUpdated={setIsUpdated}
-          modalText="Update Booking Status"
+          modalText="Update FAQ"
           defaultValues={updateDefaultValue}
-          schema={updateBookingStatusSchema}
+          schema={updateFaqSchema}
         >
-          <FormSelectField
-            name="status"
-            options={statusOptions}
-            label="Change Status"
-            placeholder="Select Status"
-          />
+          <FormInput name="question" label="Question" size="large" />
+          <FormInput name="answer" label="Answer" size="large" />
         </UpdateModal>
       </div>
     </div>
   );
 };
 
-export default Bookings;
+export default FAQs;
