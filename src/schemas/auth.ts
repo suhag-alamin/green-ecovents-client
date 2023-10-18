@@ -1,7 +1,5 @@
 import * as yup from "yup";
 
-const genderEnum = ["male", "female"];
-
 enum Gender {
   male = "male",
   female = "female",

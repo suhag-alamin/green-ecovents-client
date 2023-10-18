@@ -7,7 +7,6 @@ import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
 import { genderOptions } from "@/constants/global";
-import { userRole } from "@/constants/role";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import {
@@ -18,6 +17,7 @@ import {
   IUser,
 } from "@/interfaces/global";
 import { updateProfileSchema } from "@/schemas/auth";
+import { addCategorySchema } from "@/schemas/events";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -28,13 +28,13 @@ import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 
-const ManageUsers = () => {
+const Categories = () => {
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [users, setUsers] = useState<IUser[]>();
+  const [categories, setCategories] = useState<IUser[]>();
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -50,11 +50,11 @@ const ManageUsers = () => {
     const loadUsers = async () => {
       setIsLoading(true);
       const res = (
-        await axiosInstance.get("/user/get-all", {
-          params: { ...query, role: userRole.USER },
+        await axiosInstance.get("/categories", {
+          params: query,
         })
       ).data as IApiResponse;
-      setUsers(res.data);
+      setCategories(res.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);
@@ -82,35 +82,15 @@ const ManageUsers = () => {
   };
 
   const updateDefaultValue = {
-    firstName: updateInfo?.data?.firstName,
-    lastName: updateInfo?.data?.lastName,
-    email: updateInfo?.data?.email,
-    gender: updateInfo?.data?.gender,
-    contactNo: updateInfo?.data?.contactNo,
+    name: updateInfo?.data?.name,
   };
 
   const columns = [
     {
-      title: "First Name",
-      dataIndex: "firstName",
+      title: "Category Name",
+      dataIndex: "name",
     },
-    {
-      title: "Last Name",
-      dataIndex: "lastName",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      sorter: true,
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
-    },
-    {
-      title: "Gender",
-      dataIndex: "gender",
-    },
+
     {
       title: "Created At",
       dataIndex: "createdAt",
@@ -120,10 +100,14 @@ const ManageUsers = () => {
       sorter: true,
     },
     {
-      title: "Contact no.",
-      dataIndex: "contactNo",
+      title: "Updated At",
+      dataIndex: "updatedAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
       sorter: true,
     },
+
     {
       title: "Action",
       dataIndex: "id",
@@ -138,9 +122,9 @@ const ManageUsers = () => {
               onClick={() => {
                 setUpdateModalOpen(true);
                 setUpdateInfo({
-                  api: `/user/${data}`,
+                  api: `/categories/${data}`,
                   id: data,
-                  data: users?.find((user) => user.id === data),
+                  data: categories?.find((user) => user.id === data),
                 });
               }}
             >
@@ -151,7 +135,7 @@ const ManageUsers = () => {
               onClick={() => {
                 setDeleteModalOpen(true);
                 setDeleteInfo({
-                  api: `/user/${data}`,
+                  api: `/categories/${data}`,
                   id: data,
                 });
               }}
@@ -178,10 +162,11 @@ const ManageUsers = () => {
   const resetFilters = () => {
     setQuery({});
   };
+  console.log(query);
 
   return (
     <div>
-      <ActionBar title="Users List">
+      <ActionBar title="Categories List">
         <Form submitHandler={handleSearch}>
           <Row>
             <Col>
@@ -213,7 +198,7 @@ const ManageUsers = () => {
       <GETable
         loading={isLoading}
         columns={columns}
-        dataSource={users}
+        dataSource={categories}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -227,32 +212,22 @@ const ManageUsers = () => {
           setDeleteModalOpen={setDeleteModalOpen}
           deleteInfo={deleteInfo}
           setIsDeleted={setIsDeleted}
-          modalText="Are you sure want to delete? Deleting will delete all related to this user."
+          modalText="Are you sure want to delete? Deleting will delete all related to this category."
         />
         <UpdateModal
           updateModalOpen={updateModalOpen}
           setUpdateModalOpen={setUpdateModalOpen}
           updateInfo={updateInfo}
           setIsUpdated={setIsUpdated}
-          modalText="Update User"
+          modalText="Update Category"
           defaultValues={updateDefaultValue}
-          schema={updateProfileSchema}
+          schema={addCategorySchema}
         >
-          <FormInput type="text" name="firstName" label="First Name" />
-          <FormInput type="text" name="lastName" label="Last Name" />
-          <FormInput disable={true} type="email" name="email" label="Email" />
-          <FormSelectField
-            name="gender"
-            label="Gender"
-            placeholder="Select Gender"
-            size="large"
-            options={genderOptions}
-          />
-          <FormInput type="text" name="contactNo" label="Contact Number" />
+          <FormInput type="text" name="name" label="Category Name" />
         </UpdateModal>
       </div>
     </div>
   );
 };
 
-export default ManageUsers;
+export default Categories;

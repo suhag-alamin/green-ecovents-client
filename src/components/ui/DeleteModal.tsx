@@ -35,8 +35,10 @@ const DeleteModal = ({
       // @ts-ignore
       else if (!result?.success) {
         setConfirmLoading(false);
-        // @ts-ignore
-        message.error(result?.message);
+        message.error(
+          // @ts-ignore
+          result?.message || "Something went wrong try again later"
+        );
       }
     }
   };

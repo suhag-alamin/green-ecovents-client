@@ -46,7 +46,7 @@ const SignIn = () => {
     else if (!result?.success) {
       setIsLoading(false);
       // @ts-ignore
-      message.error(result?.message);
+      message.error(result?.message || "Something went wrong try again later");
     }
   };
   return (

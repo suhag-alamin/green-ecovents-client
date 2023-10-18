@@ -2,6 +2,7 @@ import logo from "@/assets/logo.png";
 import { authKey } from "@/constants/storageKey";
 import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
 import {
+  DashboardOutlined,
   HomeOutlined,
   LoginOutlined,
   LogoutOutlined,
@@ -75,6 +76,7 @@ const Navbar = () => {
     {
       label: isLoggedUser && <Link href="/dashboard/profile">Dashboard</Link>,
       key: "Dashboard",
+      icon: <DashboardOutlined />,
     },
     {
       label: !isLoggedUser && (

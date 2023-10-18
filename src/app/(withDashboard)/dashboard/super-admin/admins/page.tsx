@@ -108,7 +108,7 @@ const Admins = () => {
       dataIndex: "gender",
     },
     {
-      title: "Created at",
+      title: "Created At",
       dataIndex: "createdAt",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");

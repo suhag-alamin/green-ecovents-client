@@ -70,9 +70,33 @@ export const SidebarItems = (role: string) => {
       ],
     },
     {
-      label: <Link href={`/dashboard/admin/services`}>Manage Services</Link>,
-      key: `/dashboard/admin/services`,
+      label: "Manage Events",
+      key: `/dashboard/admin/events`,
       icon: <TableOutlined />,
+      children: [
+        {
+          label: (
+            <Link href={`/dashboard/admin/events/categories`}>Categories</Link>
+          ),
+          key: "/dashboard/admin/events/categories",
+        },
+        {
+          label: (
+            <Link href={`/dashboard/admin/events/categories/add`}>
+              Add Category
+            </Link>
+          ),
+          key: "/dashboard/admin/events/categories/add",
+        },
+        {
+          label: <Link href={`/dashboard/admin/events`}>Manage Events</Link>,
+          key: "/dashboard/admin/events",
+        },
+        {
+          label: <Link href={`/dashboard/admin/events/add`}>Add Event</Link>,
+          key: "/dashboard/admin/events/add",
+        },
+      ],
     },
     {
       label: <Link href={`/dashboard/admin/bookings`}>Manage Bookings</Link>,
@@ -113,9 +137,33 @@ export const SidebarItems = (role: string) => {
       ],
     },
     {
-      label: <Link href={`/dashboard/admin/services`}>Manage Services</Link>,
-      key: `/dashboard/admin/services`,
+      label: "Manage Events",
+      key: `/dashboard/admin/events`,
       icon: <TableOutlined />,
+      children: [
+        {
+          label: (
+            <Link href={`/dashboard/admin/events/categories`}>Categories</Link>
+          ),
+          key: "/dashboard/admin/events/categories",
+        },
+        {
+          label: (
+            <Link href={`/dashboard/admin/events/categories/add`}>
+              Add Category
+            </Link>
+          ),
+          key: "/dashboard/admin/events/categories/add",
+        },
+        {
+          label: <Link href={`/dashboard/admin/events`}>Manage Events</Link>,
+          key: "/dashboard/admin/events",
+        },
+        {
+          label: <Link href={`/dashboard/admin/events/add`}>Add Event</Link>,
+          key: "/dashboard/admin/events/add",
+        },
+      ],
     },
     {
       label: <Link href={`/dashboard/admin/bookings`}>Manage Bookings</Link>,

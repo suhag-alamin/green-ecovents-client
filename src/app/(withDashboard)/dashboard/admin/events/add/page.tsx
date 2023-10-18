@@ -7,27 +7,27 @@ import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import { genderOptions, roleOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { addUserSchema } from "@/schemas/auth";
+import { addCategorySchema } from "@/schemas/events";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const AddUser = () => {
+const AddEvent = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
-  const handleAddUser = async (data: any) => {
+  const handleAddCategory = async (data: any) => {
     setIsLoading(true);
-    delete data.confirmPassword;
 
-    const result = await axiosInstance.post("/auth/signup", data);
+    const result = await axiosInstance.post("/categories", data);
 
     const response = result.data;
     if (response?.statusCode === 200) {
       message.success(response.message);
       setIsLoading(false);
-      router.push("/dashboard/admin/users");
+      router.push("/dashboard/admin/events/categories");
     }
     // @ts-ignore
     else if (!result?.success) {
@@ -42,12 +42,12 @@ const AddUser = () => {
       <GEBreadCrumb
         items={[
           {
-            label: "Users",
-            link: "/dashboard/admin/users",
+            label: "Categories",
+            link: "/dashboard/admin/events/categories",
           },
         ]}
       />
-      <ActionBar title="Add User" />
+      <ActionBar title="Add Category" />
       <div className="container">
         <div
           style={{
@@ -60,8 +60,8 @@ const AddUser = () => {
           }}
         >
           <Form
-            submitHandler={handleAddUser}
-            resolver={yupResolver(addUserSchema)}
+            submitHandler={handleAddCategory}
+            resolver={yupResolver(addCategorySchema)}
           >
             <Row
               gutter={{
@@ -200,4 +200,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddEvent;
