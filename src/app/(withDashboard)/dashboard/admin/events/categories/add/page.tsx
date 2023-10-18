@@ -1,12 +1,9 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import FormSelectField from "@/components/Forms/FormSelectField";
 import ActionBar from "@/components/ui/ActionBar";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
-import { genderOptions, roleOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
-import { addUserSchema } from "@/schemas/auth";
 import { addCategorySchema } from "@/schemas/events";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";

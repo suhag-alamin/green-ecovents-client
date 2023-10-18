@@ -1,6 +1,10 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import { SelectOptions } from "@/components/Forms/FormMultiSelectField";
+import FormRangePicker from "@/components/Forms/FormRangePicker";
+import FormSelectField from "@/components/Forms/FormSelectField";
+import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
@@ -10,12 +14,13 @@ import { IApiResponse } from "@/interfaces/apiResponse";
 import {
   ICategory,
   IDeleteInfo,
+  IEvents,
   IMeta,
   IQuery,
   IUpdateInfo,
   IUser,
 } from "@/interfaces/global";
-import { addCategorySchema } from "@/schemas/events";
+import { addCategorySchema, updateEventSchema } from "@/schemas/events";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -26,13 +31,13 @@ import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 
-const Categories = () => {
+const Events = () => {
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [categories, setCategories] = useState<ICategory[]>();
+  const [events, setEvents] = useState<IEvents[]>();
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -43,22 +48,45 @@ const Categories = () => {
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
+  const [categories, setCategories] = useState<ICategory[]>();
 
   useMemo(() => {
     const loadCategories = async () => {
       setIsLoading(true);
+      const res = (await axiosInstance.get("/categories")).data as IApiResponse;
+      setCategories(res.data);
+      setIsLoading(false);
+    };
+    loadCategories();
+  }, []);
+
+  const categoryOptions: SelectOptions[] = [];
+
+  if (categories?.length) {
+    for (let i = 0; i < categories.length; i++) {
+      const category = categories[i];
+      categoryOptions.push({
+        label: category.name,
+        value: category.id,
+      });
+    }
+  }
+
+  useMemo(() => {
+    const loadEvents = async () => {
+      setIsLoading(true);
       const res = (
-        await axiosInstance.get("/categories", {
+        await axiosInstance.get("/events", {
           params: query,
         })
       ).data as IApiResponse;
-      setCategories(res.data);
+      setEvents(res.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);
     };
-    loadCategories();
+    loadEvents();
   }, [query, isDeleted, isUpdated]);
 
   useEffect(() => {
@@ -85,8 +113,20 @@ const Categories = () => {
 
   const columns = [
     {
-      title: "Category Name",
-      dataIndex: "name",
+      title: "Event Title",
+      dataIndex: "title",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+    },
+    {
+      title: "Event Title",
+      dataIndex: "title",
     },
 
     {
@@ -120,9 +160,9 @@ const Categories = () => {
               onClick={() => {
                 setUpdateModalOpen(true);
                 setUpdateInfo({
-                  api: `/categories/${data}`,
+                  api: `/events/${data}`,
                   id: data,
-                  data: categories?.find((category) => category.id === data),
+                  data: events?.find((event) => event.id === data),
                 });
               }}
             >
@@ -133,7 +173,7 @@ const Categories = () => {
               onClick={() => {
                 setDeleteModalOpen(true);
                 setDeleteInfo({
-                  api: `/categories/${data}`,
+                  api: `/events/${data}`,
                   id: data,
                 });
               }}
@@ -164,7 +204,7 @@ const Categories = () => {
 
   return (
     <div>
-      <ActionBar title="Categories List">
+      <ActionBar title="Events List">
         <Form submitHandler={handleSearch}>
           <Row>
             <Col>
@@ -172,7 +212,7 @@ const Categories = () => {
                 name="query"
                 type="search"
                 size="large"
-                placeholder="John"
+                placeholder="Eco friendly wedding"
                 suffix={
                   <Button type="primary" htmlType="submit">
                     <SearchOutlined />
@@ -196,7 +236,7 @@ const Categories = () => {
       <GETable
         loading={isLoading}
         columns={columns}
-        dataSource={categories}
+        dataSource={events}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -210,7 +250,7 @@ const Categories = () => {
           setDeleteModalOpen={setDeleteModalOpen}
           deleteInfo={deleteInfo}
           setIsDeleted={setIsDeleted}
-          modalText="Are you sure want to delete? Deleting will delete all related to this category."
+          modalText="Are you sure want to delete? Deleting will delete all related to this event."
         />
         <UpdateModal
           updateModalOpen={updateModalOpen}
@@ -219,13 +259,55 @@ const Categories = () => {
           setIsUpdated={setIsUpdated}
           modalText="Update Category"
           defaultValues={updateDefaultValue}
-          schema={addCategorySchema}
+          schema={updateEventSchema}
         >
-          <FormInput type="text" name="name" label="Category Name" />
+          <UploadImage name="image" />
+          <FormInput
+            name="title"
+            type="text"
+            label="Event title"
+            placeholder="Eco-Chic Garden Wedding"
+            size="large"
+          />
+          <FormSelectField
+            name="categoryId"
+            label="Category"
+            placeholder="Select category"
+            size="large"
+            options={categoryOptions}
+          />
+
+          <FormRangePicker
+            name={["startDate", "endDate"]}
+            label="End Date"
+            // placeholder="Eco-Chic Garden Wedding"
+            size="large"
+          />
+          <FormInput
+            name="location"
+            type="text"
+            label="Event Location"
+            placeholder="Dhaka"
+            size="large"
+          />
+          <FormInput
+            name="price"
+            type="text"
+            label="Price"
+            placeholder="99.9"
+            size="large"
+          />
+          <FormInput
+            name="description"
+            type="text-area"
+            label="Event description"
+            size="large"
+            rows={4}
+          />
         </UpdateModal>
       </div>
     </div>
   );
 };
 
-export default Categories;
+export default Events;

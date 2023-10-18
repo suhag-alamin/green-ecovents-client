@@ -19,6 +19,7 @@ interface IInput {
   helperText?: string;
   styleProp?: any;
   disable?: boolean;
+  rows?: number;
 }
 
 const FormInput = ({
@@ -35,6 +36,7 @@ const FormInput = ({
   helperText,
   styleProp,
   disable,
+  rows,
 }: IInput) => {
   const {
     control,
@@ -68,6 +70,16 @@ const FormInput = ({
               prefix={prefix}
               style={styleProp}
               disabled={disable}
+            />
+          ) : type === "text-area" ? (
+            <Input.TextArea
+              {...field}
+              size={size}
+              placeholder={placeholder}
+              value={value ? value : field.value}
+              style={styleProp}
+              disabled={disable}
+              rows={rows}
             />
           ) : (
             <Input

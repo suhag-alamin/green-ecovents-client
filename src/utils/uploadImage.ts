@@ -2,7 +2,7 @@ import axios from "axios";
 
 const uploadImage = async (file: any) => {
   const url = process.env.NEXT_PUBLIC_CLOUDINARY_URL as string;
-  console.log(url);
+
   const formData = new FormData();
 
   formData.append(

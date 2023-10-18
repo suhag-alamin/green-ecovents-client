@@ -1,5 +1,6 @@
 import { authKey } from "@/constants/storageKey";
 import axiosInstance from "@/helpers/axios/axiosInstance";
+import { IUserInfo } from "@/interfaces/global";
 import { decodedToken } from "@/utils/jwt";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 
@@ -7,14 +8,14 @@ export const storeUserInfo = (accessToken: string) => {
   return setToLocalStorage(authKey, accessToken);
 };
 
-export const getUserInfo = () => {
+export const getUserInfo = (): IUserInfo | null => {
   const authToken = getFromLocalStorage(authKey);
 
   if (authToken) {
-    const decodedData = decodedToken(authToken);
+    const decodedData = decodedToken(authToken) as IUserInfo;
     return decodedData;
   } else {
-    return "";
+    return null;
   }
 };
 
