@@ -1,4 +1,5 @@
 "use client";
+import BlogWriter from "@/components/Forms/BlogWriter";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import UploadImage from "@/components/Forms/UploadImage";
@@ -30,7 +31,6 @@ const AddBlog = () => {
 
       data.userId = user.id;
       data.image = image;
-      data.content = value;
 
       const result = await axiosInstance.post("/blogs", data);
 
@@ -88,15 +88,14 @@ const AddBlog = () => {
                   size="large"
                 />
               </Col>
-              <Col xs={24} md={24}>
-                <ReactQuill
-                  style={{
-                    margin: "20px 0",
-                  }}
-                  theme="snow"
-                  value={value}
-                  onChange={setValue}
-                />
+              <Col
+                style={{
+                  margin: "20px 0",
+                }}
+                xs={24}
+                md={24}
+              >
+                <BlogWriter name="content" label="Content" />
               </Col>
             </Row>
 

@@ -1,4 +1,5 @@
 "use client";
+import BlogWriter from "@/components/Forms/BlogWriter";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import { SelectOptions } from "@/components/Forms/FormMultiSelectField";
@@ -264,13 +265,14 @@ const Blogs = () => {
           schema={updateEventSchema}
         >
           <UploadImage name="image" />
-          <FormInput
-            name="title"
-            type="text"
-            label="Event title"
-            placeholder="Eco-Chic Garden Wedding"
-            size="large"
-          />
+          <FormInput name="title" type="text" label="Blog title" size="large" />
+          <div
+            style={{
+              margin: "20px 0",
+            }}
+          >
+            <BlogWriter name="content" label="Content" />
+          </div>
         </UpdateModal>
       </div>
     </div>
