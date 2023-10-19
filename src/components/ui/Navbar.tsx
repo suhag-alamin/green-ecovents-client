@@ -59,11 +59,11 @@ const Navbar = () => {
       key: "blogs",
       icon: <FileTextOutlined />,
     },
-    {
-      label: <Link href="/">Contact Us</Link>,
-      key: "contact-us",
-      icon: <MailOutlined />,
-    },
+    // {
+    //   label: <Link href="/">Contact Us</Link>,
+    //   key: "contact-us",
+    //   icon: <MailOutlined />,
+    // },
     {
       label: isLoggedUser && <Link href="/dashboard/profile">Dashboard</Link>,
       key: "Dashboard",

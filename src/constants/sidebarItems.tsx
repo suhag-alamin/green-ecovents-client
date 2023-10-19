@@ -55,8 +55,7 @@ export const SidebarItems = (role: string) => {
     },
   ];
 
-  const adminSidebarItems: MenuProps["items"] = [
-    ...defaultSidebarItems,
+  const commonAdminSidebarItems: MenuProps["items"] = [
     {
       label: "Manage Users",
       key: `/dashboard/admin/users`,
@@ -147,10 +146,14 @@ export const SidebarItems = (role: string) => {
       icon: <CommentOutlined />,
     },
   ];
+  const adminSidebarItems: MenuProps["items"] = [
+    ...defaultSidebarItems,
+    ...commonAdminSidebarItems,
+  ];
 
   const superAdminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
-    ...adminSidebarItems,
+    ...commonAdminSidebarItems,
     {
       label: "Manage Admin",
       icon: <UserSwitchOutlined />,
