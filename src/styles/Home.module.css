@@ -1,7 +1,7 @@
 .heroSection {
   background: url(../assets/hero-bg.jpg) center center;
   background-size: cover;
-  padding: 120px 0;
+  padding: 60px 0;
   position: relative;
   z-index: 1;
   color: #fff;

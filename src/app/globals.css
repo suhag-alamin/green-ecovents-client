@@ -45,12 +45,17 @@
   object-fit: cover;
 }
 
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #edf4ed !important;
+  font-size: 20px !important;
+}
+
 .container {
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding: 15px;
 }
 @media (min-width: 476px) {
   .container {

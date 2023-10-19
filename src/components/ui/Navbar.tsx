@@ -11,12 +11,11 @@ import {
   ScheduleOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Drawer, Grid, Layout, Menu, MenuProps, Row } from "antd";
+import { Button, Col, Drawer, Layout, Menu, MenuProps, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const { useBreakpoint } = Grid;
 const { Header } = Layout;
 
 const Navbar = () => {
@@ -43,7 +42,6 @@ const Navbar = () => {
   const onClose = () => {
     setVisible(false);
   };
-  const screen = useBreakpoint();
 
   const menuItems: MenuProps["items"] = [
     {
@@ -110,10 +108,12 @@ const Navbar = () => {
 
   return (
     <Layout
-      style={{
-        marginBottom: 20,
-        padding: screen.lg ? "0px 80px" : "0px 20px",
-      }}
+      style={
+        {
+          // marginBottom: 20,
+        }
+      }
+      className="container"
     >
       <Header suppressHydrationWarning={true} style={{ padding: 0 }}>
         <Row justify="space-between" align="middle">
