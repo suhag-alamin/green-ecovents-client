@@ -1,6 +1,6 @@
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
-import { IEvent } from "@/interfaces/global";
+import { EventStatus, IEvent } from "@/interfaces/global";
 import { Button, Col, Row, Spin } from "antd";
 import Image from "next/image";
 
@@ -42,9 +42,11 @@ const EventDetails = async ({ params }: { params: { id: string } }) => {
         </Col>
         <Col xs={24} md={14}>
           <EventContentDetails event={event} />
-          <Button key="book" type="primary">
-            Book Now
-          </Button>
+          {event.status === EventStatus.ongoing && (
+            <Button key="book" type="primary">
+              Book Now
+            </Button>
+          )}
         </Col>
       </Row>
     </div>

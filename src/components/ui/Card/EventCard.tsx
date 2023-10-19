@@ -1,5 +1,5 @@
 "use client";
-import { IEvent } from "@/interfaces/global";
+import { EventStatus, IEvent } from "@/interfaces/global";
 import { Button, Card, Flex, Grid, Typography } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -32,9 +32,11 @@ const EventCard = ({ event, loading }: EventCardProps) => {
         <Link key="view" href={`/events/${event.id}`}>
           <Button type="primary">View Details</Button>
         </Link>,
-        <Button key="book" type="primary">
-          Book
-        </Button>,
+        event.status === EventStatus.ongoing && (
+          <Link key="book" href={`/events/booking/${event.id}`}>
+            <Button type="primary">Book</Button>
+          </Link>
+        ),
         <Button key="book" type="primary">
           Reviews
         </Button>,

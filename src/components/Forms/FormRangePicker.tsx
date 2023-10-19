@@ -1,6 +1,7 @@
 import { DatePicker, DatePickerProps, Typography } from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
+import moment from "moment";
 import { Controller, useFormContext } from "react-hook-form";
 
 const { RangePicker } = DatePicker;
@@ -11,20 +12,23 @@ type GERangePikerProps = {
   label?: string;
   value?: Dayjs;
   size?: "large" | "small";
+  startDate?: any;
+  endDate?: any;
 };
 
 const FormRangePicker = ({
   name,
   label,
   onChange,
+  startDate,
+  endDate,
   size = "large",
 }: GERangePikerProps) => {
   const { control, setValue } = useFormContext();
 
-  // const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
-  //   onChange ? onChange(date, dateString) : null;
-  //   setValue(name, date);
-  // };
+  const currentDate = moment();
+  const minusStart = moment(startDate).diff(currentDate, "days");
+  const minusEnd = moment(endDate).diff(currentDate, "days");
 
   const onOk = (
     value: DatePickerProps["value"] | RangePickerProps["value"]
@@ -55,6 +59,15 @@ const FormRangePicker = ({
             size={size}
             onOk={onOk}
             style={{ width: "100%" }}
+            disabledDate={(current) => {
+              if (!startDate && !endDate) {
+                return false;
+              }
+              return (
+                moment().add(-minusStart, "days") >= current ||
+                moment().add(minusEnd, "days") <= current
+              );
+            }}
           />
         )}
       />

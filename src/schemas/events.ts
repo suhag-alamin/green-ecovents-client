@@ -20,6 +20,10 @@ export const addEventSchema = yup.object().shape({
 
   categoryId: yup.string().required("Event Category is required"),
 });
+export const bookEventSchema = yup.object().shape({
+  startDate: yup.date().required("Start date is required"),
+  endDate: yup.date().required("End Date is required"),
+});
 export const updateEventSchema = yup.object().shape({
   title: yup.string().optional(),
   description: yup.string().optional(),

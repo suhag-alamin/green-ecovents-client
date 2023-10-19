@@ -3,11 +3,8 @@
 import { Typography } from "antd";
 import dynamic from "next/dynamic";
 import { Controller, useFormContext } from "react-hook-form";
-// import ReactQuill from "react-quill";
 import { useMemo } from "react";
 import "react-quill/dist/quill.snow.css";
-
-// const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 
 interface IInput {
   name: string;
