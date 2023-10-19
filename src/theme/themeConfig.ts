@@ -27,7 +27,8 @@ const theme: ThemeConfig = {
       darkItemSelectedBg: "#1F3C4A",
     },
     Typography: {
-      titleMarginBottom: 10,
+      titleMarginBottom: 5,
+      titleMarginTop: 0,
     },
   },
 };

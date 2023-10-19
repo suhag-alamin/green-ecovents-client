@@ -28,6 +28,20 @@ export const roleOptions = [
   },
 ];
 
+export const eventStatusOptions = [
+  {
+    label: "upcoming",
+    value: "upcoming",
+  },
+  {
+    label: "ongoing",
+    value: "ongoing",
+  },
+  {
+    label: "ended",
+    value: "ended",
+  },
+];
 export const statusOptions = [
   {
     label: "pending",

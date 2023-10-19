@@ -68,6 +68,7 @@ export interface IEvent {
   bookings: IBooking[];
   categories: ICategory;
   reviews: any;
+  status: EventStatus;
 }
 export interface IBooking {
   id: string;
@@ -103,6 +104,7 @@ export interface IBlog {
   id: string;
   title: string;
   content: any;
+  image: string;
   userId: string;
   user?: IUser;
   createdAt: string;
@@ -115,9 +117,13 @@ export interface IUserInfo {
   iat: number;
   exp: number;
 }
-
+export enum EventStatus {
+  upcoming = "upcoming",
+  ongoing = "ongoing",
+  ended = "ended",
+}
 export enum BookingStatus {
-  pending,
-  confirmed,
-  canceled,
+  pending = "pending",
+  confirmed = "confirmed",
+  canceled = "canceled",
 }

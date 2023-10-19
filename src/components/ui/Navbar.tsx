@@ -9,7 +9,7 @@ import {
   MailOutlined,
   MenuOutlined,
   ScheduleOutlined,
-  ShoppingCartOutlined,
+  FileTextOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Drawer, Layout, Menu, MenuProps, Row } from "antd";
 import Image from "next/image";
@@ -50,14 +50,14 @@ const Navbar = () => {
       icon: <HomeOutlined />,
     },
     {
-      label: <Link href="/">Events</Link>,
+      label: <Link href="/events">Events</Link>,
       key: "events",
       icon: <ScheduleOutlined />,
     },
     {
-      label: <Link href="/">Cart</Link>,
-      key: "cart",
-      icon: <ShoppingCartOutlined />,
+      label: <Link href="/blogs">Blogs</Link>,
+      key: "blogs",
+      icon: <FileTextOutlined />,
     },
     {
       label: <Link href="/">Contact Us</Link>,

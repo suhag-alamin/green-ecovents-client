@@ -51,11 +51,26 @@
   font-size: 20px !important;
 }
 
+.section-title {
+  font-size: 28px;
+  color: #43934a;
+  text-align: center;
+  font-weight: 700;
+}
+
 .container {
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  padding: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+@media (max-width: 992px) {
+  .section-title {
+    font-size: 24px;
+  }
 }
 @media (min-width: 476px) {
   .container {

@@ -25,3 +25,11 @@ color
 #6FAE4F
 #EDF4ED
 #78CAD2
+
+- Pagination for events and blogs
+- Event Booking
+- Event Detail
+- Blog Detail
+- Event Rating after booked
+- ShowReviews as slider
+- Masonary image gallery

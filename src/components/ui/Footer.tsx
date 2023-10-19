@@ -52,101 +52,103 @@ const Footer = () => {
         color: "#EDF4ED",
       }}
     >
-      <Row className="container" gutter={20}>
-        <Col xs={12} md={6} lg={8}>
-          <div>
-            <div
-              style={{
-                marginBottom: 20,
-              }}
-            >
-              <Image src={logo} alt="logo" width={180} height={90} />
-              <p>GreenEcovents - Where Sustainability Meets Celebration</p>
-            </div>
+      <div className="container">
+        <Row gutter={20}>
+          <Col xs={12} md={6} lg={8}>
             <div>
-              <Flex gap="middle">
-                <Link
-                  className="footerLink"
-                  href="https://twitter.com"
-                  target="_blank"
-                >
-                  <TwitterOutlined />
-                </Link>
-                <Link
-                  className="footerLink"
-                  href="https://facebook.com"
-                  target="_blank"
-                >
-                  <FacebookOutlined />
-                </Link>
-                <Link
-                  className="footerLink"
-                  href="https://linkedin.com"
-                  target="_blank"
-                >
-                  <LinkedinOutlined />
-                </Link>
-                <Link
-                  className="footerLink"
-                  href="https://instagram.com"
-                  target="_blank"
-                >
-                  <InstagramOutlined />
-                </Link>
-              </Flex>
+              <div
+                style={{
+                  marginBottom: 20,
+                }}
+              >
+                <Image src={logo} alt="logo" width={180} height={90} />
+                <p>GreenEcovents - Where Sustainability Meets Celebration</p>
+              </div>
+              <div>
+                <Flex gap="middle">
+                  <Link
+                    className="footerLink"
+                    href="https://twitter.com"
+                    target="_blank"
+                  >
+                    <TwitterOutlined />
+                  </Link>
+                  <Link
+                    className="footerLink"
+                    href="https://facebook.com"
+                    target="_blank"
+                  >
+                    <FacebookOutlined />
+                  </Link>
+                  <Link
+                    className="footerLink"
+                    href="https://linkedin.com"
+                    target="_blank"
+                  >
+                    <LinkedinOutlined />
+                  </Link>
+                  <Link
+                    className="footerLink"
+                    href="https://instagram.com"
+                    target="_blank"
+                  >
+                    <InstagramOutlined />
+                  </Link>
+                </Flex>
+              </div>
             </div>
-          </div>
-        </Col>
-        <Col xs={12} md={12} lg={8}>
-          <div>
-            <h3>Top Categories</h3>
-            <List
-              dataSource={categories}
-              renderItem={(item) => (
-                <List.Item
-                  style={{
-                    color: "#EDF4ED",
-                  }}
-                >
-                  {item.name}
-                </List.Item>
-              )}
-            />
-          </div>
-        </Col>
-        <Col xs={12} md={6} lg={8}>
-          <div>
-            <h3
-              style={{
-                marginBottom: 10,
-              }}
-            >
-              Subscribe to our Newsletter
-            </h3>
-            <Form submitHandler={handleSubscribe}>
-              <Row gutter={10}>
-                <Col span={18}>
-                  <FormInput
-                    name="email"
-                    type="email"
-                    size="large"
-                    placeholder="Enter your email"
-                    prefix={<MailOutlined />}
-                    styleProp={{
-                      background: "#EDF4ED",
+          </Col>
+          <Col xs={12} md={12} lg={8}>
+            <div>
+              <h3>Top Categories</h3>
+              <List
+                dataSource={categories}
+                renderItem={(item) => (
+                  <List.Item
+                    style={{
+                      color: "#EDF4ED",
                     }}
-                  />
-                </Col>
-                <Col span={6}>
-                  <Button size="large" type="primary" htmlType="submit">
-                    Subscribe
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
-          </div>
-        </Col>
-      </Row>
+                  >
+                    {item.name}
+                  </List.Item>
+                )}
+              />
+            </div>
+          </Col>
+          <Col xs={12} md={6} lg={8}>
+            <div>
+              <h3
+                style={{
+                  marginBottom: 10,
+                }}
+              >
+                Subscribe to our Newsletter
+              </h3>
+              <Form submitHandler={handleSubscribe}>
+                <Row gutter={10}>
+                  <Col span={18}>
+                    <FormInput
+                      name="email"
+                      type="email"
+                      size="large"
+                      placeholder="Enter your email"
+                      prefix={<MailOutlined />}
+                      styleProp={{
+                        background: "#EDF4ED",
+                      }}
+                    />
+                  </Col>
+                  <Col span={6}>
+                    <Button size="large" type="primary" htmlType="submit">
+                      Subscribe
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

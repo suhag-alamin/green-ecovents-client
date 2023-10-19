@@ -9,6 +9,7 @@ import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
+import { eventStatusOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import {
@@ -108,6 +109,20 @@ const Events = () => {
     }
   };
 
+  const onPaginationChange = (page: number, pageSize: number) => {
+    setPage(page);
+    setSize(pageSize);
+  };
+  const onTableChange = (pagination: any, filter: any, sorter: any) => {
+    const { order, field } = sorter;
+    setSortBy(field as string);
+    setSortOrder(order === "ascend" ? "asc" : "desc");
+  };
+
+  const resetFilters = () => {
+    setQuery({});
+  };
+
   const updateDefaultValue = {
     title: updateInfo?.data?.title,
     categoryId: updateInfo?.data?.categoryId,
@@ -116,6 +131,7 @@ const Events = () => {
     location: updateInfo?.data?.location,
     price: updateInfo?.data?.price,
     description: updateInfo?.data?.description,
+    status: updateInfo?.data?.status,
   };
 
   const columns = [
@@ -164,6 +180,14 @@ const Events = () => {
       render: function (data: any) {
         return data.length ? <span>{data?.length}</span> : <span>0</span>;
       },
+      sorter: true,
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      // render: function (data: any) {
+      //   return data.length ? <span>{data?.length}</span> : <span>0</span>;
+      // },
       sorter: true,
     },
 
@@ -235,19 +259,6 @@ const Events = () => {
       },
     },
   ];
-  const onPaginationChange = (page: number, pageSize: number) => {
-    setPage(page);
-    setSize(pageSize);
-  };
-  const onTableChange = (pagination: any, filter: any, sorter: any) => {
-    const { order, field } = sorter;
-    setSortBy(field as string);
-    setSortOrder(order === "ascend" ? "asc" : "desc");
-  };
-
-  const resetFilters = () => {
-    setQuery({});
-  };
 
   return (
     <div>
@@ -316,6 +327,13 @@ const Events = () => {
             label="Event title"
             placeholder="Eco-Chic Garden Wedding"
             size="large"
+          />
+          <FormSelectField
+            name="status"
+            label="Status"
+            placeholder="Select status"
+            size="large"
+            options={eventStatusOptions}
           />
           <FormSelectField
             name="categoryId"
