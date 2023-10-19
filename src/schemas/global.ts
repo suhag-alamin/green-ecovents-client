@@ -17,3 +17,8 @@ export const addFeedback = yup.object().shape({
 export const addBlogSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
 });
+
+export const giveReviewSchema = yup.object().shape({
+  review: yup.string().required("Review is required"),
+  rating: yup.number().required("Rating is required"),
+});

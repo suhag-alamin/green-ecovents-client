@@ -25,9 +25,11 @@ import {
   ReloadOutlined,
   SearchOutlined,
   CloseOutlined,
+  StarOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const UserBookings = () => {
@@ -125,6 +127,28 @@ const UserBookings = () => {
       title: "Status",
       dataIndex: "status",
       sorter: true,
+    },
+    {
+      title: "Review",
+      dataIndex: "event",
+      render: function (data: any) {
+        // const booking = data.bookings.find(
+        //   (bk: IBooking) => bk.eventId === data.id
+        // );
+        // console.log(booking);
+        return (
+          <Link href={`/dashboard/user/review/${data.id}`}>
+            <Button
+              style={{
+                margin: "0px 5px",
+              }}
+              type="primary"
+            >
+              <StarOutlined />
+            </Button>
+          </Link>
+        );
+      },
     },
 
     {
