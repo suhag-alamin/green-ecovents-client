@@ -72,7 +72,6 @@ const Admins = () => {
   }, [page, size, sortBy, sortOrder]);
 
   const handleSearch = (data: any) => {
-    console.log(data);
     if (data?.query) {
       setQuery({
         query: data?.query,

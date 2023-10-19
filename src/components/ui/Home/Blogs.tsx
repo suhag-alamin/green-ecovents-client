@@ -16,7 +16,6 @@ const Blogs = async () => {
       params: query,
     })
   ).data as IApiResponse;
-  console.log(result);
   const blogs = result?.data;
 
   return (

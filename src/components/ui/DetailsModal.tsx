@@ -25,7 +25,6 @@ const DetailsModal = ({
   schema,
 }: DetailsModalProps) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
-  console.log(detailsInfo);
   const [details, setDetails] = useState({});
 
   useMemo(() => {
@@ -39,8 +38,6 @@ const DetailsModal = ({
     };
     loadDetails();
   }, [detailsInfo]);
-
-  console.log(details);
 
   const handleUpdate = async (data: any) => {
     setConfirmLoading(true);

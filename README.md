@@ -9,7 +9,7 @@ https://themes.muffingroup.com/be/event5/
 - Navbar
 - Hero with event slider
 - Search bar
-- Features / Top categories
+
 - Available events
 - Upcoming events
 - Events by Category
@@ -26,10 +26,8 @@ color
 #EDF4ED
 #78CAD2
 
-- Pagination for events and blogs
+- Features / Top categories
 - Event Booking
-- Event Detail
-- Blog Detail
 - Event Rating after booked
 - ShowReviews as slider
 - Masonary image gallery

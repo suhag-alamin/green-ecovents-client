@@ -42,7 +42,7 @@ const Footer = () => {
   }, []);
 
   const handleSubscribe = async (data: any) => {
-    console.log(data);
+    // console.log(data);
   };
 
   return (

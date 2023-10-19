@@ -1,51 +1,61 @@
 "use client";
 
-import { getErrorMessage } from "@/utils/schemaValidator";
-import { Input, Typography } from "antd";
-import { ReactElement, ReactNode } from "react";
+import { Typography } from "antd";
+import dynamic from "next/dynamic";
 import { Controller, useFormContext } from "react-hook-form";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
+import { useMemo } from "react";
 import "react-quill/dist/quill.snow.css";
+
+// const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 
 interface IInput {
   name: string;
-  type?: string;
-  size?: "large" | "small";
   value?: string | string[] | undefined;
-  id?: string;
   placeholder?: string;
-  validation?: object;
   label?: string;
-  suffix?: ReactElement | ReactNode;
-  prefix?: ReactElement | ReactNode;
-  helperText?: string;
-  styleProp?: any;
-  disable?: boolean;
-  rows?: number;
 }
 
-const BlogWriter = ({
-  name,
-  type,
-  size,
-  value,
-  id,
-  placeholder,
-  validation,
-  label,
-  suffix,
-  prefix,
-  helperText,
-  styleProp,
-  disable,
-  rows,
-}: IInput) => {
+const BlogWriter = ({ name, value, label, placeholder }: IInput) => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
 
-  const errorMessage = getErrorMessage(errors, name);
+  const ReactQuill = useMemo(
+    () => dynamic(() => import("react-quill"), { ssr: false }),
+    []
+  );
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ align: [] }],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link"],
+      ["clean"],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "align",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+  ];
 
   return (
     <>
@@ -61,47 +71,16 @@ const BlogWriter = ({
         control={control}
         name={name}
         render={({ field }) => (
-          // <Input
-          //   {...field}
-          //   type={type}
-          //   size={size}
-          //   placeholder={placeholder}
-          //   value={value ? value : field.value}
-          //   suffix={suffix}
-          //   prefix={prefix}
-          //   style={styleProp}
-          //   disabled={disable}
-          // />
           <ReactQuill
             theme="snow"
             {...field}
             placeholder={placeholder}
             value={value ? value : field.value}
+            modules={modules}
+            formats={formats}
           />
         )}
       />
-
-      {errorMessage ? (
-        <Typography.Text
-          style={{
-            fontSize: 12,
-            lineHeight: "10px",
-          }}
-          type="danger"
-        >
-          {errorMessage}
-        </Typography.Text>
-      ) : (
-        <Typography.Text
-          style={{
-            fontSize: 12,
-            lineHeight: "10px",
-          }}
-          type="secondary"
-        >
-          {helperText}
-        </Typography.Text>
-      )}
     </>
   );
 };

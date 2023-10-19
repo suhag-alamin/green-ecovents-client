@@ -2,9 +2,6 @@
 import BlogWriter from "@/components/Forms/BlogWriter";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import { SelectOptions } from "@/components/Forms/FormMultiSelectField";
-import FormRangePicker from "@/components/Forms/FormRangePicker";
-import FormSelectField from "@/components/Forms/FormSelectField";
 import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
@@ -14,9 +11,7 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import {
   IBlog,
-  ICategory,
   IDeleteInfo,
-  IEvent,
   IMeta,
   IQuery,
   IUpdateInfo,

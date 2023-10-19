@@ -13,12 +13,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const AddBlog = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [value, setValue] = useState("");
 
   const user = getUserInfo() as IUserInfo;
 
@@ -27,10 +24,12 @@ const AddBlog = () => {
   const handleAddBlog = async (data: any) => {
     if (user?.id) {
       setIsLoading(true);
-      const image = await uploadImage(data?.image);
+      if (data.image) {
+        const image = await uploadImage(data?.image);
+        data.image = image;
+      }
 
       data.userId = user.id;
-      data.image = image;
 
       const result = await axiosInstance.post("/blogs", data);
 
