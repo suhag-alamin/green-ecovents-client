@@ -110,6 +110,17 @@ export interface IBlog {
   createdAt: string;
   updatedAt: string;
 }
+export interface IReview {
+  id: string;
+  review: string;
+  rating: number;
+  userId: string;
+  user?: IUser;
+  eventId?: string;
+  event?: IEvent;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface IUserInfo {
   id: string;
