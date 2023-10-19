@@ -27,7 +27,7 @@ const AvailableEvent = async () => {
       >
         <h3 className="section-title">Available Events</h3>
       </div>
-      <Row gutter={16}>
+      <Row gutter={[16, 16]}>
         {events?.map((event: IEvent) => (
           <Col key={event.id} xs={24} sm={12} lg={8}>
             <EventCard event={event} />

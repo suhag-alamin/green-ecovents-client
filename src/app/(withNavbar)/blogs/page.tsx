@@ -56,7 +56,7 @@ const BlogsPage = () => {
           marginBottom: 30,
         }}
       ></div>
-      <Row gutter={16}>
+      <Row gutter={[16, 16]}>
         {blogs?.map((blog) => (
           <Col key={blog.id} xs={24} sm={12} lg={8}>
             <BlogCard blog={blog} loading={isLoading} />

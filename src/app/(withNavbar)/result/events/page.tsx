@@ -107,7 +107,7 @@ const EventsResult = () => {
           </Row>
         </Form>
       </div>
-      <Row gutter={16}>
+      <Row gutter={[16, 16]}>
         {events?.map((event) => (
           <Col key={event.id} xs={24} sm={12} lg={8}>
             <EventCard event={event} loading={isLoading} />

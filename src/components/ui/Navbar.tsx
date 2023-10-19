@@ -108,12 +108,11 @@ const Navbar = () => {
 
   return (
     <Layout
-      style={
-        {
-          // marginBottom: 20,
-        }
-      }
-      className="container"
+      style={{
+        // marginBottom: 20,
+        padding: "10px 20px",
+      }}
+      className=""
     >
       <Header suppressHydrationWarning={true} style={{ padding: 0 }}>
         <Row justify="space-between" align="middle">

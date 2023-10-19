@@ -27,7 +27,7 @@ const Blogs = async () => {
       >
         <h3 className="section-title">Blog Posts</h3>
       </div>
-      <Row gutter={16}>
+      <Row gutter={[16, 16]}>
         {blogs?.map((blog: IBlog) => (
           <Col key={blog.id} xs={24} sm={12} lg={8}>
             <BlogCard blog={blog} />
