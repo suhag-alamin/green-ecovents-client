@@ -15,7 +15,7 @@ const UpcomingEvents = async () => {
     await axiosInstance.get("/events", {
       params: { ...query, status: EventStatus.upcoming },
     })
-  ).data as IApiResponse;
+  )?.data as IApiResponse;
   const events = result?.data;
 
   return (

@@ -34,7 +34,7 @@ const SignUp = () => {
     data.role = userRole.USER;
     delete data.confirmPassword;
 
-    const result = await (await axiosInstance.post("/auth/signup", data)).data;
+    const result = await (await axiosInstance.post("/auth/signup", data))?.data;
 
     if (result?.statusCode === 200) {
       message.success(result.message);

@@ -20,7 +20,7 @@ const AddCategory = () => {
 
     const result = await axiosInstance.post("/categories", data);
 
-    const response = result.data;
+    const response = result?.data;
     if (response?.statusCode === 200) {
       message.success(response.message);
       setIsLoading(false);

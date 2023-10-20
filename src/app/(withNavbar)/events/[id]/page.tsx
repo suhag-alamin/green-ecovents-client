@@ -8,7 +8,7 @@ import EventContentDetails from "@/components/ui/Event/EventContentDetails";
 
 const EventDetails = async ({ params }: { params: { id: string } }) => {
   const result = (await axiosInstance.get(`/events/${params.id}`))
-    .data as IApiResponse;
+    ?.data as IApiResponse;
   const event: IEvent = result?.data;
 
   if (!event) {

@@ -1,30 +1,23 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import FormSelectField from "@/components/Forms/FormSelectField";
 import ActionBar from "@/components/ui/ActionBar";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
-import { statusOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import {
-  BookingStatus,
   IBooking,
   IEvent,
   IMeta,
   IQuery,
   IUpdateInfo,
 } from "@/interfaces/global";
+import { cancelBookingSchema } from "@/schemas/events";
 import {
-  cancelBookingSchema,
-  updateBookingStatusSchema,
-} from "@/schemas/events";
-import {
-  EditOutlined,
+  CloseOutlined,
   ReloadOutlined,
   SearchOutlined,
-  CloseOutlined,
   StarOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
@@ -55,8 +48,8 @@ const UserBookings = () => {
         await axiosInstance.get("/bookings/user", {
           params: query,
         })
-      ).data as IApiResponse;
-      setBookings(res.data);
+      )?.data as IApiResponse;
+      setBookings(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);

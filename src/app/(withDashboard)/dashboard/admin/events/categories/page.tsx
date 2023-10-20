@@ -13,7 +13,6 @@ import {
   IMeta,
   IQuery,
   IUpdateInfo,
-  IUser,
 } from "@/interfaces/global";
 import { addCategorySchema } from "@/schemas/events";
 import {
@@ -51,8 +50,8 @@ const Categories = () => {
         await axiosInstance.get("/categories", {
           params: query,
         })
-      ).data as IApiResponse;
-      setCategories(res.data);
+      )?.data as IApiResponse;
+      setCategories(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);

@@ -1,16 +1,14 @@
 "use client";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
-import { IEvent, IReview } from "@/interfaces/global";
-import { Avatar, Button, Card, Col, Flex, Grid, Rate, Row } from "antd";
-import dayjs from "dayjs";
+import { IReview } from "@/interfaces/global";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Card, Grid, Rate } from "antd";
 import Image from "next/image";
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import "swiper/css";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { UserOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 const { useBreakpoint } = Grid;
@@ -24,8 +22,8 @@ const Reviews = () => {
   useMemo(() => {
     const loadReviews = async () => {
       setIsLoading(true);
-      const res = (await axiosInstance.get("/reviews")).data as IApiResponse;
-      setReviews(res.data);
+      const res = (await axiosInstance.get("/reviews"))?.data as IApiResponse;
+      setReviews(res?.data);
       setIsLoading(false);
     };
     loadReviews();

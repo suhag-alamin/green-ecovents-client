@@ -27,8 +27,8 @@ const EventBooking = () => {
   useEffect(() => {
     const loadEvent = async () => {
       const result = (await axiosInstance.get(`/events/${id}`))
-        .data as IApiResponse;
-      setEvent(result.data);
+        ?.data as IApiResponse;
+      setEvent(result?.data);
     };
     loadEvent();
   }, [id]);
@@ -49,7 +49,7 @@ const EventBooking = () => {
 
       const result = await axiosInstance.post("/bookings", data);
 
-      const response = result.data;
+      const response = result?.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsLoading(false);

@@ -39,7 +39,7 @@ const UpdateModal = ({
     if (updateInfo) {
       const result = await axiosInstance.patch(updateInfo.api, data);
 
-      const response = result.data;
+      const response = result?.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsUpdated(true);

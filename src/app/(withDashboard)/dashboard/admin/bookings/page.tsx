@@ -54,8 +54,8 @@ const Bookings = () => {
         await axiosInstance.get("/bookings", {
           params: query,
         })
-      ).data as IApiResponse;
-      setBookings(res.data);
+      )?.data as IApiResponse;
+      setBookings(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);

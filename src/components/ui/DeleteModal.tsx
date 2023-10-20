@@ -25,7 +25,7 @@ const DeleteModal = ({
     if (deleteInfo) {
       const result = await axiosInstance.delete(deleteInfo.api);
 
-      const response = result.data;
+      const response = result?.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsDeleted(true);

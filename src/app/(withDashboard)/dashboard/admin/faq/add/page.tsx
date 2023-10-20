@@ -1,22 +1,16 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import { SelectOptions } from "@/components/Forms/FormMultiSelectField";
-import FormRangePicker from "@/components/Forms/FormRangePicker";
-import FormSelectField from "@/components/Forms/FormSelectField";
-import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
-import { IApiResponse } from "@/interfaces/apiResponse";
-import { ICategory, IUserInfo } from "@/interfaces/global";
+import { IUserInfo } from "@/interfaces/global";
 import { addFaqSchema } from "@/schemas/global";
 import { getUserInfo } from "@/services/auth.service";
-import uploadImage from "@/utils/uploadImage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 const AddFaq = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,7 +27,7 @@ const AddFaq = () => {
 
       const result = await axiosInstance.post("/faq", data);
 
-      const response = result.data;
+      const response = result?.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsLoading(false);

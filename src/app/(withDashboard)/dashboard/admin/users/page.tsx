@@ -53,8 +53,8 @@ const ManageUsers = () => {
         await axiosInstance.get("/user/get-all", {
           params: { ...query, role: userRole.USER },
         })
-      ).data as IApiResponse;
-      setUsers(res.data);
+      )?.data as IApiResponse;
+      setUsers(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);

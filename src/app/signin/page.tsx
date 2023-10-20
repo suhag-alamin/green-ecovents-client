@@ -3,14 +3,14 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { signInSchema } from "@/schemas/auth";
+import { storeUserInfo } from "@/services/auth.service";
 import styles from "@/styles/SignupSignin.module.css";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import Link from "next/link";
-import { useState } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { storeUserInfo } from "@/services/auth.service";
+import { useState } from "react";
+import { SubmitHandler } from "react-hook-form";
 
 interface FormValues {
   email: string;
@@ -36,7 +36,7 @@ const SignIn = () => {
     //   message.error("Something went wrong, try again");
     //   setIsLoading(false);
     // }
-    const response = result.data;
+    const response = result?.data;
     if (response?.statusCode === 200 && response?.data?.accessToken) {
       storeUserInfo(response?.data?.accessToken);
       message.success(response.message);

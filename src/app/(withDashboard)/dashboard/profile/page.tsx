@@ -19,8 +19,8 @@ const Profile = () => {
     const getData = async () => {
       const res = (await (
         await axiosInstance.get("/user/profile")
-      ).data) as IApiResponse;
-      setProfileData(res.data);
+      )?.data) as IApiResponse;
+      setProfileData(res?.data);
     };
     getData();
   }, []);

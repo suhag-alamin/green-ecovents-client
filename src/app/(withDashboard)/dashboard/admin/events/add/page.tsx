@@ -29,8 +29,9 @@ const AddEvent = () => {
   useMemo(() => {
     const loadCategories = async () => {
       setIsLoading(true);
-      const res = (await axiosInstance.get("/categories")).data as IApiResponse;
-      setCategories(res.data);
+      const res = (await axiosInstance.get("/categories"))
+        ?.data as IApiResponse;
+      setCategories(res?.data);
       setIsLoading(false);
     };
     loadCategories();
@@ -49,7 +50,7 @@ const AddEvent = () => {
 
       const result = await axiosInstance.post("/events", data);
 
-      const response = result.data;
+      const response = result?.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsLoading(false);

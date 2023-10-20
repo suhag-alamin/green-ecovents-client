@@ -24,8 +24,8 @@ const BlogsPage = () => {
         await axiosInstance.get("/blogs", {
           params: query,
         })
-      ).data as IApiResponse;
-      setBlogs(res.data);
+      )?.data as IApiResponse;
+      setBlogs(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
     };

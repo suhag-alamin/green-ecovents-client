@@ -35,8 +35,8 @@ const Footer = () => {
             limit: 5,
           },
         })
-      ).data as IApiResponse;
-      setCategories(res.data);
+      )?.data as IApiResponse;
+      setCategories(res?.data);
     };
     loadCategories();
   }, []);

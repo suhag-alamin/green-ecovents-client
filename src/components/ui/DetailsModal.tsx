@@ -2,8 +2,8 @@ import Form from "@/components/Forms/Form";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUpdateInfo } from "@/interfaces/global";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Flex, Modal, message } from "antd";
-import React, { ReactElement, ReactNode, useState, useMemo } from "react";
+import { Button, Flex, Modal } from "antd";
+import React, { ReactElement, ReactNode, useMemo, useState } from "react";
 
 interface DetailsModalProps {
   detailsModalOpen: boolean;
@@ -30,9 +30,9 @@ const DetailsModal = ({
   useMemo(() => {
     const loadDetails = async () => {
       if (detailsInfo) {
-        const result = await (await axiosInstance.get(detailsInfo.api)).data;
+        const result = await (await axiosInstance.get(detailsInfo.api))?.data;
 
-        setDetails(result.data);
+        setDetails(result?.data);
         console.log(result);
       }
     };

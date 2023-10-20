@@ -31,8 +31,8 @@ const EventsResult = () => {
         await axiosInstance.get("/events", {
           params: query,
         })
-      ).data as IApiResponse;
-      setEvents(res.data);
+      )?.data as IApiResponse;
+      setEvents(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
     };

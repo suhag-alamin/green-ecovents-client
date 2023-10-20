@@ -23,7 +23,7 @@ const AddFeedback = () => {
 
       const result = await axiosInstance.post("/feedbacks", data);
 
-      const response = result.data;
+      const response = result?.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsLoading(false);

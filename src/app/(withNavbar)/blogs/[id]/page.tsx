@@ -8,7 +8,7 @@ import BlogContentDetails from "@/components/ui/Blog/BlogContentDetails";
 
 const BlogDetails = async ({ params }: { params: { id: string } }) => {
   const result = (await axiosInstance.get(`/blogs/${params.id}`))
-    .data as IApiResponse;
+    ?.data as IApiResponse;
   const blog: IBlog = result?.data;
 
   if (!blog) {

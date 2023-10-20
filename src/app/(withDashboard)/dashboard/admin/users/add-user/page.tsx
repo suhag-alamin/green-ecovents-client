@@ -23,7 +23,7 @@ const AddUser = () => {
 
     const result = await axiosInstance.post("/auth/signup", data);
 
-    const response = result.data;
+    const response = result?.data;
     if (response?.statusCode === 200) {
       message.success(response.message);
       setIsLoading(false);

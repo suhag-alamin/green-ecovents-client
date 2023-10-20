@@ -50,8 +50,8 @@ const FAQs = () => {
         await axiosInstance.get("/faq", {
           params: query,
         })
-      ).data as IApiResponse;
-      setFaqs(res.data);
+      )?.data as IApiResponse;
+      setFaqs(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);

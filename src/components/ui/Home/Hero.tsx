@@ -7,7 +7,7 @@ import { Spin } from "antd";
 const Hero = async () => {
   const res = await fetch(`${baseApi}/events`);
   const result: IApiResponse = await res.json();
-  const data = result.data;
+  const data = result?.data;
 
   if (!data.length) {
     return (

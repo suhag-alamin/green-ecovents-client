@@ -55,8 +55,9 @@ const Events = () => {
   useMemo(() => {
     const loadCategories = async () => {
       setIsLoading(true);
-      const res = (await axiosInstance.get("/categories")).data as IApiResponse;
-      setCategories(res.data);
+      const res = (await axiosInstance.get("/categories"))
+        ?.data as IApiResponse;
+      setCategories(res?.data);
       setIsLoading(false);
     };
     loadCategories();
@@ -81,8 +82,8 @@ const Events = () => {
         await axiosInstance.get("/events", {
           params: query,
         })
-      ).data as IApiResponse;
-      setEvents(res.data);
+      )?.data as IApiResponse;
+      setEvents(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);

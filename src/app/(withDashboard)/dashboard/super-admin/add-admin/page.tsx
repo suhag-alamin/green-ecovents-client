@@ -27,8 +27,8 @@ const AddAdmin = () => {
     const loadAdmin = async () => {
       setIsUsersLoading(true);
       const res = (await axiosInstance.get("/user/get-all"))
-        .data as IApiResponse;
-      setUsers(res.data);
+        ?.data as IApiResponse;
+      setUsers(res?.data);
       setIsUsersLoading(false);
     };
     loadAdmin();
@@ -66,7 +66,7 @@ const AddAdmin = () => {
 
       const result = await axiosInstance.post("/admin/make-admin", adminData);
 
-      const response = result.data;
+      const response = result?.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsLoading(false);
@@ -75,8 +75,10 @@ const AddAdmin = () => {
       // @ts-ignore
       else if (!result?.success) {
         setIsLoading(false);
-        // @ts-ignore
-        message.error(result?.message || "Something went wrong try again later");
+        message.error(
+          // @ts-ignore
+          result?.message || "Something went wrong try again later"
+        );
       }
     }
   };

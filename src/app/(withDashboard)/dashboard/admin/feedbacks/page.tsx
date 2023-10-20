@@ -22,8 +22,8 @@ const Feedbacks = () => {
   useMemo(() => {
     const loadFeedbacks = async () => {
       setIsLoading(true);
-      const res = (await axiosInstance.get("/feedbacks")).data as IApiResponse;
-      setFeedbacks(res.data);
+      const res = (await axiosInstance.get("/feedbacks"))?.data as IApiResponse;
+      setFeedbacks(res?.data);
       setIsLoading(false);
       setIsDeleted(false);
     };

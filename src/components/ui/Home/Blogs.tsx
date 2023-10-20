@@ -15,7 +15,7 @@ const Blogs = async () => {
     await axiosInstance.get("/blogs", {
       params: query,
     })
-  ).data as IApiResponse;
+  )?.data as IApiResponse;
   const blogs = result?.data;
 
   return (

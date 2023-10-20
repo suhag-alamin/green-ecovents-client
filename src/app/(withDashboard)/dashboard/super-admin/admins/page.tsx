@@ -52,8 +52,8 @@ const Admins = () => {
         await axiosInstance.get("/admin", {
           params: query,
         })
-      ).data as IApiResponse;
-      setAdmins(res.data);
+      )?.data as IApiResponse;
+      setAdmins(res?.data);
       setMeta(res.meta);
       setIsLoading(false);
       setIsDeleted(false);

@@ -15,7 +15,7 @@ const AvailableEvent = async () => {
     await axiosInstance.get("/events", {
       params: { ...query, status: EventStatus.ongoing },
     })
-  ).data as IApiResponse;
+  )?.data as IApiResponse;
   const events = result?.data;
 
   return (
