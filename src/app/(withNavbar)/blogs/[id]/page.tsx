@@ -1,7 +1,7 @@
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IBlog } from "@/interfaces/global";
-import { Col, Row, Spin } from "antd";
+import { Col, Empty, Row, Spin } from "antd";
 import Image from "next/image";
 
 import BlogContentDetails from "@/components/ui/Blog/BlogContentDetails";
@@ -21,7 +21,17 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
           alignItems: "center",
         }}
       >
-        <Spin size="large" />
+        <div>
+          <Spin size="large" />
+        </div>
+        <div
+          style={{
+            display: "block",
+            marginTop: 20,
+          }}
+        >
+          <Empty />
+        </div>
       </div>
     );
   }
@@ -29,18 +39,27 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="container">
       <Row gutter={20}>
-        <Col xs={24} md={10}>
-          <Image
-            alt={blog?.title}
-            src={blog?.image}
-            width={600}
-            height={400}
+        <Col xs={24} md={24}>
+          <div
             style={{
-              maxWidth: "100%",
+              textAlign: "center",
+              marginBottom: 30,
             }}
-          />
+          >
+            <Image
+              alt={blog?.title}
+              src={blog?.image}
+              width={800}
+              height={400}
+              style={{
+                maxWidth: "100%",
+                border: "2px solid #b9b6bf",
+                borderRadius: 10,
+              }}
+            />
+          </div>
         </Col>
-        <Col xs={24} md={14}>
+        <Col xs={24} md={24}>
           <BlogContentDetails blog={blog} />
         </Col>
       </Row>

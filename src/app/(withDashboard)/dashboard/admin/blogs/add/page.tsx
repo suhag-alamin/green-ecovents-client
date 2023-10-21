@@ -10,7 +10,7 @@ import { addBlogSchema } from "@/schemas/global";
 import { getUserInfo } from "@/services/auth.service";
 import uploadImage from "@/utils/uploadImage";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row, message } from "antd";
+import { Button, Col, Row, Typography, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -77,6 +77,14 @@ const AddBlog = () => {
               }}
             >
               <Col xs={24} md={24}>
+                <Typography.Text
+                  style={{
+                    marginBottom: 10,
+                    display: "inline-block",
+                  }}
+                >
+                  Blog Cover
+                </Typography.Text>
                 <UploadImage name="image" />
               </Col>
               <Col xs={24} md={24}>
@@ -114,7 +122,7 @@ const AddBlog = () => {
                 htmlType="submit"
                 loading={isLoading}
               >
-                Add Block
+                Add Blog
               </Button>
             </div>
           </Form>

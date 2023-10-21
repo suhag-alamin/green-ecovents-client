@@ -72,7 +72,7 @@ const Reviews = () => {
                   }}
                   title={review.review}
                 />
-                <Rate defaultValue={review.rating} />
+                <Rate defaultValue={review.rating} disabled={true} />
               </Card>
             </SwiperSlide>
           ))}

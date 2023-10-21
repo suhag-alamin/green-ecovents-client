@@ -46,7 +46,7 @@ const EventContentDetails = ({ event }: EventDetailsProps) => {
             fontWeight: "400",
           }}
         >
-          From {dayjs(event?.startDate).format("MMM D, hh:mm A")}{" "}
+          From {dayjs(event?.startDate).format("MMM D YYYY, hh:mm A")}{" "}
         </Typography.Title>
         <Typography.Title
           level={4}
@@ -55,7 +55,7 @@ const EventContentDetails = ({ event }: EventDetailsProps) => {
             fontWeight: "400",
           }}
         >
-          To {dayjs(event?.endDate).format("MMM D, hh:mm A")} {"  "}
+          To {dayjs(event?.endDate).format("MMM D YYYY, hh:mm A")} {"  "}
         </Typography.Title>
         <Typography.Title
           level={4}

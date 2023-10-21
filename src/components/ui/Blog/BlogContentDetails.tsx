@@ -16,6 +16,10 @@ const BlogContentDetails = ({ blog }: EventDetailsProps) => {
   const renderHTML = (rawHTML: any) =>
     React.createElement("div", {
       dangerouslySetInnerHTML: { __html: rawHTML },
+      style: {
+        whiteSpace: "pre-line",
+      },
+      className: "blog-content",
     });
   return (
     <div
@@ -27,6 +31,8 @@ const BlogContentDetails = ({ blog }: EventDetailsProps) => {
         style={{
           fontSize: screen.lg ? 28 : 22,
           fontWeight: "700",
+          textAlign: "center",
+          marginBottom: 20,
         }}
         level={2}
         type="success"
@@ -34,6 +40,15 @@ const BlogContentDetails = ({ blog }: EventDetailsProps) => {
         {blog?.title}
       </Typography.Title>
       <div>{renderHTML(blog.content)}</div>
+      <Typography.Title
+        style={{
+          margin: "20px 0",
+        }}
+        level={4}
+        type="secondary"
+      >
+        Author: {blog?.user?.firstName} {blog?.user?.lastName || ""}
+      </Typography.Title>
     </div>
   );
 };

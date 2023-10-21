@@ -7,7 +7,15 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IEvent, IMeta, IQuery } from "@/interfaces/global";
 import { ReloadOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button, Col, PaginationProps, Row, Spin, Typography } from "antd";
+import {
+  Button,
+  Col,
+  Empty,
+  PaginationProps,
+  Row,
+  Spin,
+  Typography,
+} from "antd";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -130,15 +138,19 @@ const EventsPage = () => {
         ))}
         {events?.length === 0 && (
           <Col xs={24}>
-            <Typography.Title
-              style={{
-                textAlign: "center",
-              }}
-              level={4}
-              type="danger"
-            >
-              No Events found! Try again later
-            </Typography.Title>
+            <Empty
+              description={
+                <Typography.Title
+                  style={{
+                    textAlign: "center",
+                  }}
+                  level={4}
+                  type="danger"
+                >
+                  No Events found! Try again later
+                </Typography.Title>
+              }
+            />
           </Col>
         )}
       </Row>

@@ -17,6 +17,7 @@ import {
   IUpdateInfo,
   IUser,
 } from "@/interfaces/global";
+import { updateAdminSchema } from "@/schemas/auth";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -232,11 +233,12 @@ const Admins = () => {
           setIsUpdated={setIsUpdated}
           modalText="Update Admin Role"
           defaultValues={updateDefaultValue}
+          schema={updateAdminSchema}
         >
           <FormSelectField
             name="role"
             label="User Role"
-            options={roleOptions}
+            options={roleOptions.slice(1, 3)}
           />
         </UpdateModal>
       </div>

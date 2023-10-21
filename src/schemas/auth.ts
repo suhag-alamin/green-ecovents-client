@@ -103,3 +103,10 @@ export const changePasswordSchema = yup.object().shape({
     )
     .required("New Password is required"),
 });
+
+export const updateAdminSchema = yup.object().shape({
+  role: yup
+    .string()
+    .oneOf(Object.values(Role), "Select valid role")
+    .required("User role is required"),
+});

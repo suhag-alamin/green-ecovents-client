@@ -69,6 +69,7 @@ const BlogWriter = ({ name, value, label, placeholder }: IInput) => {
         name={name}
         render={({ field }) => (
           <ReactQuill
+            className="blog-writer"
             theme="snow"
             {...field}
             placeholder={placeholder}

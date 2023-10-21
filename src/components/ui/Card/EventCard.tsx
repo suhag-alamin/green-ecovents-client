@@ -58,14 +58,14 @@ const EventCard = ({ event, loading }: EventCardProps) => {
             fontSize: screen.lg ? 20 : 16,
           }}
         >
-          From {dayjs(event?.startDate).format("MMM D, hh:mm A")}{" "}
+          From {dayjs(event?.startDate).format("MMM D YYYY")}{" "}
         </p>
         <p
           style={{
             fontSize: screen.lg ? 20 : 16,
           }}
         >
-          To {dayjs(event?.endDate).format("MMM D, hh:mm A")} {"  "}
+          To {dayjs(event?.endDate).format("MMM D, YYYY")} {"  "}
         </p>
         <p
           style={{

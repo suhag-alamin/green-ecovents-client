@@ -5,7 +5,9 @@ import styles from "@/styles/Home.module.css";
 import { Spin } from "antd";
 
 const Hero = async () => {
-  const res = await fetch(`${baseApi}/events`);
+  const res = await fetch(
+    `${baseApi}/events?limit=${3}&sortBy=startDate&sortOrder=asc`
+  );
   const result: IApiResponse = await res.json();
   const data = result?.data;
 

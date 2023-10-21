@@ -4,7 +4,7 @@ import GEPagination from "@/components/ui/Pagination";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IBlog, IMeta, IQuery } from "@/interfaces/global";
-import { Col, PaginationProps, Row, Typography } from "antd";
+import { Col, Empty, PaginationProps, Row, Typography } from "antd";
 import { useEffect, useMemo, useState } from "react";
 
 const BlogsPage = () => {
@@ -64,15 +64,19 @@ const BlogsPage = () => {
         ))}
         {blogs?.length === 0 && (
           <Col xs={24}>
-            <Typography.Title
-              style={{
-                textAlign: "center",
-              }}
-              level={4}
-              type="danger"
-            >
-              No Events found! Try again later
-            </Typography.Title>
+            <Empty
+              description={
+                <Typography.Title
+                  style={{
+                    textAlign: "center",
+                  }}
+                  level={4}
+                  type="danger"
+                >
+                  No blogs found! Try again later
+                </Typography.Title>
+              }
+            />
           </Col>
         )}
       </Row>

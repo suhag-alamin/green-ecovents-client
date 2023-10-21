@@ -167,7 +167,7 @@ const FAQs = () => {
 
   return (
     <div>
-      <ActionBar title="Bookings List">
+      <ActionBar title="FAQs List">
         <Form submitHandler={handleSearch}>
           <Row>
             <Col>

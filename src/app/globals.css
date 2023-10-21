@@ -58,6 +58,15 @@
   font-weight: 700;
 }
 
+.blog-writer .ql-container {
+  height: 400px;
+}
+
+.blog-content ul,
+.blog-content ol {
+  padding-left: 30px;
+}
+
 .container {
   position: relative;
   margin-left: auto;

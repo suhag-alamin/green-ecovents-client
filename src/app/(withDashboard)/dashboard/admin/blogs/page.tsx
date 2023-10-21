@@ -32,7 +32,7 @@ import React, { useEffect, useMemo, useState } from "react";
 const Blogs = () => {
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
-  const [size, setSize] = useState<number>(10);
+  const [size, setSize] = useState<number>(3);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [blogs, setBlogs] = useState<IBlog[]>();
@@ -111,7 +111,7 @@ const Blogs = () => {
               overflow: "auto",
             }}
           >
-            {renderHTML(data)}
+            {renderHTML(data.slice(0, 200))}...
           </div>
         );
       },

@@ -2,7 +2,7 @@ import Form from "@/components/Forms/Form";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUpdateInfo } from "@/interfaces/global";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Flex, Modal, message } from "antd";
+import { Button, Flex, Grid, Modal, message } from "antd";
 import React, { ReactElement, ReactNode, useState } from "react";
 
 interface UpdateModalProps {
@@ -70,6 +70,7 @@ const UpdateModal = ({
         confirmLoading={confirmLoading}
         footer={false}
         onCancel={handleCancel}
+        width={800}
       >
         <Form
           submitHandler={handleUpdate}

@@ -2,13 +2,13 @@ import EventCard from "@/components/ui/Card/EventCard";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { EventStatus, IEvent } from "@/interfaces/global";
-import { Button, Col, Flex, Row } from "antd";
+import { Button, Col, Empty, Flex, Row } from "antd";
 import Link from "next/link";
 
 const AvailableEvent = async () => {
   const query = {
     page: 1,
-    size: 6,
+    limit: 3,
   };
 
   const result = (
@@ -33,6 +33,30 @@ const AvailableEvent = async () => {
             <EventCard event={event} />
           </Col>
         ))}
+        {!events?.length && (
+          <Col
+            xs={24}
+            sm={24}
+            lg={24}
+            style={{
+              textAlign: "center",
+              padding: "40px 0",
+            }}
+          >
+            <Empty
+              description={
+                <h3
+                  style={{
+                    color: "#ff4d4f",
+                    fontSize: 24,
+                  }}
+                >
+                  No available events
+                </h3>
+              }
+            />
+          </Col>
+        )}
       </Row>
       <Flex
         style={{
