@@ -8,7 +8,7 @@ import BlogCard from "../Card/BlogCard";
 const Blogs = async () => {
   const query = {
     page: 1,
-    size: 6,
+    limit: 3,
   };
 
   const result = (

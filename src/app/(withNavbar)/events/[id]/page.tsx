@@ -3,7 +3,6 @@ import { IApiResponse } from "@/interfaces/apiResponse";
 import { EventStatus, IEvent } from "@/interfaces/global";
 import { Button, Col, Row, Spin } from "antd";
 import Image from "next/image";
-
 import EventContentDetails from "@/components/ui/Event/EventContentDetails";
 
 const EventDetails = async ({ params }: { params: { id: string } }) => {
@@ -37,6 +36,8 @@ const EventDetails = async ({ params }: { params: { id: string } }) => {
             height={400}
             style={{
               maxWidth: "100%",
+              border: "2px solid #b9b6bf",
+              borderRadius: 10,
             }}
           />
         </Col>
