@@ -29,8 +29,8 @@ export const signupSchema = yup.object().shape({
     .min(8, "Password is too short - should be 8 chars minimum.")
     .max(16, "Password is too long - should be 16 chars maximum.")
     .matches(
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
-      "Password must include at least one number and one special character."
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!`~@#$%^&*()_+=[\]{}|\\;:'",<.>/?])[a-zA-Z\d!`~@#$%^&*()_+=[\]{}|\\;:'",<.>/?-]{8,16}$/,
+      "Password must include at least one number, one special character, one uppercase and one lowercase character."
     )
     .required("Password is required"),
 
@@ -62,8 +62,8 @@ export const addUserSchema = yup.object().shape({
     .min(8, "Password is too short - should be 8 chars minimum.")
     .max(16, "Password is too long - should be 16 chars maximum.")
     .matches(
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
-      "Password must include at least one number and one special character."
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!`~@#$%^&*()_+=[\]{}|\\;:'",<.>/?])[a-zA-Z\d!`~@#$%^&*()_+=[\]{}|\\;:'",<.>/?-]{8,16}$/,
+      "Password must include at least one number, one special character, one uppercase and one lowercase character."
     )
     .required("Password is required"),
 
@@ -92,14 +92,13 @@ export const updateProfileSchema = yup.object().shape({
 
 export const changePasswordSchema = yup.object().shape({
   currentPassword: yup.string().required("Current Password is required"),
-
   newPassword: yup
     .string()
     .min(8, "Password is too short - should be 8 chars minimum.")
     .max(16, "Password is too long - should be 16 chars maximum.")
     .matches(
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
-      "Password must include at least one number and one special character."
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!`~@#$%^&*()_+=[\]{}|\\;:'",<.>/?])[a-zA-Z\d!`~@#$%^&*()_+=[\]{}|\\;:'",<.>/?-]{8,16}$/,
+      "Password must include at least one number, one special character, one uppercase and one lowercase character."
     )
     .required("New Password is required"),
 });

@@ -27,15 +27,54 @@ const SignIn = () => {
 
     const result = await axiosInstance.post("/auth/login", data);
 
-    // if (result?.statusCode === 200 && result?.data?.accessToken) {
-    //   storeUserInfo(result?.data?.accessToken);
-    //   message.success(result.message);
-    //   setIsLoading(false);
-    //   router.push("/dashboard/profile");
-    // } else {
-    //   message.error("Something went wrong, try again");
-    //   setIsLoading(false);
-    // }
+    const response = result?.data;
+    if (response?.statusCode === 200 && response?.data?.accessToken) {
+      storeUserInfo(response?.data?.accessToken);
+      message.success(response.message);
+      setIsLoading(false);
+      router.push("/dashboard/profile");
+    }
+    // @ts-ignore
+    else if (!result?.success) {
+      setIsLoading(false);
+      // @ts-ignore
+      message.error(result?.message || "Something went wrong try again later");
+    }
+  };
+  const handleDemoAdminSignIn = async () => {
+    const data = {
+      email: "admin2@gmail.com",
+      password: "Qz`%s;Gzs70o39",
+    };
+
+    setIsLoading(true);
+
+    const result = await axiosInstance.post("/auth/login", data);
+
+    const response = result?.data;
+    if (response?.statusCode === 200 && response?.data?.accessToken) {
+      storeUserInfo(response?.data?.accessToken);
+      message.success(response.message);
+      setIsLoading(false);
+      router.push("/dashboard/profile");
+    }
+    // @ts-ignore
+    else if (!result?.success) {
+      setIsLoading(false);
+      // @ts-ignore
+      message.error(result?.message || "Something went wrong try again later");
+    }
+  };
+  const handleDemoUserSignIn = async () => {
+    const data = {
+      email: "user@gmail.com",
+      password: "FV0Yh~r0&^.M9S",
+    };
+
+    setIsLoading(true);
+
+    const result = await axiosInstance.post("/auth/login", data);
+
     const response = result?.data;
     if (response?.statusCode === 200 && response?.data?.accessToken) {
       storeUserInfo(response?.data?.accessToken);
@@ -77,16 +116,6 @@ const SignIn = () => {
                   size="large"
                 />
               </Col>
-            </Row>
-            <Row
-              style={{
-                margin: "10px 0",
-              }}
-              gutter={{
-                xs: 6,
-                md: 12,
-              }}
-            >
               <Col xs={24}>
                 <FormInput
                   name="password"
@@ -96,26 +125,69 @@ const SignIn = () => {
                   size="large"
                 />
               </Col>
-            </Row>
-            <div
-              style={{
-                width: "60%",
-                margin: "auto",
-                marginTop: 20,
-              }}
-            >
-              <Button
+              <Col
                 style={{
-                  width: "100%",
+                  marginTop: 20,
                 }}
-                size="large"
-                type="primary"
-                htmlType="submit"
-                loading={isLoading}
+                xs={24}
+                md={8}
               >
-                Sign In
-              </Button>
-            </div>
+                <div>
+                  <Button
+                    style={{
+                      width: "100%",
+                    }}
+                    size="large"
+                    type="primary"
+                    htmlType="submit"
+                    loading={isLoading}
+                  >
+                    Sign In
+                  </Button>
+                </div>
+              </Col>
+              <Col
+                style={{
+                  marginTop: 20,
+                }}
+                xs={12}
+                md={8}
+              >
+                <div>
+                  <Button
+                    style={{
+                      width: "100%",
+                    }}
+                    size="large"
+                    type="primary"
+                    // htmlType="submit"
+                    onClick={handleDemoAdminSignIn}
+                    loading={isLoading}
+                  >
+                    Demo Admin Sign In
+                  </Button>
+                </div>
+              </Col>
+              <Col
+                style={{
+                  marginTop: 20,
+                }}
+                xs={12}
+                md={8}
+              >
+                <div>
+                  <Button
+                    onClick={handleDemoUserSignIn}
+                    size="large"
+                    type="primary"
+                    // htmlType="submit"
+                    loading={isLoading}
+                  >
+                    Demo User Sign In
+                  </Button>
+                </div>
+              </Col>
+            </Row>
           </Form>
         </div>
       </Col>
