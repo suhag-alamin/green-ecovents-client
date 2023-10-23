@@ -6,7 +6,7 @@ import { signInSchema } from "@/schemas/auth";
 import { storeUserInfo } from "@/services/auth.service";
 import styles from "@/styles/SignupSignin.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row, message } from "antd";
+import { Button, Col, Row, Typography, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -160,7 +160,6 @@ const SignIn = () => {
                     }}
                     size="large"
                     type="primary"
-                    // htmlType="submit"
                     onClick={handleDemoAdminSignIn}
                     loading={isLoading}
                   >
@@ -180,11 +179,24 @@ const SignIn = () => {
                     onClick={handleDemoUserSignIn}
                     size="large"
                     type="primary"
-                    // htmlType="submit"
                     loading={isLoading}
                   >
                     Demo User Sign In
                   </Button>
+                </div>
+              </Col>
+              <Col
+                style={{
+                  marginTop: 10,
+                }}
+                xs={24}
+              >
+                <div>
+                  <Typography.Text type="warning">
+                    ⚠️ Admin will have access to all features. Please do not
+                    modify the demo account password or delete any existing
+                    website data.
+                  </Typography.Text>
                 </div>
               </Col>
             </Row>
