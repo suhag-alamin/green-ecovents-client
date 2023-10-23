@@ -40,3 +40,29 @@
   border: 1px solid #edf4ed;
   background-color: #43934a;
 }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 3px;
+  grid-auto-flow: dense;
+}
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.4s ease-in-out;
+}
+.vertical {
+  grid-row: span 2;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+@media only screen and (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}

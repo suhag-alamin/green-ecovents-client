@@ -1,5 +1,6 @@
 import AvailableEvent from "@/components/ui/Home/AvailableEvent";
 import Blogs from "@/components/ui/Home/Blogs";
+import EventGallery from "@/components/ui/Home/EventGallery";
 import Features from "@/components/ui/Home/Features";
 import Hero from "@/components/ui/Home/Hero";
 import Partners from "@/components/ui/Home/Partners";
@@ -16,6 +17,7 @@ const Home = () => {
       <UpcomingEvents />
       <AvailableEvent />
       <Partners />
+      <EventGallery />
       <Blogs />
       <Reviews />
     </div>
