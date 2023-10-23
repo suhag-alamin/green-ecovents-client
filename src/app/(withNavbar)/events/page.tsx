@@ -42,7 +42,7 @@ const EventsPage = () => {
         })
       )?.data as IApiResponse;
       setEvents(res?.data);
-      setMeta(res.meta);
+      setMeta(res?.meta);
       setIsLoading(false);
     };
     loadEvents();

@@ -1,5 +1,6 @@
 import AvailableEvent from "@/components/ui/Home/AvailableEvent";
 import Blogs from "@/components/ui/Home/Blogs";
+import CTA from "@/components/ui/Home/CTA";
 import EventGallery from "@/components/ui/Home/EventGallery";
 import Features from "@/components/ui/Home/Features";
 import Hero from "@/components/ui/Home/Hero";
@@ -20,6 +21,7 @@ const Home = () => {
       <EventGallery />
       <Blogs />
       <Reviews />
+      <CTA />
     </div>
   );
 };
