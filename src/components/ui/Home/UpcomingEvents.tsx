@@ -51,7 +51,7 @@ const UpcomingEvents = async () => {
                     fontSize: 24,
                   }}
                 >
-                  No available events
+                  No upcoming events
                 </h3>
               }
             />

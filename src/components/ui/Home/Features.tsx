@@ -41,7 +41,7 @@ const Features = () => {
             <div className={styles.featureIcon}>
               <CalendarOutlined />
             </div>
-            <Typography.Title level={3} type="success">
+            <Typography.Title level={4} type="success">
               User-Friendly Booking
             </Typography.Title>
             <Typography.Text type="secondary">
@@ -55,7 +55,7 @@ const Features = () => {
             <div className={styles.featureIcon}>
               <EnvironmentOutlined />
             </div>
-            <Typography.Title level={3} type="success">
+            <Typography.Title level={4} type="success">
               Eco-Friendly Events
             </Typography.Title>
             <Typography.Text type="secondary">
@@ -69,7 +69,7 @@ const Features = () => {
             <div className={styles.featureIcon}>
               <StarOutlined />
             </div>
-            <Typography.Title level={3} type="success">
+            <Typography.Title level={4} type="success">
               User Ratings and Reviews
             </Typography.Title>
             <Typography.Text type="secondary">
@@ -83,7 +83,7 @@ const Features = () => {
             <div className={styles.featureIcon}>
               <GiftOutlined />
             </div>
-            <Typography.Title level={3} type="success">
+            <Typography.Title level={4} type="success">
               Personalized Recommendations
             </Typography.Title>
             <Typography.Text type="secondary">

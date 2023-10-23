@@ -21,33 +21,6 @@
   padding: 0 40px;
 }
 
-/*  style={{
-                fontSize: 64,
-                color: "#fff",
-                display: "block",
-                padding: 4,
-                marginBottom: 20,
-                backgroundColor: "#959fa9",
-                border: "1px solid #ddd",
-                borderRadius: 4,
-                transition: "border .2s ease-in-out",
-              }} */
-
-/* .featuresIcon {
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 64px;
-  color: #fff;
-  background-color: #959fa9;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  transition: border 0.2s ease-in-out;
-} */
-
-/* make features icons border like a diamond */
 .featureIcon {
   width: 100px;
   height: 100px;
@@ -62,11 +35,6 @@
   transition: 0.3s ease-in-out;
   margin-bottom: 20px;
 }
-
-/* .feature:hover .featureIcon:hover {
-  border: 1px solid #edf4ed;
-  background-color: #43934a;
-} */
 
 .feature:hover .featureIcon {
   border: 1px solid #edf4ed;

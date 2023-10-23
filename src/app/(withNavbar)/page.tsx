@@ -2,6 +2,7 @@ import AvailableEvent from "@/components/ui/Home/AvailableEvent";
 import Blogs from "@/components/ui/Home/Blogs";
 import Features from "@/components/ui/Home/Features";
 import Hero from "@/components/ui/Home/Hero";
+import Partners from "@/components/ui/Home/Partners";
 import Reviews from "@/components/ui/Home/Reviews";
 import SearchBar from "@/components/ui/Home/SearchBar";
 import UpcomingEvents from "@/components/ui/Home/UpcomingEvents";
@@ -14,6 +15,7 @@ const Home = () => {
       <Features />
       <UpcomingEvents />
       <AvailableEvent />
+      <Partners />
       <Blogs />
       <Reviews />
     </div>
