@@ -20,7 +20,7 @@
 
 .footerLink:hover.footerLink svg {
   transform: scale(1.3);
-  color: #6fae4f;
+  color: #446db7;
 }
 
 .swiper {
@@ -53,9 +53,18 @@
 
 .section-title {
   font-size: 28px;
-  color: #43934a;
+  color: #3ba27a;
   text-align: center;
   font-weight: 700;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #3ba27a;
+  margin: 10px auto 5px;
 }
 
 .blog-writer .ql-container {

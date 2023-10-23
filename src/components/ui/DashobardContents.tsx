@@ -12,7 +12,7 @@ const DashboardContents = ({ children }: { children: React.ReactNode }) => {
     <Content
       style={{
         minHeight: "100vh",
-        color: "black",
+        color: "#1F3C4A",
       }}
     >
       <Header />

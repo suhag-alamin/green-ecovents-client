@@ -16,8 +16,8 @@ const SearchBar = () => {
   return (
     <div
       style={{
-        background: "#43934A",
-        color: "#fff",
+        background: "#3BA27A",
+        color: "#EDF4ED",
         padding: 20,
       }}
     >
@@ -29,7 +29,6 @@ const SearchBar = () => {
                 <CalendarOutlined
                   style={{
                     fontSize: 64,
-                    // color: "#43934A",
                   }}
                 />
                 <div>

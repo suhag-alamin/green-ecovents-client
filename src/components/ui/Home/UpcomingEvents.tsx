@@ -47,7 +47,7 @@ const UpcomingEvents = async () => {
               description={
                 <h3
                   style={{
-                    color: "#ff4d4f",
+                    color: "#F14947",
                     fontSize: 24,
                   }}
                 >

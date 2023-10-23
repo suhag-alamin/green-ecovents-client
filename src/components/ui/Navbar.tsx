@@ -117,7 +117,7 @@ const Navbar = () => {
       <Header suppressHydrationWarning={true} style={{ padding: 0 }}>
         <Row justify="space-between" align="middle">
           <Col xs={20} sm={20} md={4}>
-            <div style={{ color: "white", paddingLeft: "20px" }}>
+            <div style={{ color: "#EDF4ED", paddingLeft: "20px" }}>
               <Image width={120} height={60} src={logo} alt="logo" />
             </div>
           </Col>

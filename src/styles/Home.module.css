@@ -4,7 +4,7 @@
   padding: 60px 0;
   position: relative;
   z-index: 1;
-  color: #fff;
+  color: #edf4ed;
 }
 .heroSection::after {
   content: "";
@@ -38,7 +38,7 @@
 
 .feature:hover .featureIcon {
   border: 1px solid #edf4ed;
-  background-color: #43934a;
+  background-color: #3ba27a;
 }
 
 .gallery {
