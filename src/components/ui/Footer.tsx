@@ -24,23 +24,26 @@ const data = [
   { category: "Category", link: "/" },
 ];
 
+const links = [
+  {
+    label: "About Us",
+    link: "/about",
+  },
+  {
+    label: "Contact Us",
+    link: "/contact",
+  },
+  {
+    label: "Privacy Policy",
+    link: "/privacy-policy",
+  },
+  {
+    label: "Terms & Conditions",
+    link: "/terms-and-conditions",
+  },
+];
+
 const Footer = () => {
-  const [categories, setCategories] = useState<ICategory[]>();
-
-  useMemo(() => {
-    const loadCategories = async () => {
-      const res = (
-        await axiosInstance.get("/categories", {
-          params: {
-            limit: 5,
-          },
-        })
-      )?.data as IApiResponse;
-      setCategories(res?.data);
-    };
-    loadCategories();
-  }, []);
-
   const handleSubscribe = async (data: any) => {
     // console.log(data);
   };
@@ -53,8 +56,8 @@ const Footer = () => {
       }}
     >
       <div className="container">
-        <Row gutter={20}>
-          <Col xs={12} md={6} lg={8}>
+        <Row gutter={[20, 20]}>
+          <Col xs={12} sm={12} md={12} lg={8}>
             <div>
               <div
                 style={{
@@ -98,24 +101,26 @@ const Footer = () => {
               </div>
             </div>
           </Col>
-          <Col xs={12} md={12} lg={8}>
+          <Col xs={12} sm={12} md={12} lg={8}>
             <div>
               <h3>Top Categories</h3>
               <List
-                dataSource={categories}
+                dataSource={links}
                 renderItem={(item) => (
-                  <List.Item
-                    style={{
-                      color: "#EDF4ED",
-                    }}
-                  >
-                    {item.name}
-                  </List.Item>
+                  <Link href={item.link}>
+                    <List.Item
+                      style={{
+                        color: "#EDF4ED",
+                      }}
+                    >
+                      {item.label}
+                    </List.Item>
+                  </Link>
                 )}
               />
             </div>
           </Col>
-          <Col xs={12} md={6} lg={8}>
+          <Col xs={12} sm={12} md={12} lg={8}>
             <div>
               <h3
                 style={{

@@ -29,7 +29,13 @@ const EventCard = ({ event, loading }: EventCardProps) => {
       }
       loading={loading}
       actions={[
-        <Link key="view" href={`/events/${event.id}`}>
+        <Link
+          style={{
+            paddingLeft: 5,
+          }}
+          key="view"
+          href={`/events/${event.id}`}
+        >
           <Button type="primary">View Details</Button>
         </Link>,
         event.status === EventStatus.ongoing && (
@@ -42,34 +48,46 @@ const EventCard = ({ event, loading }: EventCardProps) => {
         </Button>,
       ]}
     >
-      <Typography.Title level={3} type="success">
+      <Typography.Title
+        style={{
+          fontSize: screen.lg ? 20 : 16,
+        }}
+        level={3}
+        type="success"
+      >
         {event?.title}
       </Typography.Title>
       <Typography.Text type="secondary">
         {event?.description.slice(0, 50)}...
       </Typography.Text>
 
-      <Typography.Title level={4} type="success">
+      <Typography.Title
+        style={{
+          fontSize: screen.lg ? 18 : 14,
+        }}
+        level={4}
+        type="success"
+      >
         ${event?.price}
       </Typography.Title>
       <Flex gap={screen.lg ? 4 : 2} align="center" justify="start" wrap="wrap">
         <p
           style={{
-            fontSize: screen.lg ? 20 : 16,
+            fontSize: screen.lg ? 16 : 14,
           }}
         >
           From {dayjs(event?.startDate).format("MMM D YYYY")}{" "}
         </p>
         <p
           style={{
-            fontSize: screen.lg ? 20 : 16,
+            fontSize: screen.lg ? 16 : 14,
           }}
         >
           To {dayjs(event?.endDate).format("MMM D, YYYY")} {"  "}
         </p>
         <p
           style={{
-            fontSize: screen.lg ? 20 : 16,
+            fontSize: screen.lg ? 16 : 14,
           }}
         >
           On {event?.location}

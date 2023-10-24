@@ -111,7 +111,7 @@ const AddFaq = () => {
                 htmlType="submit"
                 loading={isLoading}
               >
-                Add FAQ
+                Give Review
               </Button>
             </div>
           </Form>

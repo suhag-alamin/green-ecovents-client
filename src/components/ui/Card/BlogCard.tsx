@@ -1,15 +1,17 @@
 "use client";
 import { IBlog } from "@/interfaces/global";
-import { Button, Card, Typography } from "antd";
+import { Button, Card, Grid, Typography } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-
+const { useBreakpoint } = Grid;
 interface BlogCardProps {
   blog: IBlog;
   loading?: boolean;
 }
 
 const BlogCard = ({ blog, loading }: BlogCardProps) => {
+  const screen = useBreakpoint();
+
   return (
     <Card
       hoverable
@@ -29,7 +31,13 @@ const BlogCard = ({ blog, loading }: BlogCardProps) => {
         </Link>,
       ]}
     >
-      <Typography.Title level={3} type="success">
+      <Typography.Title
+        style={{
+          fontSize: screen.lg ? 20 : 16,
+        }}
+        level={3}
+        type="success"
+      >
         {blog?.title}
       </Typography.Title>
     </Card>

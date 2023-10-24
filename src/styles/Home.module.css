@@ -65,4 +65,10 @@
   .gallery {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
+  .featureIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    border-radius: 20px 5px 20px 5px;
+  }
 }

@@ -22,7 +22,7 @@ const CTA = () => {
         }}
         align="middle"
       >
-        <Col xs={0} sm={24} md={6}>
+        <Col xs={0} sm={0} lg={6}>
           <Image
             style={{
               marginTop: -150,
@@ -33,7 +33,7 @@ const CTA = () => {
             alt=""
           />
         </Col>
-        <Col xs={24} sm={24} md={16}>
+        <Col xs={24} sm={24} lg={16}>
           <div
             style={{
               display: "flex",

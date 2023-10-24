@@ -36,8 +36,8 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
                 <Image
                   src={event?.image}
                   alt={event?.title}
-                  width={300}
-                  height={300}
+                  width={screen.lg ? 300 : 200}
+                  height={screen.lg ? 300 : 200}
                   style={{
                     border: "solid 5px #b9b6bf",
                     borderRadius: 9,
@@ -53,20 +53,20 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
               >
                 <h2
                   style={{
-                    fontSize: screen.lg ? 48 : 36,
+                    fontSize: screen.lg ? 48 : 30,
                   }}
                 >
                   {event?.title}
                 </h2>
                 <Flex
-                  gap={screen.lg ? 20 : 10}
+                  gap={screen.lg ? 20 : 4}
                   align="center"
                   justify="start"
                   wrap="wrap"
                 >
                   <h4
                     style={{
-                      fontSize: screen.lg ? 34 : 26,
+                      fontSize: screen.lg ? 34 : 20,
                       fontWeight: "500",
                     }}
                   >
@@ -74,7 +74,7 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
                   </h4>
                   <h4
                     style={{
-                      fontSize: screen.lg ? 34 : 26,
+                      fontSize: screen.lg ? 34 : 20,
                       fontWeight: "500",
                     }}
                   >
@@ -82,7 +82,7 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
                   </h4>
                   <h4
                     style={{
-                      fontSize: screen.lg ? 34 : 26,
+                      fontSize: screen.lg ? 34 : 20,
                       fontWeight: "500",
                     }}
                   >
