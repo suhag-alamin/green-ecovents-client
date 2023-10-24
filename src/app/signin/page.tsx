@@ -32,6 +32,10 @@ const SignIn = () => {
       storeUserInfo(response?.data?.accessToken);
       message.success(response.message);
       setIsLoading(false);
+      if (router.back) {
+        router.back();
+        return;
+      }
       router.push("/dashboard/profile");
     }
     // @ts-ignore
@@ -43,8 +47,8 @@ const SignIn = () => {
   };
   const handleDemoAdminSignIn = async () => {
     const data = {
-      email: "admin2@gmail.com",
-      password: "Qz`%s;Gzs70o39",
+      email: process.env.NEXT_PUBLIC_DEMO_ADMIN_EMAIL || "",
+      password: process.env.NEXT_PUBLIC_DEMO_ADMIN_PASSWORD || "",
     };
 
     setIsLoading(true);
@@ -56,6 +60,10 @@ const SignIn = () => {
       storeUserInfo(response?.data?.accessToken);
       message.success(response.message);
       setIsLoading(false);
+      if (router.back) {
+        router.back();
+        return;
+      }
       router.push("/dashboard/profile");
     }
     // @ts-ignore
@@ -67,8 +75,8 @@ const SignIn = () => {
   };
   const handleDemoUserSignIn = async () => {
     const data = {
-      email: "user@gmail.com",
-      password: "FV0Yh~r0&^.M9S",
+      email: process.env.NEXT_PUBLIC_DEMO_USER_EMAIL || "",
+      password: process.env.NEXT_PUBLIC_DEMO_USER_PASSWORD || "",
     };
 
     setIsLoading(true);
@@ -80,6 +88,10 @@ const SignIn = () => {
       storeUserInfo(response?.data?.accessToken);
       message.success(response.message);
       setIsLoading(false);
+      if (router.back) {
+        router.back();
+        return;
+      }
       router.push("/dashboard/profile");
     }
     // @ts-ignore

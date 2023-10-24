@@ -5,13 +5,16 @@ import { decodedToken } from "@/utils/jwt";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 
 export const storeUserInfo = (accessToken: string) => {
-  return setToLocalStorage(authKey, accessToken);
+  if (accessToken) {
+    return setToLocalStorage(authKey, accessToken);
+  }
+  return null;
 };
 
 export const getUserInfo = (): IUserInfo | null => {
-  const authToken = getFromLocalStorage(authKey);
+  const authToken = getFromLocalStorage(authKey) as string;
 
-  if (authToken) {
+  if (authToken && authToken !== "undefined") {
     const decodedData = decodedToken(authToken) as IUserInfo;
     return decodedData;
   } else {

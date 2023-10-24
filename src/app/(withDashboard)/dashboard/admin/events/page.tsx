@@ -139,6 +139,9 @@ const Events = () => {
     {
       title: "Event Title",
       dataIndex: "title",
+      render: function (data: string) {
+        return <>{data.slice(0, 10)}..</>;
+      },
     },
     {
       title: "Description",
@@ -155,7 +158,7 @@ const Events = () => {
       title: "Start Date",
       dataIndex: "startDate",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return data && dayjs(data).format("MMM D, YYYY");
       },
       sorter: true,
     },
@@ -163,7 +166,7 @@ const Events = () => {
       title: "End Date",
       dataIndex: "endDate",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return data && dayjs(data).format("MMM D, YYYY");
       },
       sorter: true,
     },
@@ -175,14 +178,14 @@ const Events = () => {
       },
       sorter: true,
     },
-    {
-      title: "Reviews",
-      dataIndex: "reviews",
-      render: function (data: any) {
-        return data.length ? <span>{data?.length}</span> : <span>0</span>;
-      },
-      sorter: true,
-    },
+    // {
+    //   title: "Reviews",
+    //   dataIndex: "reviews",
+    //   render: function (data: any) {
+    //     return data.length ? <span>{data?.length}</span> : <span>0</span>;
+    //   },
+    //   sorter: true,
+    // },
     {
       title: "Status",
       dataIndex: "status",

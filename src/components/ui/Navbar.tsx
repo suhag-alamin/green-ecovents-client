@@ -3,13 +3,14 @@ import { authKey } from "@/constants/storageKey";
 import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
 import {
   DashboardOutlined,
+  FileTextOutlined,
   HomeOutlined,
+  InfoCircleOutlined,
   LoginOutlined,
   LogoutOutlined,
   MailOutlined,
   MenuOutlined,
   ScheduleOutlined,
-  FileTextOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Drawer, Layout, Menu, MenuProps, Row } from "antd";
 import Image from "next/image";
@@ -59,11 +60,16 @@ const Navbar = () => {
       key: "blogs",
       icon: <FileTextOutlined />,
     },
-    // {
-    //   label: <Link href="/">Contact Us</Link>,
-    //   key: "contact-us",
-    //   icon: <MailOutlined />,
-    // },
+    {
+      label: <Link href="/">About Us</Link>,
+      key: "about-us",
+      icon: <InfoCircleOutlined />,
+    },
+    {
+      label: <Link href="/">Contact Us</Link>,
+      key: "contact-us",
+      icon: <MailOutlined />,
+    },
     {
       label: isLoggedUser && <Link href="/dashboard/profile">Dashboard</Link>,
       key: "Dashboard",
@@ -118,7 +124,9 @@ const Navbar = () => {
         <Row justify="space-between" align="middle">
           <Col xs={20} sm={20} md={4}>
             <div style={{ color: "#EDF4ED", paddingLeft: "20px" }}>
-              <Image width={120} height={60} src={logo} alt="logo" />
+              <Link href="/">
+                <Image width={120} height={60} src={logo} alt="logo" />
+              </Link>
             </div>
           </Col>
           <Col xs={0} sm={0} md={20}>

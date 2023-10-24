@@ -1,12 +1,18 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import { SelectOptions } from "@/components/Forms/FormMultiSelectField";
 import EventCard from "@/components/ui/Card/EventCard";
+import EventFilterDrawer from "@/components/ui/Event/EventFilterDrawer";
 import GEPagination from "@/components/ui/Pagination";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IEvent, IMeta, IQuery } from "@/interfaces/global";
-import { ReloadOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  FilterOutlined,
+  ReloadOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import {
   Button,
   Col,
@@ -16,22 +22,46 @@ import {
   Spin,
   Typography,
 } from "antd";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const EventsPage = () => {
   const searchParam = useSearchParams();
   const searchQuery = searchParam.get("query");
+  const router = useRouter();
 
   const [query, setQuery] = useState<IQuery>();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(9);
-  const [sortBy, setSortBy] = useState<string>("");
-  const [sortOrder, setSortOrder] = useState<string>("");
   const [events, setEvents] = useState<IEvent[]>();
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [locationOptions, setLocationOptions] = useState<SelectOptions[]>([]);
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState<boolean>(false);
+
+  const showFilterDrawer = () => {
+    setFilterDrawerOpen(true);
+  };
+
+  const onFilterClose = () => {
+    setFilterDrawerOpen(false);
+  };
+
+  debugger;
+  useEffect(() => {
+    if (searchQuery?.length) {
+      setQuery({
+        query: searchQuery,
+        page,
+        limit: size,
+      });
+    } else {
+      setQuery({
+        page,
+        limit: size,
+      });
+    }
+  }, [page, size, searchQuery]);
 
   useMemo(() => {
     const loadEvents = async () => {
@@ -49,25 +79,43 @@ const EventsPage = () => {
   }, [query]);
 
   useEffect(() => {
-    setQuery({
-      page,
-      limit: size,
-      sortBy,
-      sortOrder,
-    });
-  }, [page, size, sortBy, sortOrder]);
+    const options: SelectOptions[] = [];
+    if (events?.length) {
+      for (let i = 0; i < events.length; i++) {
+        const event = events[i];
+        options.push({
+          label: event.location,
+          value: event.location,
+        });
+      }
+      setLocationOptions(options);
+    }
+  }, [events]);
 
   const handleSearch = (data: any) => {
     if (data?.query) {
       setQuery({
         query: data?.query,
       });
-      setSearchTerm(data?.query);
     }
   };
 
+  function handleFilter(data: { [key: string]: string }) {
+    const query: { [key: string]: string } = {};
+    for (const key in data) {
+      if (data[key]) {
+        query[key] = data[key];
+      }
+    }
+    setQuery(query);
+    setFilterDrawerOpen(false);
+  }
+
   const resetFilters = () => {
     setQuery({});
+    if (searchQuery) {
+      router.push("/events");
+    }
   };
 
   const onChange: PaginationProps["onChange"] = (
@@ -95,41 +143,73 @@ const EventsPage = () => {
 
   return (
     <div className="container">
-      <div
-        style={{
-          marginBottom: 30,
-        }}
-      >
-        <Form submitHandler={handleSearch}>
-          <Row justify="start" align="middle" gutter={20}>
-            <Col xs={20}>
-              <FormInput
-                name="query"
-                type="search"
-                size="large"
-                placeholder="Eco friendly wedding"
-                suffix={
-                  <Button type="primary" htmlType="submit">
-                    <SearchOutlined />
-                  </Button>
-                }
-              />
-            </Col>
-            <Col xs={4}>
-              {(!!sortBy || !!sortOrder || !!searchTerm) && (
-                <Button
-                  style={{ margin: "0px 5px" }}
-                  type="primary"
-                  onClick={resetFilters}
-                  title="Reset"
-                >
-                  <ReloadOutlined />
-                </Button>
-              )}
-            </Col>
-          </Row>
-        </Form>
+      <div>
+        <EventFilterDrawer
+          onClose={onFilterClose}
+          open={filterDrawerOpen}
+          handleFilter={handleFilter}
+          locationOptions={locationOptions}
+        />
       </div>
+      <Row
+        style={{
+          margin: "30px 0",
+        }}
+        gutter={[16, 16]}
+        align="middle"
+        justify="center"
+      >
+        <Col xs={24} md={16}>
+          <Form submitHandler={handleSearch}>
+            <FormInput
+              name="query"
+              type="search"
+              size="large"
+              placeholder="Eco friendly wedding"
+              suffix={
+                <Button type="primary" htmlType="submit">
+                  <SearchOutlined />
+                </Button>
+              }
+            />
+          </Form>
+        </Col>
+        <Col xs={24} md={4}>
+          <div>
+            <Button
+              style={{
+                width: "100%",
+              }}
+              type="primary"
+              size="large"
+              icon={<FilterOutlined />}
+              onClick={showFilterDrawer}
+            >
+              Filter
+            </Button>
+          </div>
+        </Col>
+        <Col xs={24} md={4}>
+          {(!!query?.query ||
+            !!query?.location ||
+            !!query?.status ||
+            !!query?.sortBy ||
+            !!query?.sortOrder) && (
+            <Button
+              style={{
+                width: "100%",
+              }}
+              type="dashed"
+              onClick={resetFilters}
+              size="large"
+              icon={<ReloadOutlined />}
+            >
+              Reset Filter
+            </Button>
+          )}
+        </Col>
+      </Row>
+
       <Row gutter={[16, 16]}>
         {events?.map((event) => (
           <Col key={event.id} xs={24} sm={12} lg={8}>

@@ -1,8 +1,10 @@
 import { DatePicker, DatePickerProps, Typography } from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
 import { Dayjs } from "dayjs";
-import moment from "moment";
 import { Controller, useFormContext } from "react-hook-form";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import { Space } from "antd";
 
 const { RangePicker } = DatePicker;
 
@@ -26,10 +28,6 @@ const FormRangePicker = ({
 }: GERangePikerProps) => {
   const { control, setValue } = useFormContext();
 
-  const currentDate = moment();
-  const minusStart = moment(startDate).diff(currentDate, "days");
-  const minusEnd = moment(endDate).diff(currentDate, "days");
-
   const onOk = (
     value: DatePickerProps["value"] | RangePickerProps["value"]
   ) => {
@@ -37,6 +35,46 @@ const FormRangePicker = ({
     setValue(name[0], value[0]);
     // @ts-ignore
     setValue(name[1], value[1]);
+  };
+
+  const range = (start: number, end: number) => {
+    const result = [];
+    for (let i = start; i < end; i++) {
+      result.push(i);
+    }
+    return result;
+  };
+
+  // eslint-disable-next-line arrow-body-style
+  const disabledDate: RangePickerProps["disabledDate"] = (current) => {
+    if (startDate && endDate) {
+      return (
+        current &&
+        (current < dayjs(startDate).startOf("day") ||
+          current > dayjs(endDate).endOf("day"))
+      );
+    }
+    return false;
+  };
+
+  const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
+    if (!startDate || !endDate) {
+      return {};
+    }
+    if (type === "start") {
+      return {
+        disabledHours: () => range(0, 24)?.splice(0, dayjs(startDate)?.hour()),
+        disabledMinutes: () =>
+          range(0, 60)?.splice(0, dayjs(startDate)?.minute()),
+        disabledSeconds: () =>
+          range(0, 60)?.splice(0, dayjs(startDate)?.second()),
+      };
+    }
+    return {
+      disabledHours: () => range(0, 24)?.splice(dayjs(endDate)?.hour() + 1),
+      disabledMinutes: () => range(0, 60)?.splice(dayjs(endDate)?.minute() + 1),
+      disabledSeconds: () => range(0, 60)?.splice(dayjs(endDate)?.second() + 1),
+    };
   };
 
   return (
@@ -55,19 +93,13 @@ const FormRangePicker = ({
         control={control}
         render={({ field }) => (
           <RangePicker
+            placement="topRight"
             showTime
             size={size}
             onOk={onOk}
             style={{ width: "100%" }}
-            disabledDate={(current) => {
-              if (!startDate && !endDate) {
-                return false;
-              }
-              return (
-                moment().add(-minusStart, "days") >= current ||
-                moment().add(minusEnd, "days") <= current
-              );
-            }}
+            disabledDate={disabledDate}
+            disabledTime={disabledRangeTime}
           />
         )}
       />

@@ -33,6 +33,8 @@ export interface IQuery {
   limit?: number;
   sortBy?: string;
   sortOrder?: string;
+  location?: string;
+  status?: string;
 }
 
 export interface IDeleteInfo {

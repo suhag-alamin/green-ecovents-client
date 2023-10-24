@@ -6,7 +6,7 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IEvent, IUserInfo } from "@/interfaces/global";
 import { bookEventSchema } from "@/schemas/events";
-import { getUserInfo } from "@/services/auth.service";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Grid, Row, message } from "antd";
 import { useParams, useRouter } from "next/navigation";
@@ -21,6 +21,14 @@ const EventBooking = () => {
 
   const screen = useBreakpoint();
   const router = useRouter();
+
+  const userLoggedIn = isLoggedIn();
+
+  useEffect(() => {
+    if (!userLoggedIn) {
+      router.push("/signin");
+    }
+  }, [router, userLoggedIn]);
 
   const user = getUserInfo() as IUserInfo;
 

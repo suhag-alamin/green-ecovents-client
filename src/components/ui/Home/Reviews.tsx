@@ -31,7 +31,7 @@ const Reviews = () => {
 
   return (
     <div>
-      <h3 className="section-title">Client Feedback</h3>
+      <h3 className="section-title">Client Feedbacks</h3>
       <Swiper
         centeredSlides={true}
         autoplay={{

@@ -10,7 +10,7 @@ const SearchBar = () => {
 
   const handleSearch = (data: any) => {
     if (data?.query) {
-      router.push(`/result/events?query=${data?.query}`);
+      router.push(`/events?query=${data?.query}`);
     }
   };
   return (
