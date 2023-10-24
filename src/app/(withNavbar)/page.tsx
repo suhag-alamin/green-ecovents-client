@@ -1,3 +1,4 @@
+import BackToTop from "@/components/ui/BackToTop";
 import AvailableEvent from "@/components/ui/Home/AvailableEvent";
 import Blogs from "@/components/ui/Home/Blogs";
 import CTA from "@/components/ui/Home/CTA";
@@ -22,6 +23,7 @@ const Home = () => {
       <Blogs />
       <Reviews />
       <CTA />
+      <BackToTop />
     </div>
   );
 };

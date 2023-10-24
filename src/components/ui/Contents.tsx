@@ -12,6 +12,7 @@ const Contents = ({ children }: { children: React.ReactNode }) => {
       <div
         style={{
           color: "#1F3C4A",
+          height: "100vh",
         }}
       >
         {children}
