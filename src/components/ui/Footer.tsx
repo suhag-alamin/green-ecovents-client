@@ -27,7 +27,7 @@ const data = [
 const links = [
   {
     label: "About Us",
-    link: "/about",
+    link: "/about-us",
   },
   {
     label: "Contact Us",

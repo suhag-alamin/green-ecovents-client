@@ -61,17 +61,17 @@ const Navbar = () => {
       icon: <FileTextOutlined />,
     },
     {
-      label: <Link href="/">About Us</Link>,
+      label: <Link href="/about-us">About Us</Link>,
       key: "about-us",
       icon: <InfoCircleOutlined />,
     },
     {
-      label: <Link href="/">Contact Us</Link>,
+      label: <Link href="/contact-us">Contact Us</Link>,
       key: "contact-us",
       icon: <MailOutlined />,
     },
     {
-      label: isLoggedUser && <Link href="/dashboard/profile">Dashboard</Link>,
+      label: isLoggedUser && <Link href="/dashboard">Dashboard</Link>,
       key: "Dashboard",
       icon: isLoggedUser && <DashboardOutlined />,
     },

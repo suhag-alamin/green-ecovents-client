@@ -4,6 +4,7 @@ import { SidebarItems } from "@/constants/sidebarItems";
 import { getUserInfo } from "@/services/auth.service";
 import { Layout, Menu } from "antd";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const { Sider } = Layout;
@@ -11,7 +12,12 @@ const { Sider } = Layout;
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
 
-  const { role } = getUserInfo() as any;
+  const router = useRouter();
+
+  const role = getUserInfo()?.role as any;
+  if (!role) {
+    router.push("/signin");
+  }
 
   return (
     <Sider
