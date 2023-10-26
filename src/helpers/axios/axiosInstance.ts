@@ -38,7 +38,6 @@ axiosInstance.interceptors.request.use(
 
       return axiosInstance(config);
     } else {
-      removeUserInfo(authKey);
       return error?.response?.data;
     }
   }
@@ -64,7 +63,6 @@ axiosInstance.interceptors.response.use(
 
       return axiosInstance(config);
     } else {
-      removeUserInfo(authKey);
       return error?.response?.data;
     }
   }
