@@ -1,9 +1,6 @@
 import logo from "@/assets/logo-2.png";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import axiosInstance from "@/helpers/axios/axiosInstance";
-import { IApiResponse } from "@/interfaces/apiResponse";
-import { ICategory } from "@/interfaces/global";
 import {
   FacebookOutlined,
   InstagramOutlined,
@@ -14,15 +11,6 @@ import {
 import { Button, Col, Flex, List, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
-
-const data = [
-  { category: "Category", link: "/" },
-  { category: "Category", link: "/" },
-  { category: "Category", link: "/" },
-  { category: "Category", link: "/" },
-  { category: "Category", link: "/" },
-];
 
 const links = [
   {
@@ -32,6 +20,10 @@ const links = [
   {
     label: "Contact Us",
     link: "/contact-us",
+  },
+  {
+    label: "FAQs",
+    link: "/faqs",
   },
   {
     label: "Privacy Policy",

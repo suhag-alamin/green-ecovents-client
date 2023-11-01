@@ -11,7 +11,7 @@ const theme: ThemeConfig = {
     // colorWhite: "#EDF4ED",
     colorPrimary: "#3BA27A",
     colorInfo: "#446DB7",
-    colorLink: "#446DB7",
+    colorLink: "#3BA27A",
     colorText: "#1F3C4A",
     colorWhite: "#EDF4ED",
     colorError: "#F14947",
