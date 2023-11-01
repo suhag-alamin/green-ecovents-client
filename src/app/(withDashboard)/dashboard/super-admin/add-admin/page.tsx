@@ -4,7 +4,7 @@ import FormMultiSelectField, {
   SelectOptions,
 } from "@/components/Forms/FormMultiSelectField";
 import ActionBar from "@/components/ui/ActionBar";
-import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IUser } from "@/interfaces/global";
@@ -85,7 +85,7 @@ const AddAdmin = () => {
 
   return (
     <div>
-      <GEBreadCrumb
+      <GEDashboardBreadCrumb
         items={[
           {
             label: "Admins",

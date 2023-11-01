@@ -2,7 +2,7 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ActionBar from "@/components/ui/ActionBar";
-import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { addCategorySchema } from "@/schemas/events";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -36,7 +36,7 @@ const AddCategory = () => {
 
   return (
     <div>
-      <GEBreadCrumb
+      <GEDashboardBreadCrumb
         items={[
           {
             label: "Categories",

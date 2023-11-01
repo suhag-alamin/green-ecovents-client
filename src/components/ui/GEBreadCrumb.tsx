@@ -5,7 +5,7 @@ import Link from "next/link";
 type BreadcrumbItems = {
   items: {
     label: string;
-    link: string;
+    link?: string;
   }[];
 };
 
@@ -13,22 +13,60 @@ const GEBreadCrumb = ({ items }: BreadcrumbItems) => {
   const breadCrumbItems = [
     {
       title: (
-        <Link href="/dashboard">
-          <HomeOutlined />
+        <Link href="/">
+          <HomeOutlined
+            style={{
+              color: "#edf4ed",
+            }}
+          />
         </Link>
       ),
     },
     ...items.map((item) => {
       return {
         title: item.link ? (
-          <Link href={item.link}>{item.label}</Link>
+          <Link
+            style={{
+              color: "#edf4ed",
+              fontWeight: "500",
+            }}
+            href={item.link}
+          >
+            {item.label}
+          </Link>
         ) : (
-          <span>{item.label}</span>
+          <span
+            style={{
+              color: "#edf4ed",
+              fontWeight: "500",
+            }}
+          >
+            {item.label}
+          </span>
         ),
       };
     }),
   ];
-  return <Breadcrumb style={{ margin: "10px 15px" }} items={breadCrumbItems} />;
+  return (
+    <div className="bread-crumb">
+      <Breadcrumb
+        style={{
+          padding: 20,
+          color: "#edf4ed",
+        }}
+        items={breadCrumbItems}
+        separator={
+          <span
+            style={{
+              color: "#edf4ed",
+            }}
+          >
+            /
+          </span>
+        }
+      />
+    </div>
+  );
 };
 
 export default GEBreadCrumb;

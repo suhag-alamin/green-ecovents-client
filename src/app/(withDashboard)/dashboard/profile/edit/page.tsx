@@ -3,7 +3,7 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import FormSelectField from "@/components/Forms/FormSelectField";
 import UploadImage from "@/components/Forms/UploadImage";
-import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import { genderOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
@@ -81,7 +81,7 @@ const EditProfile = () => {
   }
   return (
     <div>
-      <GEBreadCrumb
+      <GEDashboardBreadCrumb
         items={[
           {
             label: "profile",

@@ -76,6 +76,28 @@
   padding-left: 30px;
 }
 
+.bread-crumb {
+  background: url(../assets/bread-crumb-bg.jpg) no-repeat center center;
+  background-size: cover;
+  padding: 100px 0;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bread-crumb::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0.5;
+  z-index: -1;
+}
 .container {
   position: relative;
   margin-left: auto;
@@ -89,6 +111,9 @@
 @media (max-width: 992px) {
   .section-title {
     font-size: 24px;
+  }
+  .bread-crumb {
+    padding: 50px 0;
   }
 }
 @media (min-width: 476px) {

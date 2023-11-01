@@ -6,7 +6,7 @@ import FormRangePicker from "@/components/Forms/FormRangePicker";
 import FormSelectField from "@/components/Forms/FormSelectField";
 import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
-import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { ICategory, IUserInfo } from "@/interfaces/global";
@@ -83,7 +83,7 @@ const AddEvent = () => {
 
   return (
     <div>
-      <GEBreadCrumb
+      <GEDashboardBreadCrumb
         items={[
           {
             label: "Events",

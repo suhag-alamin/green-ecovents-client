@@ -2,7 +2,7 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { changePasswordSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -41,7 +41,7 @@ const ChangePassword = () => {
 
   return (
     <div>
-      <GEBreadCrumb
+      <GEDashboardBreadCrumb
         items={[
           {
             label: "profile",

@@ -3,7 +3,7 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import Rating from "@/components/Forms/Rating";
 import ActionBar from "@/components/ui/ActionBar";
-import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUserInfo } from "@/interfaces/global";
 import { giveReviewSchema } from "@/schemas/global";
@@ -52,7 +52,7 @@ const AddFaq = () => {
 
   return (
     <div>
-      <GEBreadCrumb
+      <GEDashboardBreadCrumb
         items={[
           {
             label: "Bookings",

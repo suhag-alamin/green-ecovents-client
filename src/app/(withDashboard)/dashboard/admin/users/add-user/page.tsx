@@ -3,7 +3,7 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import FormSelectField from "@/components/Forms/FormSelectField";
 import ActionBar from "@/components/ui/ActionBar";
-import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import { genderOptions, roleOptions } from "@/constants/global";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { addUserSchema } from "@/schemas/auth";
@@ -39,7 +39,7 @@ const AddUser = () => {
 
   return (
     <div>
-      <GEBreadCrumb
+      <GEDashboardBreadCrumb
         items={[
           {
             label: "Users",
