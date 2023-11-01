@@ -5,6 +5,7 @@ import { Col, Empty, Row, Spin } from "antd";
 import Image from "next/image";
 
 import BlogContentDetails from "@/components/ui/Blog/BlogContentDetails";
+import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 
 const BlogDetails = async ({ params }: { params: { id: string } }) => {
   const result = (await axiosInstance.get(`/blogs/${params.id}`))
@@ -37,32 +38,46 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <div className="container">
-      <Row gutter={20}>
-        <Col xs={24} md={24}>
-          <div
-            style={{
-              textAlign: "center",
-              marginBottom: 30,
-            }}
-          >
-            <Image
-              alt={blog?.title}
-              src={blog?.image}
-              width={800}
-              height={400}
+    <div>
+      <GEBreadCrumb
+        title="Blog Details"
+        items={[
+          {
+            label: "Blogs",
+            link: "/blogs",
+          },
+          {
+            label: blog?.title,
+          },
+        ]}
+      />
+      <div className="container">
+        <Row gutter={20}>
+          <Col xs={24} md={24}>
+            <div
               style={{
-                maxWidth: "100%",
-                border: "2px solid #b9b6bf",
-                borderRadius: 10,
+                textAlign: "center",
+                marginBottom: 30,
               }}
-            />
-          </div>
-        </Col>
-        <Col xs={24} md={24}>
-          <BlogContentDetails blog={blog} />
-        </Col>
-      </Row>
+            >
+              <Image
+                alt={blog?.title}
+                src={blog?.image}
+                width={800}
+                height={400}
+                style={{
+                  maxWidth: "100%",
+                  border: "2px solid #b9b6bf",
+                  borderRadius: 10,
+                }}
+              />
+            </div>
+          </Col>
+          <Col xs={24} md={24}>
+            <BlogContentDetails blog={blog} />
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 import Form from "@/components/Forms/Form";
 import FormRangePicker from "@/components/Forms/FormRangePicker";
 import ActionBar from "@/components/ui/ActionBar";
+import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IEvent, IUserInfo } from "@/interfaces/global";
@@ -77,62 +78,75 @@ const EventBooking = () => {
   };
 
   return (
-    <div className="container">
-      <ActionBar title="Book Event" />
+    <div>
+      <GEBreadCrumb
+        title="Book Event"
+        items={[
+          {
+            label: "Events",
+            link: "/events",
+          },
+          {
+            label: "Book Event",
+          },
+        ]}
+      />
       <div className="container">
-        <div
-          style={{
-            width: screen.lg ? "60%" : "100%",
-            margin: "auto",
-            marginTop: 20,
-            padding: 20,
-            border: "1px solid #EDF4ED",
-            borderRadius: 10,
-            boxShadow: "5px 5px 40px 0px rgba(0,0,0,0.1)",
-          }}
-        >
-          <Form
-            submitHandler={handleBookEvent}
-            resolver={yupResolver(bookEventSchema)}
-            defaultValues={defaultValues}
+        <div className="container">
+          <div
+            style={{
+              width: screen.lg ? "60%" : "100%",
+              margin: "auto",
+              marginTop: 20,
+              padding: 20,
+              border: "1px solid #EDF4ED",
+              borderRadius: 10,
+              boxShadow: "5px 5px 40px 0px rgba(0,0,0,0.1)",
+            }}
           >
-            <Row
-              gutter={{
-                xs: 6,
-                md: 16,
-              }}
+            <Form
+              submitHandler={handleBookEvent}
+              resolver={yupResolver(bookEventSchema)}
+              defaultValues={defaultValues}
             >
-              <Col xs={24} md={24}>
-                <FormRangePicker
-                  name={["startDate", "endDate"]}
-                  label="Select Date Range"
-                  size="large"
-                  startDate={defaultValues.startDate}
-                  endDate={defaultValues.endDate}
-                />
-              </Col>
-            </Row>
-
-            <div
-              style={{
-                width: "60%",
-                margin: "auto",
-                marginTop: 20,
-              }}
-            >
-              <Button
-                style={{
-                  width: "100%",
+              <Row
+                gutter={{
+                  xs: 6,
+                  md: 16,
                 }}
-                size="large"
-                type="primary"
-                htmlType="submit"
-                loading={isLoading}
               >
-                Confirm Booking
-              </Button>
-            </div>
-          </Form>
+                <Col xs={24} md={24}>
+                  <FormRangePicker
+                    name={["startDate", "endDate"]}
+                    label="Select Date Range"
+                    size="large"
+                    startDate={defaultValues.startDate}
+                    endDate={defaultValues.endDate}
+                  />
+                </Col>
+              </Row>
+
+              <div
+                style={{
+                  width: "60%",
+                  margin: "auto",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  style={{
+                    width: "100%",
+                  }}
+                  size="large"
+                  type="primary"
+                  htmlType="submit"
+                  loading={isLoading}
+                >
+                  Confirm Booking
+                </Button>
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
     </div>

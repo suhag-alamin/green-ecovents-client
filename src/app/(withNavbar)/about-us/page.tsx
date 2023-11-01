@@ -18,8 +18,8 @@ const AboutUs = () => {
       <>
         <OurApproach />
         <WhyChooseUs />
-        <Celebrate />
         <CountUp />
+        <Celebrate />
       </>
     </div>
   );

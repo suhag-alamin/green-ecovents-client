@@ -1,5 +1,6 @@
 "use client";
 import BlogCard from "@/components/ui/Card/BlogCard";
+import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import GEPagination from "@/components/ui/Pagination";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
@@ -50,48 +51,58 @@ const BlogsPage = () => {
   };
 
   return (
-    <div className="container">
-      <div
-        style={{
-          marginBottom: 30,
-        }}
-      ></div>
-      <Row gutter={[16, 16]}>
-        {blogs?.map((blog) => (
-          <Col key={blog.id} xs={24} sm={12} lg={8}>
-            <BlogCard blog={blog} loading={isLoading} />
-          </Col>
-        ))}
-        {blogs?.length === 0 && (
-          <Col xs={24}>
-            <Empty
-              description={
-                <Typography.Title
-                  style={{
-                    textAlign: "center",
-                  }}
-                  level={4}
-                  type="danger"
-                >
-                  No blogs found! Try again later
-                </Typography.Title>
-              }
-            />
-          </Col>
-        )}
-      </Row>
+    <div>
+      <GEBreadCrumb
+        title="Blogs"
+        items={[
+          {
+            label: "Blogs",
+          },
+        ]}
+      />
+      <div className="container">
+        <div
+          style={{
+            marginBottom: 30,
+          }}
+        ></div>
+        <Row gutter={[16, 16]}>
+          {blogs?.map((blog) => (
+            <Col key={blog.id} xs={24} sm={12} lg={8}>
+              <BlogCard blog={blog} loading={isLoading} />
+            </Col>
+          ))}
+          {blogs?.length === 0 && (
+            <Col xs={24}>
+              <Empty
+                description={
+                  <Typography.Title
+                    style={{
+                      textAlign: "center",
+                    }}
+                    level={4}
+                    type="danger"
+                  >
+                    No blogs found! Try again later
+                  </Typography.Title>
+                }
+              />
+            </Col>
+          )}
+        </Row>
 
-      {blogs && blogs?.length > 0 && (
-        <div>
-          <GEPagination
-            onChange={onChange}
-            meta={meta}
-            page={page}
-            size={size}
-            pageSizeOptions={[10, 20, 30]}
-          />
-        </div>
-      )}
+        {blogs && blogs?.length > 0 && (
+          <div>
+            <GEPagination
+              onChange={onChange}
+              meta={meta}
+              page={page}
+              size={size}
+              pageSizeOptions={[10, 20, 30]}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

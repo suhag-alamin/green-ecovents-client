@@ -4,6 +4,7 @@ import FormInput from "@/components/Forms/FormInput";
 import { SelectOptions } from "@/components/Forms/FormMultiSelectField";
 import EventCard from "@/components/ui/Card/EventCard";
 import EventFilterDrawer from "@/components/ui/Event/EventFilterDrawer";
+import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import GEPagination from "@/components/ui/Pagination";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
@@ -47,7 +48,6 @@ const EventsPage = () => {
     setFilterDrawerOpen(false);
   };
 
-  debugger;
   useEffect(() => {
     if (searchQuery?.length) {
       setQuery({
@@ -142,110 +142,122 @@ const EventsPage = () => {
   }
 
   return (
-    <div className="container">
-      <div>
-        <EventFilterDrawer
-          onClose={onFilterClose}
-          open={filterDrawerOpen}
-          handleFilter={handleFilter}
-          locationOptions={locationOptions}
-        />
-      </div>
-      <Row
-        style={{
-          margin: "30px 0",
-        }}
-        gutter={[16, 16]}
-        align="middle"
-        justify="center"
-      >
-        <Col xs={24} md={16}>
-          <Form submitHandler={handleSearch}>
-            <FormInput
-              name="query"
-              type="search"
-              size="large"
-              placeholder="Eco friendly wedding"
-              suffix={
-                <Button type="primary" htmlType="submit">
-                  <SearchOutlined />
-                </Button>
-              }
-            />
-          </Form>
-        </Col>
-        <Col xs={24} md={4}>
-          <div>
-            <Button
-              style={{
-                width: "100%",
-              }}
-              type="primary"
-              size="large"
-              icon={<FilterOutlined />}
-              onClick={showFilterDrawer}
-            >
-              Filter
-            </Button>
-          </div>
-        </Col>
-        <Col xs={24} md={4}>
-          {(!!query?.query ||
-            !!query?.location ||
-            !!query?.status ||
-            !!query?.sortBy ||
-            !!query?.sortOrder) && (
-            <Button
-              style={{
-                width: "100%",
-              }}
-              type="dashed"
-              onClick={resetFilters}
-              size="large"
-              icon={<ReloadOutlined />}
-            >
-              Reset Filter
-            </Button>
-          )}
-        </Col>
-      </Row>
-
-      <Row gutter={[16, 16]}>
-        {events?.map((event) => (
-          <Col key={event.id} xs={24} sm={12} lg={8}>
-            <EventCard event={event} loading={isLoading} />
-          </Col>
-        ))}
-        {events?.length === 0 && (
-          <Col xs={24}>
-            <Empty
-              description={
-                <Typography.Title
-                  style={{
-                    textAlign: "center",
-                  }}
-                  level={4}
-                  type="danger"
-                >
-                  No Events found! Try again later
-                </Typography.Title>
-              }
-            />
-          </Col>
-        )}
-      </Row>
-
-      {events && events?.length > 0 && (
+    <div>
+      <GEBreadCrumb
+        title="Event"
+        items={[
+          {
+            label: "Events",
+          },
+        ]}
+      />
+      <div className="container">
         <div>
-          <GEPagination
-            onChange={onChange}
-            meta={meta}
-            page={page}
-            size={size}
-            pageSizeOptions={[10, 20, 30]}
+          <EventFilterDrawer
+            onClose={onFilterClose}
+            open={filterDrawerOpen}
+            handleFilter={handleFilter}
+            locationOptions={locationOptions}
           />
         </div>
-      )}
+        <Row
+          style={{
+            margin: "30px 0",
+          }}
+          gutter={[16, 16]}
+          align="middle"
+          justify="center"
+        >
+          <Col xs={24} md={16}>
+            <div>
+              <Form submitHandler={handleSearch}>
+                <FormInput
+                  name="query"
+                  type="search"
+                  size="large"
+                  placeholder="Eco friendly wedding"
+                  suffix={
+                    <Button type="primary" htmlType="submit">
+                      <SearchOutlined />
+                    </Button>
+                  }
+                />
+              </Form>
+            </div>
+          </Col>
+          <Col xs={24} md={4}>
+            <div>
+              <Button
+                style={{
+                  width: "100%",
+                }}
+                type="primary"
+                size="large"
+                icon={<FilterOutlined />}
+                onClick={showFilterDrawer}
+              >
+                Filter
+              </Button>
+            </div>
+          </Col>
+          <Col xs={24} md={4}>
+            {(!!query?.query ||
+              !!query?.location ||
+              !!query?.status ||
+              !!query?.sortBy ||
+              !!query?.sortOrder) && (
+              <Button
+                style={{
+                  width: "100%",
+                }}
+                type="dashed"
+                onClick={resetFilters}
+                size="large"
+                icon={<ReloadOutlined />}
+              >
+                Reset Filter
+              </Button>
+            )}
+          </Col>
+        </Row>
+
+        <Row gutter={[16, 16]}>
+          {events?.map((event) => (
+            <Col key={event.id} xs={24} sm={12} lg={8}>
+              <EventCard event={event} loading={isLoading} />
+            </Col>
+          ))}
+          {events?.length === 0 && (
+            <Col xs={24}>
+              <Empty
+                description={
+                  <Typography.Title
+                    style={{
+                      textAlign: "center",
+                    }}
+                    level={4}
+                    type="danger"
+                  >
+                    No Events found! Try again later
+                  </Typography.Title>
+                }
+              />
+            </Col>
+          )}
+        </Row>
+
+        {events && events?.length > 0 && (
+          <div>
+            <GEPagination
+              onChange={onChange}
+              meta={meta}
+              page={page}
+              size={size}
+              pageSizeOptions={[10, 20, 30]}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
