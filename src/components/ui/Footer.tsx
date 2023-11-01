@@ -31,7 +31,7 @@ const links = [
   },
   {
     label: "Contact Us",
-    link: "/contact",
+    link: "/contact-us",
   },
   {
     label: "Privacy Policy",

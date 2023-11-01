@@ -5,6 +5,7 @@ import fireworks from "@/assets/fireworks.png";
 import events from "@/assets/people.png";
 import { Col, Flex, Grid, Row, Typography } from "antd";
 import Image from "next/image";
+import styles from "@/styles/About.module.css";
 
 const items = [
   {
@@ -102,7 +103,7 @@ const WhyChooseUs = () => {
               style={{
                 height: screen.lg ? 800 : 400,
               }}
-              className="why-choose-us"
+              className={styles.whyChooseUs}
             ></div>
           </Col>
         </Row>
