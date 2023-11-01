@@ -26,6 +26,7 @@ const Celebrate = () => {
             style={{
               color: "#EDF4ED",
               marginTop: 20,
+              fontSize: screen.lg ? 24 : 18,
             }}
             level={3}
           >
@@ -34,6 +35,7 @@ const Celebrate = () => {
           <Typography.Paragraph
             style={{
               color: "#EDF4ED",
+              fontSize: screen.lg ? 18 : 14,
             }}
           >
             We will distribute FREE GIFTS to every single kid - That’s Our

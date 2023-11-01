@@ -39,6 +39,10 @@ const theme: ThemeConfig = {
       titleMarginBottom: 5,
       titleMarginTop: 0,
     },
+    Collapse: {
+      colorBorder: "#3BA27A",
+      colorText: "#1F3C4A",
+    },
   },
 };
 

@@ -1,7 +1,7 @@
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IBlog } from "@/interfaces/global";
-import { Button, Col, Flex, Row } from "antd";
+import { Button, Col, Empty, Flex, Row } from "antd";
 import Link from "next/link";
 import BlogCard from "../Card/BlogCard";
 
@@ -33,6 +33,30 @@ const Blogs = async () => {
             <BlogCard blog={blog} />
           </Col>
         ))}
+        {!blogs?.length && (
+          <Col
+            xs={24}
+            sm={24}
+            lg={24}
+            style={{
+              textAlign: "center",
+              padding: "40px 0",
+            }}
+          >
+            <Empty
+              description={
+                <h3
+                  style={{
+                    color: "#F14947",
+                    fontSize: 24,
+                  }}
+                >
+                  No Blog Posts Found
+                </h3>
+              }
+            />
+          </Col>
+        )}
       </Row>
       <Flex
         style={{

@@ -34,15 +34,9 @@ const OurApproach = () => {
   const screen = useBreakpoint();
   return (
     <div className="container">
-      <Typography.Title
-        level={3}
-        style={{
-          fontSize: screen.lg ? 24 : 18,
-          textAlign: "center",
-        }}
-      >
+      <h3 className="section-title">
         We Create Events That Leave A Lasting Impression
-      </Typography.Title>
+      </h3>
       <Typography.Paragraph
         style={{
           fontSize: screen.lg ? 18 : 14,
@@ -50,6 +44,7 @@ const OurApproach = () => {
           width: screen.lg ? "70%" : "100%",
           margin: "20px auto",
         }}
+        type="secondary"
       >
         We are a full-service event management company based in Dhaka,
         Bangladesh that was created by pairing together our passion for business
