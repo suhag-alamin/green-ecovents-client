@@ -47,14 +47,14 @@ const FormInput = ({
 
   return (
     <>
-      <Typography.Text
+      <Typography.Paragraph
         style={{
           marginBottom: 5,
           display: "inline-block",
         }}
       >
         {label}
-      </Typography.Text>
+      </Typography.Paragraph>
       <Controller
         control={control}
         name={name}
@@ -98,7 +98,7 @@ const FormInput = ({
       />
 
       {errorMessage ? (
-        <Typography.Text
+        <Typography.Paragraph
           style={{
             fontSize: 12,
             lineHeight: "10px",
@@ -106,9 +106,9 @@ const FormInput = ({
           type="danger"
         >
           {errorMessage}
-        </Typography.Text>
+        </Typography.Paragraph>
       ) : (
-        <Typography.Text
+        <Typography.Paragraph
           style={{
             fontSize: 12,
             lineHeight: "10px",
@@ -116,7 +116,7 @@ const FormInput = ({
           type="secondary"
         >
           {helperText}
-        </Typography.Text>
+        </Typography.Paragraph>
       )}
     </>
   );

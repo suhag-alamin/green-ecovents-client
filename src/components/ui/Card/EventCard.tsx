@@ -57,9 +57,9 @@ const EventCard = ({ event, loading }: EventCardProps) => {
       >
         {event?.title}
       </Typography.Title>
-      <Typography.Text type="secondary">
+      <Typography.Paragraph type="secondary">
         {event?.description.slice(0, 50)}...
-      </Typography.Text>
+      </Typography.Paragraph>
 
       <Typography.Title
         style={{

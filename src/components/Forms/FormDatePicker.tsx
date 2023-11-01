@@ -25,14 +25,14 @@ const FormDatePicker = ({
 
   return (
     <div>
-      <Typography.Text
+      <Typography.Paragraph
         style={{
           marginBottom: 5,
           display: "inline-block",
         }}
       >
         {label}
-      </Typography.Text>
+      </Typography.Paragraph>
       <br />
       <Controller
         name={name}

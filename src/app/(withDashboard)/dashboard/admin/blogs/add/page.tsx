@@ -77,14 +77,14 @@ const AddBlog = () => {
               }}
             >
               <Col xs={24} md={24}>
-                <Typography.Text
+                <Typography.Paragraph
                   style={{
                     marginBottom: 10,
                     display: "inline-block",
                   }}
                 >
                   Blog Cover
-                </Typography.Text>
+                </Typography.Paragraph>
                 <UploadImage name="image" />
               </Col>
               <Col xs={24} md={24}>

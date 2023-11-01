@@ -87,10 +87,10 @@ const Profile = () => {
             level={2}
           >{`${profileData?.firstName} ${profileData?.lastName}`}</Typography.Title>
           {profileData.role !== userRole.USER && (
-            <Typography.Text>Role: {profileData?.role}</Typography.Text>
+             <Typography.Paragraph >Role: {profileData?.role}   </Typography.Paragraph>
           )}
-          <Typography.Text>{profileData?.email}</Typography.Text>
-          <Typography.Text>{profileData?.contactNo}</Typography.Text>
+           <Typography.Paragraph >{profileData?.email}   </Typography.Paragraph>
+           <Typography.Paragraph >{profileData?.contactNo}   </Typography.Paragraph>
           <Link href="/dashboard/profile/edit">
             <Button style={{}} type="primary">
               Edit

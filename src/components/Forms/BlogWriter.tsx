@@ -2,8 +2,8 @@
 
 import { Typography } from "antd";
 import dynamic from "next/dynamic";
-import { Controller, useFormContext } from "react-hook-form";
 import { useMemo } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import "react-quill/dist/quill.snow.css";
 
 interface IInput {
@@ -56,14 +56,14 @@ const BlogWriter = ({ name, value, label, placeholder }: IInput) => {
 
   return (
     <>
-      <Typography.Text
+      <Typography.Paragraph
         style={{
           marginBottom: 5,
           display: "inline-block",
         }}
       >
         {label}
-      </Typography.Text>
+      </Typography.Paragraph>
       <Controller
         control={control}
         name={name}

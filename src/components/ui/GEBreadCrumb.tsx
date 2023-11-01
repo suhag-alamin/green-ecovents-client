@@ -9,7 +9,11 @@ type BreadcrumbItems = {
   }[];
 };
 
-const GEBreadCrumb = ({ items }: BreadcrumbItems) => {
+type BreadcrumbProps = {
+  title?: string;
+} & BreadcrumbItems;
+
+const GEBreadCrumb = ({ items, title }: BreadcrumbProps) => {
   const breadCrumbItems = [
     {
       title: (
@@ -49,6 +53,7 @@ const GEBreadCrumb = ({ items }: BreadcrumbItems) => {
   ];
   return (
     <div className="bread-crumb">
+      <h3>{title}</h3>
       <Breadcrumb
         style={{
           padding: 20,

@@ -57,7 +57,7 @@ const Footer = () => {
     >
       <div className="container">
         <Row gutter={[20, 20]}>
-          <Col xs={12} sm={12} md={12} lg={8}>
+          <Col xs={24} sm={12} md={12} lg={8}>
             <div>
               <div
                 style={{
@@ -101,9 +101,9 @@ const Footer = () => {
               </div>
             </div>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={8}>
+          <Col xs={24} sm={12} md={12} lg={8}>
             <div>
-              <h3>Top Categories</h3>
+              <h3>Important Links</h3>
               <List
                 dataSource={links}
                 renderItem={(item) => (
@@ -120,7 +120,7 @@ const Footer = () => {
               />
             </div>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={8}>
+          <Col xs={24} sm={12} md={12} lg={8}>
             <div>
               <h3
                 style={{
@@ -131,7 +131,7 @@ const Footer = () => {
               </h3>
               <Form submitHandler={handleSubscribe}>
                 <Row gutter={10}>
-                  <Col span={18}>
+                  <Col xs={24} md={18}>
                     <FormInput
                       name="email"
                       type="email"
@@ -143,7 +143,7 @@ const Footer = () => {
                       }}
                     />
                   </Col>
-                  <Col span={6}>
+                  <Col xs={24} md={6}>
                     <Button size="large" type="primary" htmlType="submit">
                       Subscribe
                     </Button>

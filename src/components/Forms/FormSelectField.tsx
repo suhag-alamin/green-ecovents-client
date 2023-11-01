@@ -38,14 +38,14 @@ const FormSelectField = ({
 
   return (
     <>
-      <Typography.Text
+      <Typography.Paragraph
         style={{
           marginBottom: 5,
           display: "inline-block",
         }}
       >
         {label}
-      </Typography.Text>
+      </Typography.Paragraph>
       <Controller
         defaultValue={defaultValue}
         control={control}
@@ -65,7 +65,7 @@ const FormSelectField = ({
       />
 
       {errorMessage ? (
-        <Typography.Text
+        <Typography.Paragraph
           style={{
             fontSize: 12,
             lineHeight: "10px",
@@ -73,9 +73,9 @@ const FormSelectField = ({
           type="danger"
         >
           {errorMessage}
-        </Typography.Text>
+        </Typography.Paragraph>
       ) : (
-        <Typography.Text
+        <Typography.Paragraph
           style={{
             fontSize: 12,
             lineHeight: "10px",
@@ -83,7 +83,7 @@ const FormSelectField = ({
           type="secondary"
         >
           {helperText}
-        </Typography.Text>
+        </Typography.Paragraph>
       )}
     </>
   );

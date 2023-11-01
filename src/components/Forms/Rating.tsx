@@ -1,8 +1,7 @@
 "use client";
 
 import { getErrorMessage } from "@/utils/schemaValidator";
-import { Input, Rate, Typography } from "antd";
-import { ReactElement, ReactNode } from "react";
+import { Rate, Typography } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 
 interface IInput {
@@ -41,14 +40,14 @@ const Rating = ({
         margin: "10px 0",
       }}
     >
-      <Typography.Text
+      <Typography.Paragraph
         style={{
           marginBottom: 5,
           display: "block",
         }}
       >
         {label}
-      </Typography.Text>
+      </Typography.Paragraph>
       <Controller
         control={control}
         name={name}
@@ -65,7 +64,7 @@ const Rating = ({
       />
 
       {errorMessage ? (
-        <Typography.Text
+        <Typography.Paragraph
           style={{
             fontSize: 12,
             lineHeight: "10px",
@@ -74,9 +73,9 @@ const Rating = ({
           type="danger"
         >
           {errorMessage}
-        </Typography.Text>
+        </Typography.Paragraph>
       ) : (
-        <Typography.Text
+        <Typography.Paragraph
           style={{
             fontSize: 12,
             lineHeight: "10px",
@@ -85,7 +84,7 @@ const Rating = ({
           type="secondary"
         >
           {helperText}
-        </Typography.Text>
+        </Typography.Paragraph>
       )}
     </div>
   );

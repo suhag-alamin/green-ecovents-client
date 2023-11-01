@@ -14,7 +14,15 @@ const NotFound = () => {
         alignItems: "center",
       }}
     >
-      <Image src={notFound} alt="not-found" width={500} height={500} />
+      <Image
+        style={{
+          maxWidth: "100%",
+        }}
+        src={notFound}
+        alt="not-found"
+        width={500}
+        height={500}
+      />
       <div>
         <Link href="/">
           <Button type="primary">Back to Home</Button>

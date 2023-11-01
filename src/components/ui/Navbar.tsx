@@ -115,7 +115,6 @@ const Navbar = () => {
   return (
     <Layout
       style={{
-        // marginBottom: 20,
         padding: "10px 20px",
       }}
       className=""
@@ -142,7 +141,7 @@ const Navbar = () => {
               }}
             ></Menu>
           </Col>
-          <Col xs={2} sm={2} md={0}>
+          <Col xs={4} sm={2} md={0}>
             <Button type="primary" onClick={showDrawer}>
               <MenuOutlined />
             </Button>

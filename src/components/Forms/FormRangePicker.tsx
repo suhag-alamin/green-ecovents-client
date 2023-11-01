@@ -1,10 +1,7 @@
 import { DatePicker, DatePickerProps, Typography } from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { Controller, useFormContext } from "react-hook-form";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import { Space } from "antd";
 
 const { RangePicker } = DatePicker;
 
@@ -79,14 +76,14 @@ const FormRangePicker = ({
 
   return (
     <div>
-      <Typography.Text
+      <Typography.Paragraph
         style={{
           marginBottom: 5,
           display: "inline-block",
         }}
       >
         {label}
-      </Typography.Text>
+      </Typography.Paragraph>
       <br />
       <Controller
         name={name[0]}

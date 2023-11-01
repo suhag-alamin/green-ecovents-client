@@ -1,16 +1,20 @@
+import OurApproach from "@/components/ui/AboutUs/OurApproach";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
-import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 
 const AboutUs = () => {
   return (
     <div>
       <GEBreadCrumb
+        title="Who We Are"
         items={[
           {
             label: "About Us",
           },
         ]}
       />
+      <div>
+        <OurApproach />
+      </div>
     </div>
   );
 };

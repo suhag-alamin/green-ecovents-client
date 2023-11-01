@@ -43,13 +43,13 @@ const SearchBar = () => {
                   >
                     WHAT YOU WANT
                   </Typography.Title>
-                  <Typography.Text
+                  <Typography.Paragraph
                     style={{
                       color: "#EDF4ED",
                     }}
                   >
                     Find the Best Event for You
-                  </Typography.Text>
+                  </Typography.Paragraph>
                 </div>
               </Flex>
             </Col>

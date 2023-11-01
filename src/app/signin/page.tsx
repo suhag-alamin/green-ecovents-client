@@ -204,11 +204,11 @@ const SignIn = () => {
                 xs={24}
               >
                 <div>
-                  <Typography.Text type="warning">
+                  <Typography.Paragraph type="warning">
                     ⚠️ Admin will have access to all features. Please do not
                     modify the demo account password or delete any existing
                     website data.
-                  </Typography.Text>
+                  </Typography.Paragraph>
                 </div>
               </Col>
             </Row>

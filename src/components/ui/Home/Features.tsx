@@ -20,14 +20,14 @@ Icon: GiftOutlined
 Description: Receive personalized service recommendations based on your preferences and past bookings, ensuring a tailored experience.
 */
 
+import styles from "@/styles/Home.module.css";
 import {
   CalendarOutlined,
   EnvironmentOutlined,
-  StarOutlined,
   GiftOutlined,
+  StarOutlined,
 } from "@ant-design/icons";
 import { Col, Grid, Row, Typography } from "antd";
-import styles from "@/styles/Home.module.css";
 
 const { useBreakpoint } = Grid;
 
@@ -50,7 +50,7 @@ const Features = () => {
             >
               User-Friendly Booking
             </Typography.Title>
-            <Typography.Text
+            <Typography.Paragraph
               style={{
                 fontSize: screen.lg ? 16 : 14,
               }}
@@ -58,7 +58,7 @@ const Features = () => {
             >
               Easily book your desired services with our intuitive booking
               system. Choose dates, times, and options effortlessly.
-            </Typography.Text>
+            </Typography.Paragraph>
           </div>
         </Col>
         <Col xs={12} lg={6}>
@@ -75,7 +75,7 @@ const Features = () => {
             >
               Eco-Friendly Events
             </Typography.Title>
-            <Typography.Text
+            <Typography.Paragraph
               style={{
                 fontSize: screen.lg ? 16 : 14,
               }}
@@ -83,7 +83,7 @@ const Features = () => {
             >
               Discover and book eco-conscious events and services that
               prioritize sustainability and environmental responsibility.
-            </Typography.Text>
+            </Typography.Paragraph>
           </div>
         </Col>
         <Col xs={12} lg={6}>
@@ -100,7 +100,7 @@ const Features = () => {
             >
               User Ratings and Reviews
             </Typography.Title>
-            <Typography.Text
+            <Typography.Paragraph
               style={{
                 fontSize: screen.lg ? 16 : 14,
               }}
@@ -108,7 +108,7 @@ const Features = () => {
             >
               Leave ratings and reviews for services you&apos;ve booked and read
               feedback from other users to make informed decisions.
-            </Typography.Text>
+            </Typography.Paragraph>
           </div>
         </Col>
         <Col xs={12} lg={6}>
@@ -125,7 +125,7 @@ const Features = () => {
             >
               Personalized Recommendations
             </Typography.Title>
-            <Typography.Text
+            <Typography.Paragraph
               style={{
                 fontSize: screen.lg ? 16 : 14,
               }}
@@ -133,7 +133,7 @@ const Features = () => {
             >
               Receive personalized service recommendations based on your
               preferences and past bookings, ensuring a tailored experience.
-            </Typography.Text>
+            </Typography.Paragraph>
           </div>
         </Col>
       </Row>

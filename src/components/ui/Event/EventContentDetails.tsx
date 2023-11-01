@@ -37,7 +37,7 @@ const EventContentDetails = ({ event }: EventDetailsProps) => {
       >
         ${event?.price}
       </Typography.Title>
-      <Typography.Text type="secondary">{event?.description}</Typography.Text>
+       <Typography.Paragraph  type="secondary">{event?.description}</Typography.Text>
       <Flex gap={screen.lg ? 10 : 6} align="center" justify="start" wrap="wrap">
         <Typography.Title
           level={4}

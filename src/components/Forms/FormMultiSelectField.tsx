@@ -1,7 +1,7 @@
 "use client";
 
 import { Select, Typography } from "antd";
-import { useFormContext, Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 export interface SelectOptions {
   label: string;
@@ -33,14 +33,14 @@ const FormMultiSelectField = ({
 
   return (
     <>
-      <Typography.Text
+      <Typography.Paragraph
         style={{
           marginBottom: 5,
           display: "inline-block",
         }}
       >
         {label}
-      </Typography.Text>
+      </Typography.Paragraph>
       <Controller
         control={control}
         name={name}

@@ -84,6 +84,7 @@
   z-index: 1;
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -98,6 +99,14 @@
   opacity: 0.5;
   z-index: -1;
 }
+
+.bread-crumb h3 {
+  color: #edf4ed;
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .container {
   position: relative;
   margin-left: auto;
@@ -114,6 +123,9 @@
   }
   .bread-crumb {
     padding: 50px 0;
+  }
+  .bread-crumb h3 {
+    font-size: 24px;
   }
 }
 @media (min-width: 476px) {
