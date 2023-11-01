@@ -1,6 +1,7 @@
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
 import Link from "next/link";
+import { DoubleRightOutlined } from "@ant-design/icons";
 
 type BreadcrumbItems = {
   items: {
@@ -30,6 +31,7 @@ const GEBreadCrumb = ({ items, title }: BreadcrumbProps) => {
       return {
         title: item.link ? (
           <Link
+            className="bread-crumb-link"
             style={{
               color: "#edf4ed",
               fontWeight: "500",
@@ -66,7 +68,7 @@ const GEBreadCrumb = ({ items, title }: BreadcrumbProps) => {
               color: "#edf4ed",
             }}
           >
-            /
+            <DoubleRightOutlined />
           </span>
         }
       />
