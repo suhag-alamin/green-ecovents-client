@@ -1,16 +1,45 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "../Forms/FormInput";
-import { Button } from "antd";
+import { Button, Grid, Typography, message } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { sendMessageSchema } from "@/schemas/global";
+import { useState } from "react";
+import axiosInstance from "@/helpers/axios/axiosInstance";
+
+const { useBreakpoint } = Grid;
 
 const Message = () => {
-  const handleMessageSend = (data: any) => {
-    console.log(data);
+  const screen = useBreakpoint();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const handleMessageSend = async (data: any) => {
+    setIsLoading(true);
+    const result = await axiosInstance.post("/mail", data);
+
+    const response = result?.data;
+    if (response?.statusCode === 200) {
+      message.success(response.message);
+      setIsLoading(false);
+    }
+    // @ts-ignore
+    else if (!result?.success) {
+      setIsLoading(false);
+      // @ts-ignore
+      message.error(result?.message || "Something went wrong try again later");
+    }
   };
   return (
     <>
+      <Typography.Title
+        style={{
+          fontSize: screen.lg ? 24 : 20,
+          marginBottom: 20,
+        }}
+        level={2}
+        type="success"
+      >
+        Send us a message
+      </Typography.Title>
       <Form
         submitHandler={handleMessageSend}
         resolver={yupResolver(sendMessageSchema)}
@@ -49,7 +78,7 @@ const Message = () => {
           label="Your Message"
           rows={4}
         />
-        <Button type="primary" htmlType="submit">
+        <Button loading={isLoading} type="primary" htmlType="submit">
           Send Message
         </Button>
       </Form>
