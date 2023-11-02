@@ -52,7 +52,7 @@ const FAQs = () => {
         })
       )?.data as IApiResponse;
       setFaqs(res?.data);
-      setMeta(res.meta);
+      setMeta(res?.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);

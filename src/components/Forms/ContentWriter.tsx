@@ -13,7 +13,7 @@ interface IInput {
   label?: string;
 }
 
-const BlogWriter = ({ name, value, label, placeholder }: IInput) => {
+const ContentWriter = ({ name, value, label, placeholder }: IInput) => {
   const {
     control,
     formState: { errors },
@@ -83,4 +83,4 @@ const BlogWriter = ({ name, value, label, placeholder }: IInput) => {
   );
 };
 
-export default BlogWriter;
+export default ContentWriter;

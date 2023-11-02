@@ -2,43 +2,35 @@
 import ContentWriter from "@/components/Forms/ContentWriter";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import UploadImage from "@/components/Forms/UploadImage";
 import ActionBar from "@/components/ui/ActionBar";
 import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUserInfo } from "@/interfaces/global";
-import { addBlogSchema } from "@/schemas/global";
 import { getUserInfo } from "@/services/auth.service";
-import uploadImage from "@/utils/uploadImage";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row, Typography, message } from "antd";
+import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const AddBlog = () => {
+const AddPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const user = getUserInfo() as IUserInfo;
 
   const router = useRouter();
 
-  const handleAddBlog = async (data: any) => {
+  const handleAddPage = async (data: any) => {
     if (user?.id) {
       setIsLoading(true);
-      if (data.image) {
-        const image = await uploadImage(data?.image);
-        data.image = image;
-      }
 
       data.userId = user.id;
 
-      const result = await axiosInstance.post("/blogs", data);
+      const result = await axiosInstance.post("/pages", data);
 
       const response = result?.data;
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsLoading(false);
-        router.push("/dashboard/admin/blogs");
+        router.push("/dashboard/admin/pages");
       }
       // @ts-ignore
       else if (!result?.success) {
@@ -58,12 +50,12 @@ const AddBlog = () => {
       <GEDashboardBreadCrumb
         items={[
           {
-            label: "Blog",
-            link: "/dashboard/admin/blogs",
+            label: "Pages",
+            link: "/dashboard/admin/pages",
           },
         ]}
       />
-      <ActionBar title="Add Blog" />
+      <ActionBar title="Add Page" />
       <div className="container">
         <div
           style={{
@@ -75,10 +67,7 @@ const AddBlog = () => {
             boxShadow: "5px 5px 40px 0px rgba(0,0,0,0.1)",
           }}
         >
-          <Form
-            submitHandler={handleAddBlog}
-            resolver={yupResolver(addBlogSchema)}
-          >
+          <Form submitHandler={handleAddPage}>
             <Row
               gutter={{
                 xs: 6,
@@ -86,21 +75,10 @@ const AddBlog = () => {
               }}
             >
               <Col xs={24} md={24}>
-                <Typography.Paragraph
-                  style={{
-                    marginBottom: 10,
-                    display: "inline-block",
-                  }}
-                >
-                  Blog Cover
-                </Typography.Paragraph>
-                <UploadImage name="image" />
-              </Col>
-              <Col xs={24} md={24}>
                 <FormInput
                   name="title"
                   type="text"
-                  label="Blog title"
+                  label="Page title"
                   size="large"
                 />
               </Col>
@@ -111,7 +89,7 @@ const AddBlog = () => {
                 xs={24}
                 md={24}
               >
-                <ContentWriter name="content" label="Content" />
+                <ContentWriter name="description" label="Page Content" />
               </Col>
             </Row>
 
@@ -131,7 +109,7 @@ const AddBlog = () => {
                 htmlType="submit"
                 loading={isLoading}
               >
-                Add Blog
+                Add Page
               </Button>
             </div>
           </Form>
@@ -141,4 +119,4 @@ const AddBlog = () => {
   );
 };
 
-export default AddBlog;
+export default AddPage;

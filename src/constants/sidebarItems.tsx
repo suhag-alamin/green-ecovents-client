@@ -7,6 +7,7 @@ import {
   TableOutlined,
   TeamOutlined,
   UserSwitchOutlined,
+  DesktopOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import Link from "next/link";
@@ -144,6 +145,21 @@ export const SidebarItems = (role: string) => {
       label: <Link href={`/dashboard/admin/feedbacks`}>Feedbacks</Link>,
       key: "/dashboard/admin/feedbacks",
       icon: <CommentOutlined />,
+    },
+    {
+      label: "Pages",
+      key: "/dashboard/admin/pages",
+      icon: <DesktopOutlined />,
+      children: [
+        {
+          label: <Link href={`/dashboard/admin/pages`}>Manage Pages</Link>,
+          key: "/dashboard/admin/pages",
+        },
+        {
+          label: <Link href={`/dashboard/admin/pages/add`}>Add Pages</Link>,
+          key: "/dashboard/admin/pages/add",
+        },
+      ],
     },
   ];
   const adminSidebarItems: MenuProps["items"] = [
