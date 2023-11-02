@@ -1,10 +1,10 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "../Forms/FormInput";
-import { Button, Grid, Typography, message } from "antd";
+import { Button, Grid, Input, Typography, message } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { sendMessageSchema } from "@/schemas/global";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 
 const { useBreakpoint } = Grid;
@@ -12,12 +12,33 @@ const { useBreakpoint } = Grid;
 const Message = () => {
   const screen = useBreakpoint();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [userAnswer, setUserAnswer] = useState<number | null>(null);
+  const [isWrong, setIsWrong] = useState<boolean>(true);
+
+  useEffect(() => {
+    setNum1(Math.floor(Math.random() * 10));
+    setNum2(Math.floor(Math.random() * 10));
+  }, []);
+
+  useEffect(() => {
+    if (userAnswer) {
+      if (userAnswer === num1 + num2) {
+        setIsWrong(false);
+      } else {
+        setIsWrong(true);
+      }
+    }
+  }, [userAnswer, num1, num2]);
+
   const handleMessageSend = async (data: any) => {
     setIsLoading(true);
+
     const result = await axiosInstance.post("/mail", data);
 
     const response = result?.data;
-    if (response?.statusCode === 200) {
+    if (response?.statusCode === 200 && response?.data?.sent) {
       message.success(response.message);
       setIsLoading(false);
     }
@@ -76,9 +97,36 @@ const Message = () => {
           name="message"
           type="text-area"
           label="Your Message"
+          placeholder="Your Message"
           rows={4}
         />
-        <Button loading={isLoading} type="primary" htmlType="submit">
+        <div
+          style={{
+            marginBottom: 20,
+          }}
+        >
+          <p
+            style={{
+              marginBottom: 5,
+            }}
+          >
+            What is {num1} + {num2}?
+          </p>
+          <Input
+            name="arithmeticAnswer"
+            type="number"
+            // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            //   setUserAnswer(Number(e.target.value))
+            // }
+            onChange={(e) => setUserAnswer(Number(e.target.value))}
+          />
+        </div>
+        <Button
+          disabled={isWrong}
+          loading={isLoading}
+          type="primary"
+          htmlType="submit"
+        >
           Send Message
         </Button>
       </Form>

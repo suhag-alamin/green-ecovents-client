@@ -5,7 +5,7 @@ import Map from "./Map";
 const ContactForm = () => {
   return (
     <div className="container">
-      <Row gutter={[20, 20]}>
+      <Row gutter={[40, 20]} align="middle">
         <Col xs={24} lg={12}>
           <Message />
         </Col>
