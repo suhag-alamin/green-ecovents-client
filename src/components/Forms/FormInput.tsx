@@ -102,6 +102,7 @@ const FormInput = ({
           style={{
             fontSize: 12,
             lineHeight: "10px",
+            marginTop: 5,
           }}
           type="danger"
         >
@@ -112,6 +113,7 @@ const FormInput = ({
           style={{
             fontSize: 12,
             lineHeight: "10px",
+            marginTop: 5,
           }}
           type="secondary"
         >

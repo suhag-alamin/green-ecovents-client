@@ -1,3 +1,4 @@
+import ContactForm from "@/components/ContactUs/ContactForm";
 import Info from "@/components/ContactUs/Info";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 
@@ -14,6 +15,7 @@ const ContactUs = () => {
       />
       <>
         <Info />
+        <ContactForm />
       </>
     </div>
   );

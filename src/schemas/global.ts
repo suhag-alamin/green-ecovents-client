@@ -22,3 +22,11 @@ export const giveReviewSchema = yup.object().shape({
   review: yup.string().required("Review is required"),
   rating: yup.number().required("Rating is required"),
 });
+
+export const sendMessageSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().required("Email is required"),
+  message: yup.string().required("Message is required"),
+  phone: yup.string().required("Phone number is required"),
+  source: yup.string().required("Where did you hear about us is required"),
+});
