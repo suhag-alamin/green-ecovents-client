@@ -72,7 +72,8 @@
 }
 
 .blog-content ul,
-.blog-content ol {
+.blog-content ol,
+.blog-content li {
   padding-left: 30px;
 }
 

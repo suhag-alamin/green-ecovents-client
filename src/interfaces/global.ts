@@ -112,6 +112,15 @@ export interface IBlog {
   createdAt: string;
   updatedAt: string;
 }
+export interface IPage {
+  id: string;
+  title: string;
+  content: any;
+  userId: string;
+  user?: IUser;
+  createdAt: string;
+  updatedAt: string;
+}
 export interface IReview {
   id: string;
   review: string;
