@@ -34,6 +34,7 @@ const Message = () => {
 
   const handleMessageSend = async (data: any) => {
     setIsLoading(true);
+    setUserAnswer(null);
 
     const result = await axiosInstance.post("/mail", data);
 
@@ -115,10 +116,8 @@ const Message = () => {
           <Input
             name="arithmeticAnswer"
             type="number"
-            // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            //   setUserAnswer(Number(e.target.value))
-            // }
             onChange={(e) => setUserAnswer(Number(e.target.value))}
+            value={userAnswer || ""}
           />
         </div>
         <Button

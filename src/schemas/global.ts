@@ -22,14 +22,13 @@ export const giveReviewSchema = yup.object().shape({
   review: yup.string().required("Review is required"),
   rating: yup.number().required("Rating is required"),
 });
-
 export const sendMessageSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup.string().email().required("Email is required"),
   message: yup.string().required("Message is required"),
   phone: yup
     .string()
-    .matches(/^\+\d{1,3}\s?\d{1,14}$/, "Phone number is not valid")
+    .matches(/^(?:\+\d{1,3}\s?)?\d{1,14}$/, "Phone number is not valid")
     .required("Phone Number is required"),
   source: yup.string().required("Where did you hear about us is required"),
 });

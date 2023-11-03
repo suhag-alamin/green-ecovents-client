@@ -21,7 +21,7 @@ export const signupSchema = yup.object().shape({
     .required("Gender is required"),
   contactNo: yup
     .string()
-    .matches(/^\+\d{1,3}\s?\d{1,14}$/, "Contact number is not valid")
+    .matches(/^(?:\+\d{1,3}\s?)?\d{1,14}$/, "Contact number is not valid")
     .required("Contact Number is required"),
   password: yup
     .string()
@@ -53,7 +53,7 @@ export const addUserSchema = yup.object().shape({
     .required("User role is required"),
   contactNo: yup
     .string()
-    .matches(/^\+\d{1,3}\s?\d{1,14}$/, "Contact number is not valid")
+    .matches(/^(?:\+\d{1,3}\s?)?\d{1,14}$/, "Contact number is not valid")
     .required("Contact Number is required"),
   password: yup
     .string()
@@ -83,7 +83,7 @@ export const updateProfileSchema = yup.object().shape({
   email: yup.string().email(),
   contactNo: yup
     .string()
-    .matches(/^\+\d{1,3}\s?\d{1,14}$/, "Contact number is not valid")
+    .matches(/^(?:\+\d{1,3}\s?)?\d{1,14}$/, "Contact number is not valid")
     .required("Contact Number is required"),
   gender: yup.string().oneOf(Object.values(Gender), "Select valid gender"),
 });
