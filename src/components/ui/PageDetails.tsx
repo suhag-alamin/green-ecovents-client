@@ -1,27 +1,40 @@
-import { IPage } from "@/interfaces/global";
-import React from "react";
-
+"use client";
+import { Spin } from "antd";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
+import "react-quill/dist/quill.bubble.css";
 interface PageDetailsProps {
-  content: IPage;
+  content: string;
 }
 
 const PageDetails = ({ content }: PageDetailsProps) => {
-  console.log(content);
-  const renderHTML = (rawHTML: any) =>
-    React.createElement("div", {
-      dangerouslySetInnerHTML: { __html: rawHTML },
-      style: {
-        whiteSpace: "pre-line",
-      },
-      className: "blog-content",
-    });
+  const ReactQuill = useMemo(
+    () => dynamic(() => import("react-quill"), { ssr: false }),
+    []
+  );
+  if (!content) {
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <Spin size="large" />
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       style={{
         margin: "20px 0",
       }}
     >
-      <div>{renderHTML(content)}</div>
+      <ReactQuill value={content} readOnly={true} theme={"bubble"} />
     </div>
   );
 };

@@ -71,12 +71,6 @@
   height: 400px;
 }
 
-.blog-content ul,
-.blog-content ol,
-.blog-content li {
-  padding-left: 30px;
-}
-
 .bread-crumb {
   background: url(../assets/bread-crumb-bg.jpg) no-repeat center center;
   background-size: cover;

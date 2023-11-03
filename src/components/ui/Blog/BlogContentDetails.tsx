@@ -3,6 +3,9 @@
 import { IBlog } from "@/interfaces/global";
 import { Grid, Typography } from "antd";
 import React from "react";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
+import "react-quill/dist/quill.bubble.css";
 
 const { useBreakpoint } = Grid;
 
@@ -13,13 +16,16 @@ interface EventDetailsProps {
 const BlogContentDetails = ({ blog }: EventDetailsProps) => {
   const screen = useBreakpoint();
 
+  const ReactQuill = useMemo(
+    () => dynamic(() => import("react-quill"), { ssr: false }),
+    []
+  );
   const renderHTML = (rawHTML: any) =>
     React.createElement("div", {
       dangerouslySetInnerHTML: { __html: rawHTML },
       style: {
         whiteSpace: "pre-line",
       },
-      className: "blog-content",
     });
   return (
     <div
@@ -39,7 +45,9 @@ const BlogContentDetails = ({ blog }: EventDetailsProps) => {
       >
         {blog?.title}
       </Typography.Title>
-      <div>{renderHTML(blog.content)}</div>
+      <div>
+        <ReactQuill value={blog.content} readOnly={true} theme={"bubble"} />
+      </div>
       <Typography.Title
         style={{
           margin: "20px 0",

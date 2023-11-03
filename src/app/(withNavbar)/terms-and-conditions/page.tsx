@@ -25,14 +25,6 @@ const PrivacyPolicy = async () => {
         <div>
           <Spin size="large" />
         </div>
-        <div
-          style={{
-            display: "block",
-            marginTop: 20,
-          }}
-        >
-          <Empty />
-        </div>
       </div>
     );
   }
