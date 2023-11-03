@@ -6,7 +6,9 @@ import ActionBar from "@/components/ui/ActionBar";
 import GEDashboardBreadCrumb from "@/components/ui/GEDashboardBreadCrumb";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUserInfo } from "@/interfaces/global";
+import { addPageSchema } from "@/schemas/global";
 import { getUserInfo } from "@/services/auth.service";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -67,7 +69,10 @@ const AddPage = () => {
             boxShadow: "5px 5px 40px 0px rgba(0,0,0,0.1)",
           }}
         >
-          <Form submitHandler={handleAddPage}>
+          <Form
+            submitHandler={handleAddPage}
+            resolver={yupResolver(addPageSchema)}
+          >
             <Row
               gutter={{
                 xs: 6,
@@ -89,7 +94,7 @@ const AddPage = () => {
                 xs={24}
                 md={24}
               >
-                <ContentWriter name="description" label="Page Content" />
+                <ContentWriter name="content" label="Page Content" />
               </Col>
             </Row>
 

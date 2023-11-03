@@ -16,7 +16,7 @@ import {
   IQuery,
   IUpdateInfo,
 } from "@/interfaces/global";
-import { updateEventSchema } from "@/schemas/events";
+import { updateBlogSchema } from "@/schemas/global";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -257,7 +257,7 @@ const Blogs = () => {
           setIsUpdated={setIsUpdated}
           modalText="Update Event"
           defaultValues={updateDefaultValue}
-          schema={updateEventSchema}
+          schema={updateBlogSchema}
         >
           <UploadImage name="image" />
           <FormInput name="title" type="text" label="Blog title" size="large" />

@@ -17,6 +17,15 @@ export const addFeedback = yup.object().shape({
 export const addBlogSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
 });
+export const updateBlogSchema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+});
+export const addPageSchema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+});
+export const updatePageSchema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+});
 
 export const giveReviewSchema = yup.object().shape({
   review: yup.string().required("Review is required"),

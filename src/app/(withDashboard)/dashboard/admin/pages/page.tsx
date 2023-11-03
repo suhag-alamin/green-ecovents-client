@@ -1,4 +1,5 @@
 "use client";
+import ContentWriter from "@/components/Forms/ContentWriter";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ActionBar from "@/components/ui/ActionBar";
@@ -14,7 +15,7 @@ import {
   IQuery,
   IUpdateInfo,
 } from "@/interfaces/global";
-import { updateFaqSchema } from "@/schemas/global";
+import { updateFaqSchema, updatePageSchema } from "@/schemas/global";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -23,7 +24,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 const ManagePages = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -69,9 +70,14 @@ const ManagePages = () => {
   }, [page, size, sortBy, sortOrder]);
 
   const updateDefaultValue = {
-    question: updateInfo?.data?.question,
-    answer: updateInfo?.data?.answer,
+    title: updateInfo?.data?.title,
+    content: updateInfo?.data?.content,
   };
+
+  const renderHTML = (rawHTML: any) =>
+    React.createElement("div", {
+      dangerouslySetInnerHTML: { __html: rawHTML },
+    });
 
   const columns = [
     {
@@ -79,8 +85,22 @@ const ManagePages = () => {
       dataIndex: "title",
     },
     {
-      title: "Description",
-      dataIndex: "description",
+      title: "Content",
+      dataIndex: "content",
+      render: function (data: string) {
+        return (
+          <div
+            style={{
+              minWidth: 300,
+              maxWidth: 400,
+              maxHeight: 200,
+              overflow: "auto",
+            }}
+          >
+            {renderHTML(data.slice(0, 200))}...
+          </div>
+        );
+      },
     },
 
     {
@@ -196,10 +216,16 @@ const ManagePages = () => {
           setIsUpdated={setIsUpdated}
           modalText="Update Page"
           defaultValues={updateDefaultValue}
-          schema={updateFaqSchema}
+          schema={updatePageSchema}
         >
-          <FormInput name="question" label="Question" size="large" />
-          <FormInput name="answer" label="Answer" size="large" />
+          <FormInput name="title" type="text" label="Blog title" size="large" />
+          <div
+            style={{
+              margin: "20px 0",
+            }}
+          >
+            <ContentWriter name="content" label="Content" />
+          </div>
         </UpdateModal>
       </div>
     </div>
