@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const url = request.nextUrl.clone();
 
-  const cookie = request.cookies.get("refreshToken");
+  const cookie = request.cookies.get(process.env.TOKEN as string);
   const token = cookie?.value;
 
   const userRoutes = [
@@ -45,7 +45,6 @@ export async function middleware(request: NextRequest) {
     url.pathname = "/not-found";
 
     const user = decodedToken(token as string) as IUserInfo;
-    console.log(user);
 
     // if token is expired then redirect to login page
     if (user.exp < Date.now() / 1000) {
@@ -57,7 +56,6 @@ export async function middleware(request: NextRequest) {
       (user.role !== userRole.ADMIN || user.role !== userRole.SUPER_ADMIN) &&
       (adminRoutes.includes(pathname) || superAdminRoutes.includes(pathname))
     ) {
-      console.log("object");
       return NextResponse.redirect(url);
     }
 
