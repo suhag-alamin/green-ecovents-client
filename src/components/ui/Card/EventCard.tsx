@@ -38,14 +38,14 @@ const EventCard = ({ event, loading }: EventCardProps) => {
         >
           <Button type="primary">View Details</Button>
         </Link>,
-        event.status === EventStatus.ongoing && (
+        event.status === EventStatus.ongoing ? (
           <Link key="book" href={`/events/booking/${event.id}`}>
             <Button type="primary">Book</Button>
           </Link>
-        ),
-        <Button key="book" type="primary">
-          Reviews
-        </Button>,
+        ) : null,
+        // <Button key="book" type="primary">
+        //   Reviews
+        // </Button>,
       ]}
     >
       <Typography.Title

@@ -6,8 +6,41 @@ import Image from "next/image";
 
 import BlogContentDetails from "@/components/ui/Blog/BlogContentDetails";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import { Metadata, ResolvingMetadata } from "next";
 
-const BlogDetails = async ({ params }: { params: { id: string } }) => {
+interface IBlogDetailsProps {
+  params: { id: string };
+}
+
+export async function generateMetadata(
+  { params }: IBlogDetailsProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const result = (await axiosInstance.get(`/blogs/${params.id}`))
+    ?.data as IApiResponse;
+  const blog: IBlog = result?.data;
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: `${blog.title} - GreenEcovents`,
+    description: blog.content,
+    openGraph: {
+      images: [
+        {
+          url: blog.image,
+          width: 800,
+          height: 600,
+          alt: blog.title,
+        },
+        ...previousImages,
+      ],
+    },
+  };
+}
+
+const BlogDetails = async ({ params }: IBlogDetailsProps) => {
   const result = (await axiosInstance.get(`/blogs/${params.id}`))
     ?.data as IApiResponse;
   const blog: IBlog = result?.data;

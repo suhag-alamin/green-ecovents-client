@@ -4,6 +4,12 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IFaq } from "@/interfaces/global";
 import { Empty } from "antd";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "FAQs - GreenEcovents",
+  description: "Frequently Asked Questions",
+};
 
 const FAQs = async () => {
   const result = (await axiosInstance.get("/faq"))?.data as IApiResponse;

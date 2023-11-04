@@ -1,10 +1,16 @@
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IPage } from "@/interfaces/global";
-import { Empty, Spin } from "antd";
+import { Spin } from "antd";
 
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import PageDetails from "@/components/ui/PageDetails";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms and Conditions - GreenEcovents",
+  description: "Terms and Conditions of GreenEcovents",
+};
 
 const PrivacyPolicy = async () => {
   const result = (

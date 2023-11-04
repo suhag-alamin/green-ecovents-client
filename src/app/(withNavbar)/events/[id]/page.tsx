@@ -6,8 +6,41 @@ import Image from "next/image";
 import EventContentDetails from "@/components/ui/Event/EventContentDetails";
 import Link from "next/link";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
+import type { Metadata, ResolvingMetadata } from "next";
 
-const EventDetails = async ({ params }: { params: { id: string } }) => {
+interface IEventDetailsProps {
+  params: { id: string };
+}
+
+export async function generateMetadata(
+  { params }: IEventDetailsProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const result = (await axiosInstance.get(`/events/${params.id}`))
+    ?.data as IApiResponse;
+  const event: IEvent = result?.data;
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: `${event.title} - GreenEcovents`,
+    description: event.description,
+    openGraph: {
+      images: [
+        {
+          url: event.image,
+          width: 800,
+          height: 600,
+          alt: event.title,
+        },
+        ...previousImages,
+      ],
+    },
+  };
+}
+
+const EventDetails = async ({ params }: IEventDetailsProps) => {
   const result = (await axiosInstance.get(`/events/${params.id}`))
     ?.data as IApiResponse;
   const event: IEvent = result?.data;
