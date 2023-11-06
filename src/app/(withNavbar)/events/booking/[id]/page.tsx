@@ -20,7 +20,7 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: `Booking of ${event.title} - GreenEcovents`,
+    title: `Booking of ${event?.title} - GreenEcovents`,
     description: event.description,
     openGraph: {
       images: [

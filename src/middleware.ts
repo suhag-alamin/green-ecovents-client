@@ -51,6 +51,18 @@ export async function middleware(request: NextRequest) {
       url.pathname = "/signin";
       return NextResponse.redirect(url);
     }
+    if (user.role === userRole.USER && userRoutes.includes(pathname)) {
+      return NextResponse.next();
+    }
+    if (user.role === userRole.ADMIN && adminRoutes.includes(pathname)) {
+      return NextResponse.next();
+    }
+    if (
+      user.role === userRole.SUPER_ADMIN &&
+      superAdminRoutes.includes(pathname)
+    ) {
+      return NextResponse.next();
+    }
     // if user role is not admin and user is trying to access admin routes then redirect to login page
     if (
       (user.role !== userRole.ADMIN || user.role !== userRole.SUPER_ADMIN) &&

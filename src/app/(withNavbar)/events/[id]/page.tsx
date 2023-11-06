@@ -24,15 +24,15 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: `${event.title} - GreenEcovents`,
-    description: event.description,
+    title: `${event?.title} - GreenEcovents`,
+    description: event?.description,
     openGraph: {
       images: [
         {
-          url: event.image,
+          url: event?.image,
           width: 800,
           height: 600,
-          alt: event.title,
+          alt: event?.title,
         },
         ...previousImages,
       ],
