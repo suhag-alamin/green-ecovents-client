@@ -3,7 +3,7 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IReview } from "@/interfaces/global";
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Card, Grid, Rate } from "antd";
+import { Avatar, Card, Grid, Rate, Typography } from "antd";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import "swiper/css";
@@ -15,7 +15,6 @@ const { useBreakpoint } = Grid;
 
 const Reviews = () => {
   const screen = useBreakpoint();
-
   const [reviews, setReviews] = useState<IReview[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -29,19 +28,36 @@ const Reviews = () => {
     loadReviews();
   }, []);
 
+  if (!reviews) return null;
+
   return (
-    <div>
+    <div className="container">
       <h3 className="section-title">Client Feedbacks</h3>
       <Swiper
         centeredSlides={true}
         autoplay={{
-          delay: 5000,
-          disableOnInteraction: true,
+          delay: 2500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
         }}
         grabCursor={true}
         modules={[Autoplay, Navigation]}
         navigation={true}
         slidesPerView={3}
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+        }}
       >
         {reviews?.length &&
           reviews.map((review) => (
@@ -53,26 +69,50 @@ const Reviews = () => {
                 }}
                 loading={isLoading}
               >
-                <div>
+                <div
+                  style={{
+                    margin: "10px 0",
+                  }}
+                >
                   {review.user?.profileImg ? (
                     <Image
                       src={review.user.profileImg}
                       alt=""
-                      width={50}
-                      height={50}
-                      style={{ borderRadius: "50%" }}
+                      width={64}
+                      height={64}
+                      style={{
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        maxWidth: "100%",
+                        border: "1px solid #ccc",
+                      }}
                     />
                   ) : (
                     <Avatar size={64} icon={<UserOutlined />} />
                   )}
                 </div>
-                <Meta
+
+                <Typography.Title
+                  level={4}
                   style={{
-                    margin: "20px 0",
+                    fontSize: screen.lg ? 20 : 18,
                   }}
-                  title={review.review}
-                />
-                <Rate defaultValue={review.rating} disabled={true} />
+                  type="success"
+                >
+                  {review.user?.firstName} {review.user?.lastName}
+                </Typography.Title>
+
+                <Typography.Paragraph
+                  style={{
+                    fontSize: screen.lg ? 16 : 14,
+                    maxHeight: 100,
+                    overflowY: "auto",
+                  }}
+                  type="secondary"
+                >
+                  {review.review}
+                </Typography.Paragraph>
+                <Rate defaultValue={review.rating} disabled={true} allowHalf />
               </Card>
             </SwiperSlide>
           ))}

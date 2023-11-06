@@ -22,7 +22,9 @@ axiosInstance.interceptors.request.use(
   },
   async function (error) {
     const config = error?.config;
-
+    if (error?.response?.data?.message === "jwt malformed") {
+      removeUserInfo(authKey);
+    }
     if (error?.response?.data?.message === "jwt expired") {
       removeUserInfo(authKey);
     }
@@ -48,6 +50,9 @@ axiosInstance.interceptors.response.use(
     return config;
   },
   async function (error) {
+    if (error?.response?.data?.message === "jwt malformed") {
+      removeUserInfo(authKey);
+    }
     if (error?.response?.data?.message === "jwt expired") {
       removeUserInfo(authKey);
     }

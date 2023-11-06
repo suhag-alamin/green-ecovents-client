@@ -14,11 +14,13 @@ import {
   IUpdateInfo,
 } from "@/interfaces/global";
 import { cancelBookingSchema } from "@/schemas/events";
+import { getUserInfo } from "@/services/auth.service";
 import {
   CloseOutlined,
   ReloadOutlined,
   SearchOutlined,
   StarOutlined,
+  StarFilled,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
@@ -40,6 +42,8 @@ const ManageUserBookings = () => {
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
+
+  const user = getUserInfo();
 
   useMemo(() => {
     const loadBookings = async () => {
@@ -124,11 +128,10 @@ const ManageUserBookings = () => {
     {
       title: "Review",
       dataIndex: "event",
-      render: function (data: any) {
-        // const booking = data.bookings.find(
-        //   (bk: IBooking) => bk.eventId === data.id
-        // );
-        // console.log(booking);
+      render: function (data: IEvent) {
+        const isReviewed = data.reviews.find(
+          (review) => review.userId === user?.id
+        );
         return (
           <Link href={`/dashboard/user/review/${data.id}`}>
             <Button
@@ -136,8 +139,9 @@ const ManageUserBookings = () => {
                 margin: "0px 5px",
               }}
               type="primary"
+              disabled={isReviewed ? true : false}
             >
-              <StarOutlined />
+              {isReviewed ? <StarFilled /> : <StarOutlined />}
             </Button>
           </Link>
         );

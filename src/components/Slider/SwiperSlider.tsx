@@ -4,9 +4,11 @@ import { Button, Col, Flex, Grid, Row } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
-import "swiper/css";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const { useBreakpoint } = Grid;
 

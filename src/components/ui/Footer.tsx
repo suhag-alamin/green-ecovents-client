@@ -56,7 +56,9 @@ const Footer = () => {
                   marginBottom: 20,
                 }}
               >
-                <Image src={logo} alt="logo" width={180} height={90} />
+                <Link href="/">
+                  <Image src={logo} alt="logo" width={180} height={90} />
+                </Link>
                 <p>GreenEcovents - Where Sustainability Meets Celebration</p>
               </div>
               <div>

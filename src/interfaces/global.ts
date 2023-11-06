@@ -77,7 +77,9 @@ export interface IRating {
   review: string;
   rating: number;
   userId: string;
+  user: IUser;
   eventId: string;
+  event: IEvent;
   createdAt: string;
   updatedAt: string;
 }
