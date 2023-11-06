@@ -90,11 +90,17 @@ export interface IBooking {
   endDate: string;
   userId: string;
   eventId: string;
-  createdAt: string;
-  updatedAt: string;
   categories: ICategory;
   user: IUser;
   event: IEvent;
+  adults: number;
+  children?: number;
+  email: string;
+  contactNo: string;
+  total: number;
+  daysBooked: number;
+  createdAt: string;
+  updatedAt: string;
 }
 export interface IFaq {
   id: string;

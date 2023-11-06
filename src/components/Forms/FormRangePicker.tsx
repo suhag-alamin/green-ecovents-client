@@ -2,17 +2,24 @@ import { DatePicker, DatePickerProps, Typography } from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
 import dayjs, { Dayjs } from "dayjs";
 import { Controller, useFormContext } from "react-hook-form";
+import { RangeValue } from "rc-picker/lib/interface";
+import { getErrorMessage } from "@/utils/schemaValidator";
 
 const { RangePicker } = DatePicker;
 
 type GERangePikerProps = {
-  onChange?: (valOne: Dayjs | null, valTwo: string) => void;
+  onChange?: (
+    valOne: dayjs.Dayjs | RangeValue<dayjs.Dayjs> | undefined,
+    valTwo: string | string[]
+  ) => void;
   name: string[];
   label?: string;
   value?: Dayjs;
   size?: "large" | "small";
   startDate?: any;
   endDate?: any;
+  isShowtime?: boolean;
+  helperText?: string;
 };
 
 const FormRangePicker = ({
@@ -22,9 +29,25 @@ const FormRangePicker = ({
   startDate,
   endDate,
   size = "large",
+  isShowtime = false,
+  helperText,
 }: GERangePikerProps) => {
-  const { control, setValue } = useFormContext();
+  const {
+    control,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
 
+  const today = dayjs().startOf("day");
+
+  let errorMessage = getErrorMessage(errors, name[0]);
+
+  const handleOnChange = (
+    value: DatePickerProps["value"] | RangePickerProps["value"],
+    dateString: [string, string] | string
+  ) => {
+    onChange ? onChange(value, dateString) : null;
+  };
   const onOk = (
     value: DatePickerProps["value"] | RangePickerProps["value"]
   ) => {
@@ -47,11 +70,12 @@ const FormRangePicker = ({
     if (startDate && endDate) {
       return (
         current &&
-        (current < dayjs(startDate).startOf("day") ||
+        (current < today ||
+          current < dayjs(startDate).startOf("day") ||
           current > dayjs(endDate).endOf("day"))
       );
     }
-    return false;
+    return current && current < today;
   };
 
   const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
@@ -75,7 +99,7 @@ const FormRangePicker = ({
   };
 
   return (
-    <div>
+    <>
       <Typography.Paragraph
         style={{
           marginBottom: 5,
@@ -91,16 +115,41 @@ const FormRangePicker = ({
         render={({ field }) => (
           <RangePicker
             placement="topRight"
-            showTime
+            showTime={isShowtime}
             size={size}
             onOk={onOk}
             style={{ width: "100%" }}
             disabledDate={disabledDate}
             disabledTime={disabledRangeTime}
+            onChange={handleOnChange}
+            defaultValue={[today, today.add(2, "day")]}
           />
         )}
       />
-    </div>
+      {errorMessage ? (
+        <Typography.Paragraph
+          style={{
+            fontSize: 12,
+            lineHeight: "10px",
+            marginTop: 5,
+          }}
+          type="danger"
+        >
+          {errorMessage}
+        </Typography.Paragraph>
+      ) : (
+        <Typography.Paragraph
+          style={{
+            fontSize: 12,
+            lineHeight: "10px",
+            marginTop: 5,
+          }}
+          type="secondary"
+        >
+          {helperText}
+        </Typography.Paragraph>
+      )}
+    </>
   );
 };
 

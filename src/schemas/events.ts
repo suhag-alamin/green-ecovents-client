@@ -23,6 +23,15 @@ export const addEventSchema = yup.object().shape({
 export const bookEventSchema = yup.object().shape({
   startDate: yup.date().required("Start date is required"),
   endDate: yup.date().required("End Date is required"),
+  email: yup.string().email().required("Email is required"),
+  contactNo: yup
+    .string()
+    .matches(/^(?:\+\d{1,3}\s?)?\d{1,14}$/, "Contact number is not valid")
+    .required("Contact Number is required"),
+  adults: yup.number().required("Number of adults is required").default(1),
+  children: yup.number().optional(),
+  daysBooked: yup.number().required("Number of days is required"),
+  total: yup.number().required("Total is required"),
 });
 export const updateEventSchema = yup.object().shape({
   title: yup.string().optional(),

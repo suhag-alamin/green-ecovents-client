@@ -1,27 +1,15 @@
 import Form from "@/components/Forms/Form";
+import FormInput from "@/components/Forms/FormInput";
 import FormRangePicker from "@/components/Forms/FormRangePicker";
-import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
-import { userRole } from "@/constants/role";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
-import { IEvent, IUserInfo } from "@/interfaces/global";
+import { IEvent, IUser, IUserInfo } from "@/interfaces/global";
 import { bookEventSchema } from "@/schemas/events";
-import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { CountdownProps } from "antd";
-import {
-  Button,
-  Col,
-  Grid,
-  InputNumber,
-  Row,
-  Spin,
-  Statistic,
-  Typography,
-  message,
-} from "antd";
-import { useParams, useRouter } from "next/navigation";
+import { Button, Col, Grid, Row, Statistic, Typography, message } from "antd";
 import { useEffect, useState } from "react";
+
 const { Countdown } = Statistic;
 
 const { useBreakpoint } = Grid;
@@ -39,22 +27,40 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
   const [children, setChildren] = useState<number>(0);
   const [total, setTotal] = useState<number>(event?.price || 0);
   const [tax, setTax] = useState<number>(0);
+  const [daysBooked, setDaysBooked] = useState<number>(1);
+  const [userInfo, setUserInfo] = useState<IUser>();
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const result = (await axiosInstance.get(`/user/${user.id}`))
+        ?.data as IApiResponse;
+      setUserInfo(result?.data);
+    };
+    loadUser();
+  }, [user.id]);
 
   useEffect(() => {
     if (event) {
       const amount = adults * event?.price + (children * event?.price) / 2;
-      console.log(amount * 0.1);
 
       const amountWithTax = (amount + amount * 0.1).toFixed(2);
       setTax(+amount * 0.1);
 
-      setTotal(+amountWithTax);
+      const totalAmount = (+amountWithTax * daysBooked).toFixed(2);
+
+      setTotal(+totalAmount);
     }
-  }, [adults, children, event, total]);
+  }, [adults, children, event, total, daysBooked]);
 
   const defaultValues = {
     startDate: event?.startDate,
     endDate: event?.endDate,
+    email: userInfo?.email,
+    contactNo: userInfo?.contactNo,
+    total: total,
+    adults: adults,
+    children: children,
+    daysBooked: daysBooked,
   };
 
   const onFinish: CountdownProps["onFinish"] = () => {
@@ -68,10 +74,24 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
     setChildren(value);
   };
 
+  const handleDateChange = (dates: any, dateStrings: any) => {
+    if (dates) {
+      const startDate = dates[0];
+      const endDate = dates[1];
+
+      const diffInMilliseconds = endDate.diff(startDate);
+      const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+
+      setDaysBooked(diffInDays);
+    }
+  };
+
   const handleBookEvent = async (data: any) => {
     if (user?.id && id) {
-      data.adults = adults;
-      data.children = children;
+      // data.adults = adults;
+      // data.children = children;
+      // data.daysBooked = daysBooked;
+      // data.total = total;
       console.log(data);
       // setIsLoading(true);
 
@@ -116,6 +136,13 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
             margin: "20px 0",
           }}
         >
+          <Row gutter={[16, 16]}></Row>
+        </div>
+        <Form
+          submitHandler={handleBookEvent}
+          resolver={yupResolver(bookEventSchema)}
+          defaultValues={defaultValues}
+        >
           <Row gutter={[16, 16]}>
             <Col xs={24} md={24}>
               <Countdown
@@ -153,16 +180,16 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                   >
                     ${event?.price} / person
                   </Typography.Paragraph>
-                  <InputNumber
+                  <FormInput
                     type="number"
                     name="adults"
                     size="large"
-                    style={{
-                      width: "100%",
-                    }}
-                    defaultValue={1}
+                    value={1}
                     min={1}
                     onChange={handleAdults}
+                    styleProp={{
+                      width: "100%",
+                    }}
                   />
                 </Col>
                 <Col xs={24} md={12}>
@@ -183,28 +210,39 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                   >
                     ${event?.price / 2} / kid
                   </Typography.Paragraph>
-                  <InputNumber
+                  <FormInput
                     type="number"
                     name="children"
                     size="large"
-                    style={{
-                      width: "100%",
-                    }}
-                    defaultValue={0}
+                    value={0}
                     min={0}
                     onChange={handleChildren}
+                    styleProp={{
+                      width: "100%",
+                    }}
                   />
                 </Col>
               </Row>
             </Col>
-          </Row>
-        </div>
-        <Form
-          submitHandler={handleBookEvent}
-          resolver={yupResolver(bookEventSchema)}
-          defaultValues={defaultValues}
-        >
-          <Row gutter={[16, 16]}>
+
+            <Col xs={24} md={12}>
+              <FormInput
+                type="email"
+                name="email"
+                size="large"
+                placeholder="example@gmail.com"
+                label="Email"
+              />
+            </Col>
+            <Col xs={24} md={12}>
+              <FormInput
+                type="text"
+                name="contactNo"
+                size="large"
+                placeholder="01784569875"
+                label="Email"
+              />
+            </Col>
             <Col xs={24} md={24}>
               <FormRangePicker
                 name={["startDate", "endDate"]}
@@ -212,6 +250,7 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                 size="large"
                 startDate={defaultValues.startDate}
                 endDate={defaultValues.endDate}
+                onChange={handleDateChange}
               />
             </Col>
           </Row>

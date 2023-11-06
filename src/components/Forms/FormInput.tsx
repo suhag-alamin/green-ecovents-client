@@ -1,7 +1,7 @@
 "use client";
 
 import { getErrorMessage } from "@/utils/schemaValidator";
-import { Input, Typography } from "antd";
+import { Input, InputNumber, Typography } from "antd";
 import { ReactElement, ReactNode } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -9,7 +9,7 @@ interface IInput {
   name: string;
   type?: string;
   size?: "large" | "small";
-  value?: string | string[] | undefined;
+  value?: string | string[] | number | number[] | undefined;
   id?: string;
   placeholder?: string;
   validation?: object;
@@ -20,6 +20,9 @@ interface IInput {
   styleProp?: any;
   disable?: boolean;
   rows?: number;
+  onChange?: (value: string | number | undefined) => void;
+  min?: number;
+  max?: number;
 }
 
 const FormInput = ({
@@ -37,6 +40,9 @@ const FormInput = ({
   styleProp,
   disable,
   rows,
+  min,
+  max,
+  onChange,
 }: IInput) => {
   const {
     control,
@@ -44,6 +50,10 @@ const FormInput = ({
   } = useFormContext();
 
   const errorMessage = getErrorMessage(errors, name);
+
+  const handleOnChange = (value: any) => {
+    onChange ? onChange(value) : null;
+  };
 
   return (
     <>
@@ -80,6 +90,22 @@ const FormInput = ({
               style={styleProp}
               disabled={disable}
               rows={rows}
+            />
+          ) : type === "number" ? (
+            <InputNumber
+              {...field}
+              type={type}
+              size={size}
+              placeholder={placeholder}
+              value={value ? value : field.value}
+              suffix={suffix}
+              prefix={prefix}
+              style={styleProp}
+              disabled={disable}
+              onChange={handleOnChange}
+              defaultValue={value}
+              min={min}
+              max={max}
             />
           ) : (
             <Input
