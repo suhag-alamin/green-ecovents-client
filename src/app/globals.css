@@ -111,7 +111,9 @@
   padding-top: 30px;
   padding-bottom: 30px;
 }
-
+.ant-card-actions {
+  align-items: center !important;
+}
 .bread-crumb-link:hover {
   color: #f9b53f !important;
 }
@@ -148,6 +150,8 @@
   .container {
     padding-right: 15px;
     padding-left: 15px;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 }
 @media (min-width: 476px) {

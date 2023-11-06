@@ -1,8 +1,9 @@
 "use client";
 
 import { IEvent } from "@/interfaces/global";
-import { Flex, Grid, Typography } from "antd";
+import { Flex, Grid, Rate, Typography } from "antd";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 
 const { useBreakpoint } = Grid;
 
@@ -12,6 +13,17 @@ interface EventDetailsProps {
 
 const EventContentDetails = ({ event }: EventDetailsProps) => {
   const screen = useBreakpoint();
+  const [averageRating, setAverageRating] = useState<number>(1);
+
+  useEffect(() => {
+    if (event.reviews.length > 0) {
+      const totalRating = event.reviews.reduce((acc, review) => {
+        return acc + review.rating;
+      }, 0);
+      setAverageRating(totalRating / event.reviews.length);
+    }
+  }, [event]);
+
   return (
     <div
       style={{
@@ -69,6 +81,7 @@ const EventContentDetails = ({ event }: EventDetailsProps) => {
           On {event?.location}
         </Typography.Title>
       </Flex>
+      <Rate disabled value={averageRating} allowHalf />
     </div>
   );
 };

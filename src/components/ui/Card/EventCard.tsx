@@ -4,6 +4,8 @@ import { Button, Card, Flex, Grid, Typography } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { StarFilled } from "@ant-design/icons";
 
 const { useBreakpoint } = Grid;
 
@@ -14,6 +16,55 @@ interface EventCardProps {
 
 const EventCard = ({ event, loading }: EventCardProps) => {
   const screen = useBreakpoint();
+  const [averageRating, setAverageRating] = useState<number>(0);
+
+  useEffect(() => {
+    if (event.reviews.length > 0) {
+      const totalRating = event.reviews.reduce((acc, review) => {
+        return acc + review.rating;
+      }, 0);
+      setAverageRating(totalRating / event.reviews.length);
+    }
+  }, [event.reviews]);
+
+  const actions = [
+    <Link
+      style={{
+        paddingLeft: screen.lg ? 5 : 0,
+      }}
+      key="view"
+      href={`/events/${event.id}`}
+    >
+      <Button type="primary">View Details</Button>
+    </Link>,
+  ];
+
+  if (event.status === EventStatus.ongoing) {
+    actions.push(
+      <Link key="book" href={`/events/booking/${event.id}`}>
+        <Button type="primary">Book</Button>
+      </Link>
+    );
+  }
+
+  if (event.reviews.length > 0) {
+    actions.push(
+      <Typography.Title
+        key="rating"
+        style={{
+          fontSize: screen.lg ? 16 : 14,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 4,
+        }}
+        level={4}
+        type="success"
+      >
+        <StarFilled /> {averageRating} ({event.reviews.length})
+      </Typography.Title>
+    );
+  }
 
   return (
     <Card
@@ -28,25 +79,7 @@ const EventCard = ({ event, loading }: EventCardProps) => {
         />
       }
       loading={loading}
-      actions={[
-        <Link
-          style={{
-            paddingLeft: 5,
-          }}
-          key="view"
-          href={`/events/${event.id}`}
-        >
-          <Button type="primary">View Details</Button>
-        </Link>,
-        event.status === EventStatus.ongoing ? (
-          <Link key="book" href={`/events/booking/${event.id}`}>
-            <Button type="primary">Book</Button>
-          </Link>
-        ) : null,
-        // <Button key="book" type="primary">
-        //   Reviews
-        // </Button>,
-      ]}
+      actions={actions}
     >
       <Typography.Title
         style={{

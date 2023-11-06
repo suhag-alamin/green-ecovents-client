@@ -69,8 +69,17 @@ export interface IEvent {
   updatedAt: string;
   bookings: IBooking[];
   categories: ICategory;
-  reviews: any;
+  reviews: IRating[];
   status: EventStatus;
+}
+export interface IRating {
+  id: string;
+  review: string;
+  rating: number;
+  userId: string;
+  eventId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 export interface IBooking {
   id: string;
