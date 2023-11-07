@@ -24,6 +24,7 @@ import {
   EditOutlined,
   ReloadOutlined,
   SearchOutlined,
+  StarFilled,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
@@ -95,25 +96,26 @@ const ManageBookings = () => {
       },
     },
     {
-      title: "User emaill",
-      dataIndex: "user",
-      render: function (data: IUser) {
-        return <>{data.email}</>;
-      },
-    },
-    {
       title: "Category",
       dataIndex: "event",
       render: function (data: IEvent) {
         return <>{data.categories.name}</>;
       },
     },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Phone",
+      dataIndex: "contactNo",
+    },
 
     {
       title: "Start Date",
       dataIndex: "startDate",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return data && dayjs(data).format("MMM D, YY, hh A");
       },
       sorter: true,
     },
@@ -121,7 +123,49 @@ const ManageBookings = () => {
       title: "End Date",
       dataIndex: "endDate",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return data && dayjs(data).format("MMM D, YY, hh A");
+      },
+      sorter: true,
+    },
+
+    {
+      title: "Guests",
+      render: function (data: any) {
+        return (
+          <>
+            <p>
+              Adults: <strong>{data?.adults}</strong>
+            </p>
+            <p>
+              Children&apos;s: <strong>{data?.childrens}</strong>
+            </p>
+          </>
+        );
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      sorter: true,
+    },
+    {
+      title: "Amount$",
+      dataIndex: "totalAmount",
+      sorter: true,
+    },
+    {
+      title: "Reviews",
+      dataIndex: "event",
+      render: function (data: IEvent) {
+        const totalRating = data?.reviews?.reduce((acc, review) => {
+          return acc + review?.rating;
+        }, 0);
+        const averageRating = totalRating / data?.reviews?.length;
+        return (
+          <>
+            <StarFilled /> {averageRating} ({data?.reviews?.length})
+          </>
+        );
       },
       sorter: true,
     },
@@ -130,7 +174,7 @@ const ManageBookings = () => {
       title: "Created At",
       dataIndex: "createdAt",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return data && dayjs(data).format("MMM D, YY, hh A");
       },
       sorter: true,
     },
@@ -138,13 +182,8 @@ const ManageBookings = () => {
       title: "Updated At",
       dataIndex: "updatedAt",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return data && dayjs(data).format("MMM D, YY, hh A");
       },
-      sorter: true,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
       sorter: true,
     },
 

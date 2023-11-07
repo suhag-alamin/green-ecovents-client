@@ -136,12 +136,27 @@ const ManageUserBookings = () => {
     },
 
     {
+      title: "Attendees",
+      render: function (data: any) {
+        return (
+          <>
+            <p>
+              Adults: <strong>{data?.adults}</strong>
+            </p>
+            <p>
+              Children&apos;s: <strong>{data?.childrens}</strong>
+            </p>
+          </>
+        );
+      },
+    },
+    {
       title: "Status",
       dataIndex: "status",
       sorter: true,
     },
     {
-      title: "Amount $",
+      title: "Amount$",
       dataIndex: "totalAmount",
       sorter: true,
     },
@@ -150,8 +165,10 @@ const ManageUserBookings = () => {
       dataIndex: "event",
       render: function (data: IEvent, record: IBooking) {
         const isReviewed = data?.reviews?.find(
-          (review) => review.userId === user?.id
+          (review) =>
+            review.userId === user?.id && review.eventId === record.eventId
         );
+
         return (
           <Link href={`/dashboard/user/review/${data?.id}`}>
             <Button
@@ -185,6 +202,7 @@ const ManageUserBookings = () => {
                 margin: "0px 5px",
               }}
               type="primary"
+              danger
               onClick={() => {
                 setUpdateModalOpen(true);
                 setUpdateInfo({
@@ -254,7 +272,7 @@ const ManageUserBookings = () => {
           modalText="Are you sure want to cancel?"
           defaultValues={updateDefaultValue}
           schema={cancelBookingSchema}
-          buttonText="Cancel"
+          buttonText="Cancel Booking"
         ></UpdateModal>
       </div>
     </div>
