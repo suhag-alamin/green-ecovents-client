@@ -47,40 +47,47 @@ export async function middleware(request: NextRequest) {
     const user = decodedToken(token as string) as IUserInfo;
 
     // if token is expired then redirect to login page
-    if (user.exp < Date.now() / 1000) {
+    if (user?.exp < Date.now() / 1000) {
       url.pathname = "/signin";
       return NextResponse.redirect(url);
     }
-    if (user.role === userRole.USER && userRoutes.includes(pathname)) {
+    if (user?.role === userRole?.USER && userRoutes?.includes(pathname)) {
       return NextResponse.next();
     }
-    if (user.role === userRole.ADMIN && adminRoutes.includes(pathname)) {
+    if (user?.role === userRole?.ADMIN && adminRoutes?.includes(pathname)) {
       return NextResponse.next();
     }
     if (
-      user.role === userRole.SUPER_ADMIN &&
+      user?.role === userRole?.SUPER_ADMIN &&
       superAdminRoutes.includes(pathname)
     ) {
       return NextResponse.next();
     }
     // if user role is not admin and user is trying to access admin routes then redirect to login page
     if (
-      (user.role !== userRole.ADMIN || user.role !== userRole.SUPER_ADMIN) &&
-      (adminRoutes.includes(pathname) || superAdminRoutes.includes(pathname))
+      (user?.role !== userRole?.ADMIN ||
+        user?.role !== userRole?.SUPER_ADMIN) &&
+      (adminRoutes?.includes(pathname) || superAdminRoutes?.includes(pathname))
     ) {
       return NextResponse.redirect(url);
     }
 
     // if admin is trying to access user routes then redirect to login page
-    if (user.role === userRole.ADMIN && userRoutes.includes(pathname)) {
+    if (user?.role === userRole?.ADMIN && userRoutes?.includes(pathname)) {
       return NextResponse.redirect(url);
     }
     // if admin is trying to access super-admin routes then redirect to login page
-    if (user.role === userRole.ADMIN && superAdminRoutes.includes(pathname)) {
+    if (
+      user?.role === userRole?.ADMIN &&
+      superAdminRoutes?.includes(pathname)
+    ) {
       return NextResponse.redirect(url);
     }
     // if super-admin is trying to access user routes then redirect to login page
-    if (user.role === userRole.SUPER_ADMIN && userRoutes.includes(pathname)) {
+    if (
+      user?.role === userRole?.SUPER_ADMIN &&
+      userRoutes?.includes(pathname)
+    ) {
       return NextResponse.redirect(url);
     }
   }

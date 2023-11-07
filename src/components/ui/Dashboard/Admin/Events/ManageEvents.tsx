@@ -84,7 +84,7 @@ const ManageEvents = () => {
         })
       )?.data as IApiResponse;
       setEvents(res?.data);
-      setMeta(res.meta);
+      setMeta(res?.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);

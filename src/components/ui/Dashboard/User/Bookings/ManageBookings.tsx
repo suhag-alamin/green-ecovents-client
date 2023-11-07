@@ -7,6 +7,7 @@ import UpdateModal from "@/components/ui/UpdateModal";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import {
+  BookingStatus,
   IBooking,
   IEvent,
   IMeta,
@@ -43,7 +44,7 @@ const ManageUserBookings = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
-  const user = getUserInfo();
+  const user = getUserInfo() as any;
 
   useMemo(() => {
     const loadBookings = async () => {
@@ -54,7 +55,7 @@ const ManageUserBookings = () => {
         })
       )?.data as IApiResponse;
       setBookings(res?.data);
-      setMeta(res.meta);
+      setMeta(res?.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);
@@ -80,18 +81,34 @@ const ManageUserBookings = () => {
     }
   };
 
+  const onPaginationChange = (page: number, pageSize: number) => {
+    setPage(page);
+    setSize(pageSize);
+  };
+  const onTableChange = (pagination: any, filter: any, sorter: any) => {
+    const { order, field } = sorter;
+    setSortBy(field as string);
+    setSortOrder(order === "ascend" ? "asc" : "desc");
+  };
+
+  const resetFilters = () => {
+    setQuery({});
+  };
+
   const updateDefaultValue = {
     status: updateInfo?.data?.status,
     startDate: updateInfo?.data?.startDate,
     endDate: updateInfo?.data?.endDate,
   };
 
+  console.log(bookings);
+
   const columns = [
     {
       title: "Event Title",
       dataIndex: "event",
       render: function (data: IEvent) {
-        return <>{data.title}</>;
+        return <>{data?.title}</>;
       },
     },
 
@@ -99,7 +116,7 @@ const ManageUserBookings = () => {
       title: "Category",
       dataIndex: "event",
       render: function (data: IEvent) {
-        return <>{data.categories.name}</>;
+        return <>{data?.categories.name}</>;
       },
     },
 
@@ -107,7 +124,7 @@ const ManageUserBookings = () => {
       title: "Start Date",
       dataIndex: "startDate",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return data && dayjs(data).format("MMM D, YY, hh A");
       },
       sorter: true,
     },
@@ -115,7 +132,7 @@ const ManageUserBookings = () => {
       title: "End Date",
       dataIndex: "endDate",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return data && dayjs(data).format("MMM D, YY, hh A");
       },
       sorter: true,
     },
@@ -126,20 +143,31 @@ const ManageUserBookings = () => {
       sorter: true,
     },
     {
+      title: "Amount $",
+      dataIndex: "totalAmount",
+      sorter: true,
+    },
+    {
       title: "Review",
       dataIndex: "event",
-      render: function (data: IEvent) {
-        const isReviewed = data.reviews.find(
+      render: function (data: IEvent, record: IBooking) {
+        const isReviewed = data?.reviews?.find(
           (review) => review.userId === user?.id
         );
         return (
-          <Link href={`/dashboard/user/review/${data.id}`}>
+          <Link href={`/dashboard/user/review/${data?.id}`}>
             <Button
               style={{
                 margin: "0px 5px",
               }}
               type="primary"
-              disabled={isReviewed ? true : false}
+              disabled={
+                isReviewed
+                  ? true
+                  : record.status === BookingStatus.canceled
+                  ? true
+                  : false
+              }
             >
               {isReviewed ? <StarFilled /> : <StarOutlined />}
             </Button>
@@ -174,19 +202,6 @@ const ManageUserBookings = () => {
       },
     },
   ];
-  const onPaginationChange = (page: number, pageSize: number) => {
-    setPage(page);
-    setSize(pageSize);
-  };
-  const onTableChange = (pagination: any, filter: any, sorter: any) => {
-    const { order, field } = sorter;
-    setSortBy(field as string);
-    setSortOrder(order === "ascend" ? "asc" : "desc");
-  };
-
-  const resetFilters = () => {
-    setQuery({});
-  };
 
   return (
     <div>
@@ -219,6 +234,7 @@ const ManageUserBookings = () => {
           </Button>
         )}
       </ActionBar>
+
       <GETable
         loading={isLoading}
         columns={columns}
@@ -230,6 +246,7 @@ const ManageUserBookings = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+
       <div>
         <UpdateModal
           updateModalOpen={updateModalOpen}

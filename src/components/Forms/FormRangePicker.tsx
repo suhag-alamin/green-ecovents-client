@@ -1,9 +1,9 @@
-import { DatePicker, DatePickerProps, Typography } from "antd";
+import { getErrorMessage } from "@/utils/schemaValidator";
+import { DatePicker, DatePickerProps, Flex, Typography } from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
 import dayjs, { Dayjs } from "dayjs";
-import { Controller, useFormContext } from "react-hook-form";
 import { RangeValue } from "rc-picker/lib/interface";
-import { getErrorMessage } from "@/utils/schemaValidator";
+import { Controller, useFormContext } from "react-hook-form";
 
 const { RangePicker } = DatePicker;
 
@@ -16,9 +16,10 @@ type GERangePikerProps = {
   label?: string;
   value?: Dayjs;
   size?: "large" | "small";
-  startDate?: any;
-  endDate?: any;
+  startDate?: Dayjs;
+  endDate?: Dayjs;
   isShowtime?: boolean;
+  isAllowClear?: boolean;
   helperText?: string;
 };
 
@@ -30,6 +31,7 @@ const FormRangePicker = ({
   endDate,
   size = "large",
   isShowtime = false,
+  isAllowClear = false,
   helperText,
 }: GERangePikerProps) => {
   const {
@@ -38,19 +40,30 @@ const FormRangePicker = ({
     formState: { errors },
   } = useFormContext();
 
-  const today = dayjs().startOf("day");
+  const errorMessage1 = getErrorMessage(errors, name[0]);
+  const errorMessage2 = getErrorMessage(errors, name[1]);
 
-  let errorMessage = getErrorMessage(errors, name[0]);
+  const today = dayjs().startOf("day");
 
   const handleOnChange = (
     value: DatePickerProps["value"] | RangePickerProps["value"],
     dateString: [string, string] | string
   ) => {
+    if (!value) {
+      return;
+    }
     onChange ? onChange(value, dateString) : null;
+    // @ts-ignore
+    setValue(name[0], value[0]);
+    // @ts-ignore
+    setValue(name[1], value[1]);
   };
   const onOk = (
     value: DatePickerProps["value"] | RangePickerProps["value"]
   ) => {
+    if (!value) {
+      return;
+    }
     // @ts-ignore
     setValue(name[0], value[0]);
     // @ts-ignore
@@ -116,6 +129,7 @@ const FormRangePicker = ({
           <RangePicker
             placement="topRight"
             showTime={isShowtime}
+            allowClear={isAllowClear}
             size={size}
             onOk={onOk}
             style={{ width: "100%" }}
@@ -126,17 +140,35 @@ const FormRangePicker = ({
           />
         )}
       />
-      {errorMessage ? (
-        <Typography.Paragraph
+      {errorMessage1 || errorMessage2 ? (
+        <Flex
           style={{
-            fontSize: 12,
-            lineHeight: "10px",
             marginTop: 5,
           }}
-          type="danger"
+          justify="space-between"
+          gap={4}
         >
-          {errorMessage}
-        </Typography.Paragraph>
+          <Typography.Paragraph
+            style={{
+              fontSize: 12,
+              lineHeight: "10px",
+              marginTop: 5,
+            }}
+            type="danger"
+          >
+            {errorMessage1}
+          </Typography.Paragraph>
+          <Typography.Paragraph
+            style={{
+              fontSize: 12,
+              lineHeight: "10px",
+              marginTop: 5,
+            }}
+            type="danger"
+          >
+            {errorMessage2}
+          </Typography.Paragraph>
+        </Flex>
       ) : (
         <Typography.Paragraph
           style={{

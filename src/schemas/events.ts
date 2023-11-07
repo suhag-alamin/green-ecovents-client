@@ -31,7 +31,7 @@ export const bookEventSchema = yup.object().shape({
   adults: yup.number().required("Number of adults is required").default(1),
   children: yup.number().optional(),
   daysBooked: yup.number().required("Number of days is required"),
-  total: yup.number().required("Total is required"),
+  totalAmount: yup.number().required("Total is required"),
 });
 export const updateEventSchema = yup.object().shape({
   title: yup.string().optional(),

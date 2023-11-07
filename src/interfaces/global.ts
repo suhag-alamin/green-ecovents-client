@@ -89,15 +89,14 @@ export interface IBooking {
   startDate: string;
   endDate: string;
   userId: string;
-  eventId: string;
-  categories: ICategory;
   user: IUser;
+  eventId: string;
   event: IEvent;
   adults: number;
   children?: number;
   email: string;
   contactNo: string;
-  total: number;
+  totalAmount: number;
   daysBooked: number;
   createdAt: string;
   updatedAt: string;

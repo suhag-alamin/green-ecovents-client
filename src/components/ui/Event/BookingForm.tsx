@@ -8,7 +8,9 @@ import { bookEventSchema } from "@/schemas/events";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { CountdownProps } from "antd";
 import { Button, Col, Grid, Row, Statistic, Typography, message } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
 
 const { Countdown } = Statistic;
 
@@ -24,11 +26,15 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
   const screen = useBreakpoint();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [adults, setAdults] = useState<number>(1);
-  const [children, setChildren] = useState<number>(0);
-  const [total, setTotal] = useState<number>(event?.price || 0);
+  const [childrens, setChildrens] = useState<number>(0);
+  const [totalAmount, setTotalAmount] = useState<number>(event?.price || 0);
   const [tax, setTax] = useState<number>(0);
   const [daysBooked, setDaysBooked] = useState<number>(1);
   const [userInfo, setUserInfo] = useState<IUser>();
+  const [startDate, setStartDate] = useState<Dayjs>();
+  const [endDate, setEndDate] = useState<Dayjs>();
+
+  const router = useRouter();
 
   useEffect(() => {
     const loadUser = async () => {
@@ -41,25 +47,25 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
 
   useEffect(() => {
     if (event) {
-      const amount = adults * event?.price + (children * event?.price) / 2;
+      const amount = adults * event?.price + (childrens * event?.price) / 2;
 
       const amountWithTax = (amount + amount * 0.1).toFixed(2);
       setTax(+amount * 0.1);
 
       const totalAmount = (+amountWithTax * daysBooked).toFixed(2);
 
-      setTotal(+totalAmount);
+      setTotalAmount(+totalAmount);
     }
-  }, [adults, children, event, total, daysBooked]);
+  }, [adults, childrens, event, totalAmount, daysBooked]);
 
   const defaultValues = {
-    startDate: event?.startDate,
-    endDate: event?.endDate,
+    startDate: startDate,
+    endDate: endDate,
     email: userInfo?.email,
     contactNo: userInfo?.contactNo,
-    total: total,
+    totalAmount: totalAmount,
     adults: adults,
-    children: children,
+    childrens: childrens,
     daysBooked: daysBooked,
   };
 
@@ -71,7 +77,7 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
     setAdults(value);
   };
   const handleChildren = (value: any) => {
-    setChildren(value);
+    setChildrens(value);
   };
 
   const handleDateChange = (dates: any, dateStrings: any) => {
@@ -79,41 +85,39 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
       const startDate = dates[0];
       const endDate = dates[1];
 
-      const diffInMilliseconds = endDate.diff(startDate);
-      const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+      setStartDate(startDate);
+      setEndDate(endDate);
 
-      setDaysBooked(diffInDays);
+      const diff = endDate.diff(startDate, "days");
+      setDaysBooked(diff);
     }
   };
 
   const handleBookEvent = async (data: any) => {
     if (user?.id && id) {
-      // data.adults = adults;
-      // data.children = children;
-      // data.daysBooked = daysBooked;
-      // data.total = total;
       console.log(data);
-      // setIsLoading(true);
 
-      // data.userId = user.id;
-      // data.eventId = id;
+      setIsLoading(true);
 
-      // const result = await axiosInstance.post("/bookings", data);
+      data.userId = user.id;
+      data.eventId = id;
 
-      // const response = result?.data;
-      // if (response?.statusCode === 200) {
-      //   message.success(response.message);
-      //   setIsLoading(false);
-      //   router.push("/dashboard/user/bookings");
-      // }
-      // // @ts-ignore
-      // else if (!result?.success) {
-      //   setIsLoading(false);
-      //   message.error(
-      //     // @ts-ignore
-      //     result?.message || "Something went wrong try again later"
-      //   );
-      // }
+      const result = await axiosInstance.post("/bookings", data);
+
+      const response = result?.data;
+      if (response?.statusCode === 200) {
+        message.success(response.message);
+        setIsLoading(false);
+        router.push("/dashboard/user/bookings");
+      }
+      // @ts-ignore
+      else if (!result?.success) {
+        setIsLoading(false);
+        message.error(
+          // @ts-ignore
+          result?.message || "Something went wrong try again later"
+        );
+      }
     } else {
       message.error("You have to login for booking.");
     }
@@ -184,7 +188,6 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                     type="number"
                     name="adults"
                     size="large"
-                    value={1}
                     min={1}
                     onChange={handleAdults}
                     styleProp={{
@@ -199,7 +202,7 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                     }}
                     level={5}
                   >
-                    Children (0-12)
+                    Children&apos;s (0-12)
                   </Typography.Title>
                   <Typography.Paragraph
                     style={{
@@ -212,9 +215,8 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                   </Typography.Paragraph>
                   <FormInput
                     type="number"
-                    name="children"
+                    name="childrens"
                     size="large"
-                    value={0}
                     min={0}
                     onChange={handleChildren}
                     styleProp={{
@@ -240,7 +242,7 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                 name="contactNo"
                 size="large"
                 placeholder="01784569875"
-                label="Email"
+                label="Contact Number"
               />
             </Col>
             <Col xs={24} md={24}>
@@ -248,9 +250,10 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                 name={["startDate", "endDate"]}
                 label="Select Date Range"
                 size="large"
-                startDate={defaultValues.startDate}
-                endDate={defaultValues.endDate}
+                startDate={dayjs(event.startDate)}
+                endDate={dayjs(event.endDate)}
                 onChange={handleDateChange}
+                isShowtime={true}
               />
             </Col>
           </Row>
@@ -275,7 +278,7 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
               }}
               type="secondary"
             >
-              Children x {children} = ${(children * event?.price) / 2}
+              Children x {childrens} = ${(childrens * event?.price) / 2}
             </Typography.Paragraph>
 
             <Typography.Paragraph
@@ -295,7 +298,7 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
               type="success"
               level={4}
             >
-              Total = ${total}
+              Total = ${totalAmount}
             </Typography.Title>
           </div>
           <div

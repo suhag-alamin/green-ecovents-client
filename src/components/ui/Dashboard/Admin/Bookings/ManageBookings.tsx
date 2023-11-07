@@ -56,7 +56,7 @@ const ManageBookings = () => {
         })
       )?.data as IApiResponse;
       setBookings(res?.data);
-      setMeta(res.meta);
+      setMeta(res?.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);

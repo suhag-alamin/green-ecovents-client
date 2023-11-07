@@ -5,20 +5,16 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IEvent, IUserInfo } from "@/interfaces/global";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
-import { Grid, Spin, Statistic, message } from "antd";
+import { Grid, Spin, message } from "antd";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BookingForm from "./BookingForm";
-const { Countdown } = Statistic;
-
-const { useBreakpoint } = Grid;
 
 const EventBooking = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [event, setEvent] = useState<IEvent>();
 
-  const screen = useBreakpoint();
   const router = useRouter();
 
   const userLoggedIn = isLoggedIn();
