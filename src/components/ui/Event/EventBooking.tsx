@@ -5,7 +5,7 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IEvent, IUserInfo } from "@/interfaces/global";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
-import { Grid, Spin, message } from "antd";
+import { Spin, message } from "antd";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BookingForm from "./BookingForm";
@@ -21,17 +21,15 @@ const EventBooking = () => {
   const user = getUserInfo() as IUserInfo;
 
   useEffect(() => {
-    if (user.role !== userRole.USER) {
-      message.error("You have to login as user for booking.");
-      router.push("/signin");
-    }
-  }, [user, router]);
-
-  useEffect(() => {
     if (!userLoggedIn) {
       router.push("/signin");
+    } else {
+      if (user?.role !== userRole?.USER) {
+        message.error("You have to login as user for booking.");
+        router.push("/signin");
+      }
     }
-  }, [router, userLoggedIn]);
+  }, [router, userLoggedIn, user]);
 
   useEffect(() => {
     const loadEvent = async () => {
