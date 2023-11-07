@@ -95,8 +95,6 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
 
   const handleBookEvent = async (data: any) => {
     if (user?.id && id) {
-      console.log(data);
-
       setIsLoading(true);
 
       data.userId = user.id;

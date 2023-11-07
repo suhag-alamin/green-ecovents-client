@@ -101,8 +101,6 @@ const ManageUserBookings = () => {
     endDate: updateInfo?.data?.endDate,
   };
 
-  console.log(bookings);
-
   const columns = [
     {
       title: "Event Title",
