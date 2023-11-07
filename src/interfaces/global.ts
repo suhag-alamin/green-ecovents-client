@@ -149,6 +149,13 @@ export interface IReview {
   updatedAt: string;
 }
 
+export interface ISubscriber {
+  id: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface IUserInfo {
   id: string;
   role: string;

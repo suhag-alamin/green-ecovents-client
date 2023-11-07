@@ -8,6 +8,7 @@ import {
   TeamOutlined,
   UserSwitchOutlined,
   DesktopOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import Link from "next/link";
@@ -158,6 +159,27 @@ export const SidebarItems = (role: string) => {
         {
           label: <Link href={`/dashboard/admin/pages/add`}>Add Pages</Link>,
           key: "/dashboard/admin/pages/add",
+        },
+      ],
+    },
+    {
+      label: "Subscribers",
+      key: "/dashboard/admin/subscribers",
+      icon: <MailOutlined />,
+      children: [
+        {
+          label: (
+            <Link href={`/dashboard/admin/subscribers`}>
+              Manage Subscribers
+            </Link>
+          ),
+          key: "/dashboard/admin/subscribers",
+        },
+        {
+          label: (
+            <Link href={`/dashboard/admin/subscribers/send`}>Send Email</Link>
+          ),
+          key: "/dashboard/admin/subscribers/send",
         },
       ],
     },

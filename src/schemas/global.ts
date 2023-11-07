@@ -41,3 +41,8 @@ export const sendMessageSchema = yup.object().shape({
     .required("Phone Number is required"),
   source: yup.string().required("Where did you hear about us is required"),
 });
+
+export const sendEmailToSubscribersSchema = yup.object().shape({
+  subject: yup.string().required("Subject is required"),
+  message: yup.string().required("Message is required"),
+});

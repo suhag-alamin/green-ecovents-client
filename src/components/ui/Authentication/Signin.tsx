@@ -8,7 +8,7 @@ import styles from "@/styles/SignupSignin.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, Typography, message } from "antd";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
@@ -21,19 +21,6 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!token) {
-  //   router.push(COMMON_ROUTES.LOGIN);
-  //   } else {
-  //   const userInfo = decodeToken(token) as Record<string, string>;
-  //   if (userInfo.role === USER_ROLE.SUPER_ADMIN) router.push(START_BASE_ROUTES.SUPER_ADMIN);
-  //   else if (userInfo.role === USER_ROLE.ADMIN) router.push(START_BASE_ROUTES.ADMIN);
-  //   else if (userInfo.role === USER_ROLE.STUDENT) router.push(START_BASE_ROUTES.STUDENT);
-  //   else if (userInfo.role === USER_ROLE.FACULTY) router.push(START_BASE_ROUTES.FACULTY);
-  //   }
-  //   }, [token]);
-
   const handleSignIn: SubmitHandler<FormValues> = async (data: any) => {
     setIsLoading(true);
 

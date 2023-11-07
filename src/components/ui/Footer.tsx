@@ -1,6 +1,7 @@
 import logo from "@/assets/logo-2.png";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import axiosInstance from "@/helpers/axios/axiosInstance";
 import {
   FacebookOutlined,
   InstagramOutlined,
@@ -8,9 +9,10 @@ import {
   MailOutlined,
   TwitterOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Flex, List, Row } from "antd";
+import { Button, Col, Flex, List, Row, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const links = [
   {
@@ -36,8 +38,24 @@ const links = [
 ];
 
 const Footer = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleSubscribe = async (data: any) => {
-    // console.log(data);
+    setIsLoading(true);
+    const result = await axiosInstance.post("/subscribers", data);
+
+    const response = result?.data;
+    if (response?.statusCode === 200) {
+      message.success(response.message);
+      setIsLoading(false);
+    }
+    // @ts-ignore
+    else if (!result?.success) {
+      setIsLoading(false);
+      message.error(
+        // @ts-ignore
+        result?.message || "Something went wrong try again later"
+      );
+    }
   };
 
   return (
@@ -138,7 +156,12 @@ const Footer = () => {
                     />
                   </Col>
                   <Col xs={24} md={6}>
-                    <Button size="large" type="primary" htmlType="submit">
+                    <Button
+                      loading={isLoading}
+                      size="large"
+                      type="primary"
+                      htmlType="submit"
+                    >
                       Subscribe
                     </Button>
                   </Col>
