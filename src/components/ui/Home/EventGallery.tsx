@@ -20,6 +20,7 @@ const EventGallery = () => {
     <div
       style={{
         padding: "40px 0",
+        overflow: "hidden",
       }}
     >
       <h3

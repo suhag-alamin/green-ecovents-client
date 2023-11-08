@@ -1,12 +1,14 @@
 "use client";
 import { EventStatus, IEvent } from "@/interfaces/global";
-import { Button, Card, Flex, Grid, Typography } from "antd";
+import { Button, Card, Flex, Grid, Statistic, Typography } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { StarFilled } from "@ant-design/icons";
+import type { CountdownProps } from "antd";
 
+const { Countdown } = Statistic;
 const { useBreakpoint } = Grid;
 
 interface EventCardProps {
@@ -44,6 +46,22 @@ const EventCard = ({ event, loading }: EventCardProps) => {
       <Link key="book" href={`/events/booking/${event.id}`}>
         <Button type="primary">Book</Button>
       </Link>
+    );
+  }
+  if (event.status === EventStatus.upcoming) {
+    actions.push(
+      <Countdown
+        style={{
+          fontSize: screen.lg ? 16 : 14,
+        }}
+        valueStyle={{
+          fontSize: screen.lg ? 16 : 14,
+        }}
+        key="countdown"
+        title="Event starts in"
+        value={event?.startDate}
+        format="DD day HH hr"
+      />
     );
   }
 
