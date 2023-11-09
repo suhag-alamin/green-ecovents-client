@@ -100,7 +100,20 @@ export interface IBooking {
   daysBooked: number;
   createdAt: string;
   updatedAt: string;
+  payments?: IPayment[];
 }
+
+export interface IPayment {
+  amount: number;
+  bookingId: string;
+  createdAt: string;
+  currency: string;
+  id: string;
+  paymentId: string;
+  updatedAt: string;
+  userId: string;
+}
+
 export interface IFaq {
   id: string;
   question: string;

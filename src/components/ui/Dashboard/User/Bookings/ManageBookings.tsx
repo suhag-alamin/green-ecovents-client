@@ -2,6 +2,7 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ActionBar from "@/components/ui/ActionBar";
+import PdfDocument from "@/components/ui/Event/PdfDocument";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
 import axiosInstance from "@/helpers/axios/axiosInstance";
@@ -11,6 +12,7 @@ import {
   IBooking,
   IEvent,
   IMeta,
+  IPaymentDetails,
   IQuery,
   IUpdateInfo,
 } from "@/interfaces/global";
@@ -22,9 +24,11 @@ import {
   SearchOutlined,
   StarOutlined,
   StarFilled,
+  FilePdfOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -100,6 +104,15 @@ const ManageUserBookings = () => {
     startDate: updateInfo?.data?.startDate,
     endDate: updateInfo?.data?.endDate,
   };
+
+  // const loadDetails = async (paymentId: string) => {
+  //   setIsLoading(true);
+  //   const response = await axiosInstance.get(
+  //     `/bookings/payment-details/${paymentId}`
+  //   );
+  //   setDetails(response.data.data);
+  //   setIsLoading(false);
+  // };
 
   const columns = [
     {
@@ -194,9 +207,36 @@ const ManageUserBookings = () => {
     {
       title: "Action",
       dataIndex: "id",
-      render: function (data: any) {
+      render: function (data: any, record: IBooking) {
+        // console.log(record);
+
+        // record.payments?.map((payment) => {
+        //   console.log(payment.bookingId === data);
+        // });
+        const paymentInfo = record?.payments?.find(
+          (payment) => payment.bookingId === data
+        );
+        // if (paymentInfo?.paymentId) {
+        //   loadDetails(paymentInfo?.paymentId);
+        // }
+        // console.log(paymentInfo);
         return (
-          <Flex gap={2}>
+          <Flex gap={2} justify="flex-end">
+            {paymentInfo?.paymentId && (
+              <Link
+                href={`/dashboard/user/bookings/download-receipt/${paymentInfo?.paymentId}`}
+              >
+                <Button
+                  style={{
+                    margin: "0px 5px",
+                  }}
+                  type="primary"
+                >
+                  <FilePdfOutlined />
+                </Button>
+              </Link>
+            )}
+
             <Button
               style={{
                 margin: "0px 5px",
