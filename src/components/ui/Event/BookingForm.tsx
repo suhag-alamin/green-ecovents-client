@@ -3,38 +3,19 @@ import FormInput from "@/components/Forms/FormInput";
 import FormRangePicker from "@/components/Forms/FormRangePicker";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
-import {
-  IBooking,
-  IBookingConfirm,
-  IEvent,
-  IUser,
-  IUserInfo,
-} from "@/interfaces/global";
+import { IBookingConfirm, IEvent, IUser, IUserInfo } from "@/interfaces/global";
 import { bookEventSchema } from "@/schemas/events";
+import { CreditCardOutlined, ScheduleOutlined } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import type { CountdownProps } from "antd";
-import {
-  Button,
-  Col,
-  Grid,
-  Row,
-  Statistic,
-  Steps,
-  Typography,
-  message,
-} from "antd";
+import { Button, Col, Grid, Row, Statistic, Typography, message } from "antd";
+import dayjs, { Dayjs } from "dayjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import CheckoutForm from "./CheckoutForm";
-import { loadStripe } from "@stripe/stripe-js";
-import {
-  PaymentElement,
-  Elements,
-  ElementsConsumer,
-} from "@stripe/react-stripe-js";
 import BookingStepperForm from "./BookingStepperForm";
-import { ScheduleOutlined, CreditCardOutlined } from "@ant-design/icons";
+import CheckoutForm from "./CheckoutForm";
 
 const { Countdown } = Statistic;
 
@@ -104,12 +85,14 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
     if (event) {
       const amount = adults * event?.price + (childrens * event?.price) / 2;
 
-      const amountWithTax = (amount + amount * 0.1).toFixed(2);
-      setTax(+amount * 0.1);
+      const totalAmount = amount * daysBooked;
 
-      const totalAmount = (+amountWithTax * daysBooked).toFixed(2);
+      const amountWithTax = (totalAmount + totalAmount * 0.1).toFixed(2);
+      setTax(+totalAmount * 0.1);
 
-      setTotalAmount(+totalAmount);
+      // const totalAmount = (+amountWithTax * daysBooked).toFixed(2);
+
+      setTotalAmount(+amountWithTax);
     }
   }, [adults, childrens, event, totalAmount, daysBooked]);
 

@@ -182,3 +182,12 @@ export interface IBookingConfirm {
   email?: string;
   bookingId: string;
 }
+
+export interface IPaymentDetails {
+  paymentId: string;
+  amount: number;
+  currency: string;
+  email: string;
+  name: string;
+  bookingId: string;
+}

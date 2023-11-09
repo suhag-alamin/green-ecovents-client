@@ -68,7 +68,7 @@ const CheckoutForm = ({ bookingInfo, prev }: ICheckoutFormProps) => {
         elements,
 
         confirmParams: {
-          return_url: `${window?.location?.origin}/dashboard`,
+          return_url: `${window?.location?.origin}/events/booking/confirm`,
           payment_method_data: {
             billing_details: {
               email,
