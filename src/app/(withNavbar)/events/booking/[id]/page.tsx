@@ -21,14 +21,14 @@ export async function generateMetadata(
 
   return {
     title: `Booking of ${event?.title} - GreenEcovents`,
-    description: event.description,
+    description: event?.description,
     openGraph: {
       images: [
         {
-          url: event.image,
+          url: event?.image,
           width: 800,
           height: 600,
-          alt: event.title,
+          alt: event?.title,
         },
         ...previousImages,
       ],

@@ -3,11 +3,8 @@ import { Grid, Layout } from "antd";
 import Header from "./Header";
 
 const { Content } = Layout;
-const { useBreakpoint } = Grid;
 
 const DashboardContents = ({ children }: { children: React.ReactNode }) => {
-  const screen = useBreakpoint();
-
   return (
     <Content
       style={{
