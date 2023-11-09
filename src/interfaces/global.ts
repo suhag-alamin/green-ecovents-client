@@ -172,3 +172,13 @@ export enum BookingStatus {
   confirmed = "confirmed",
   canceled = "canceled",
 }
+
+export interface IBookingConfirm {
+  id?: string;
+  amount: number;
+  currency: string;
+  paymentId: string;
+  userId: string;
+  email?: string;
+  bookingId: string;
+}

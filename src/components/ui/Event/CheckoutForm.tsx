@@ -1,5 +1,5 @@
 import axiosInstance from "@/helpers/axios/axiosInstance";
-import { IBooking } from "@/interfaces/global";
+import { IBooking, IBookingConfirm } from "@/interfaces/global";
 import {
   CardCvcElement,
   CardElement,
@@ -14,11 +14,11 @@ import { Button, Typography, message } from "antd";
 import { useState } from "react";
 
 interface ICheckoutFormProps {
-  bookingInfo: IBooking | undefined;
-  clientSecret: string;
+  bookingInfo: Partial<IBookingConfirm> | undefined;
+  prev: () => void;
 }
 
-const CheckoutForm = ({ bookingInfo, clientSecret }: ICheckoutFormProps) => {
+const CheckoutForm = ({ bookingInfo, prev }: ICheckoutFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -30,61 +30,72 @@ const CheckoutForm = ({ bookingInfo, clientSecret }: ICheckoutFormProps) => {
     return null;
   }
 
-  const { totalAmount, email } = bookingInfo;
+  const { amount, email, currency, paymentId, userId, bookingId } = bookingInfo;
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     setProcessing(true);
 
     if (elements == null) {
-      console.log("elements is null");
+      message.info("elements is null");
       setProcessing(false);
       return;
     }
 
     if (!stripe || !elements) {
-      console.log("stripe or elements is null");
+      message.info("stripe or elements is null");
       setProcessing(false);
       return;
     }
 
-    const result = await stripe.confirmPayment({
-      elements,
+    const bookingData = {
+      amount,
+      currency,
+      paymentId,
+      userId,
+      bookingId,
+    };
 
-      confirmParams: {
-        return_url: `${window?.location?.origin}/events/booking/confirm`,
-        payment_method_data: {
-          billing_details: {
-            email,
+    const book = await axiosInstance.post("/bookings/confirm", bookingData);
+
+    // const result = await axiosInstance.post("/bookings", bookingInfo);
+    const response = book?.data;
+    if (response?.statusCode === 200) {
+      message.success(response.message);
+      // router.push("/dashboard/user/bookings");
+
+      const result = await stripe.confirmPayment({
+        elements,
+
+        confirmParams: {
+          return_url: `${window?.location?.origin}/dashboard`,
+          payment_method_data: {
+            billing_details: {
+              email,
+            },
           },
         },
-      },
-    });
+      });
 
-    if (result.error) {
-      setProcessing(false);
-      console.log(result.error.message);
-      message.error(result.error.message || "Something went wrong");
-    } else {
-      // const result = await axiosInstance.post("/bookings", bookingInfo);
-      // const response = result?.data;
-      // if (response?.statusCode === 200) {
-      //   message.success(response.message);
-      //   setProcessing(false);
-      //   // router.push("/dashboard/user/bookings");
-      // }
-      // // @ts-ignore
-      // else if (!result?.success) {
-      //   setProcessing(false);
-      //   message.error(
-      //     // @ts-ignore
-      //     result?.message || "Something went wrong try again later"
-      //   );
-      // }
-
-      setProcessing(false);
-      message.success("Payment successful");
+      if (result.error) {
+        await axiosInstance.delete(`/bookings/${bookingId}`);
+        setProcessing(false);
+        message.error(result.error.message || "Something went wrong");
+      } else {
+        setProcessing(false);
+      }
     }
+    // @ts-ignore
+    else if (!book?.success) {
+      setProcessing(false);
+      prev();
+      message.error(
+        // @ts-ignore
+        book?.message || "Something went wrong try again later"
+      );
+    }
+
+    setProcessing(false);
   };
 
   return (
@@ -102,7 +113,7 @@ const CheckoutForm = ({ bookingInfo, clientSecret }: ICheckoutFormProps) => {
         disabled={!stripe || !elements}
         size="large"
       >
-        Pay & Book Now (${totalAmount})
+        Pay & Book Now (${amount})
       </Button>
       {errorMessage && (
         <Typography.Paragraph
