@@ -3,6 +3,7 @@ import { Layout } from "antd";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import BackToTop from "./BackToTop";
+import ShowCookieMessage from "./ShowCookieMessage";
 
 const { Content } = Layout;
 
@@ -19,6 +20,7 @@ const Contents = ({ children }: { children: React.ReactNode }) => {
         {children}
       </div>
       <Footer />
+      <ShowCookieMessage />
     </Content>
   );
 };
