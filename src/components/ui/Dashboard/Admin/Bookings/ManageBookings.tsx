@@ -16,7 +16,6 @@ import {
   IMeta,
   IQuery,
   IUpdateInfo,
-  IUser,
 } from "@/interfaces/global";
 import { updateBookingStatusSchema } from "@/schemas/events";
 import {
@@ -28,7 +27,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ManageBookings = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -48,7 +47,7 @@ const ManageBookings = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
-  useMemo(() => {
+  useEffect(() => {
     const loadBookings = async () => {
       setIsLoading(true);
       const res = (
@@ -92,14 +91,14 @@ const ManageBookings = () => {
       title: "Event Title",
       dataIndex: "event",
       render: function (data: IEvent) {
-        return <>{data.title}</>;
+        return <>{data?.title?.slice(0, 20)}...</>;
       },
     },
     {
       title: "Category",
       dataIndex: "event",
       render: function (data: IEvent) {
-        return <>{data.categories.name}</>;
+        return <>{data?.categories?.name?.slice(0, 20)}...</>;
       },
     },
     {
@@ -151,22 +150,6 @@ const ManageBookings = () => {
     {
       title: "Amount$",
       dataIndex: "totalAmount",
-      sorter: true,
-    },
-    {
-      title: "Reviews",
-      dataIndex: "event",
-      render: function (data: IEvent) {
-        const totalRating = data?.reviews?.reduce((acc, review) => {
-          return acc + review?.rating;
-        }, 0);
-        const averageRating = totalRating / data?.reviews?.length;
-        return (
-          <>
-            <StarFilled /> {averageRating} ({data?.reviews?.length})
-          </>
-        );
-      },
       sorter: true,
     },
 

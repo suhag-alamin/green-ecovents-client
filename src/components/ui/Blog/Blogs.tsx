@@ -6,7 +6,7 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IApiResponse } from "@/interfaces/apiResponse";
 import { IBlog, IMeta, IQuery } from "@/interfaces/global";
 import { Col, Empty, PaginationProps, Row, Typography } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Blogs = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -18,7 +18,7 @@ const Blogs = () => {
   const [meta, setMeta] = useState<IMeta>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useMemo(() => {
+  useEffect(() => {
     const loadBlogs = async () => {
       setIsLoading(true);
       const res = (

@@ -1,6 +1,5 @@
 "use client";
 import ContentWriter from "@/components/Forms/ContentWriter";
-import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ActionBar from "@/components/ui/ActionBar";
 import DeleteModal from "@/components/ui/DeleteModal";
@@ -15,16 +14,15 @@ import {
   IQuery,
   IUpdateInfo,
 } from "@/interfaces/global";
-import { updateFaqSchema, updatePageSchema } from "@/schemas/global";
+import { updatePageSchema } from "@/schemas/global";
 import {
   DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Flex, Row } from "antd";
+import { Button, Flex } from "antd";
 import dayjs from "dayjs";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ManagePages = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -43,7 +41,7 @@ const ManagePages = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
-  useMemo(() => {
+  useEffect(() => {
     const loadPages = async () => {
       setIsLoading(true);
       const res = (

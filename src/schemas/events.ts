@@ -4,6 +4,7 @@ enum status {
   pending = "pending",
   confirmed = "confirmed",
   canceled = "canceled",
+  completed = "completed",
 }
 
 export const addCategorySchema = yup.object().shape({

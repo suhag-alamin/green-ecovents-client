@@ -5,7 +5,7 @@ import { IReview } from "@/interfaces/global";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Card, Grid, Rate, Typography } from "antd";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "swiper/css";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,7 +18,7 @@ const Reviews = () => {
   const [reviews, setReviews] = useState<IReview[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useMemo(() => {
+  useEffect(() => {
     const loadReviews = async () => {
       setIsLoading(true);
       const res = (await axiosInstance.get("/reviews"))?.data as IApiResponse;

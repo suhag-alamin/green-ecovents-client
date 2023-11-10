@@ -47,7 +47,7 @@ const EventContentDetails = ({ event }: EventDetailsProps) => {
         }}
         level={4}
       >
-        ${event?.price}
+        ${event?.price} / person
       </Typography.Title>
       <Typography.Paragraph type="secondary">
         {event?.description}

@@ -23,7 +23,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ManageFAQs = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -43,7 +43,7 @@ const ManageFAQs = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
-  useMemo(() => {
+  useEffect(() => {
     const loadFaqs = async () => {
       setIsLoading(true);
       const res = (

@@ -55,6 +55,10 @@ export const statusOptions = [
     label: "canceled",
     value: "canceled",
   },
+  {
+    label: "completed",
+    value: "completed",
+  },
 ];
 export const bookingDataFilterOptions = [
   {

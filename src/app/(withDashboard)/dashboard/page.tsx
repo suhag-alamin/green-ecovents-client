@@ -1,13 +1,19 @@
-import { Metadata } from "next";
-import { redirect } from "next/navigation";
+"use client";
+import { userRole } from "@/constants/role";
 
-export const metadata: Metadata = {
-  title: "Dashboard - GreenEcovents",
-  description: "Dashboard",
-};
+import { getUserInfo } from "@/services/auth.service";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 const Dashboard = () => {
-  return redirect("/dashboard/profile");
+  const user = getUserInfo();
+  useEffect(() => {
+    if (user?.role === userRole.USER) {
+      return redirect("/dashboard/profile");
+    } else {
+      return redirect("/dashboard/admin/bookings/summary");
+    }
+  }, [user]);
 };
 
 export default Dashboard;

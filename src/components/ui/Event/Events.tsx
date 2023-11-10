@@ -24,7 +24,7 @@ import {
   Typography,
 } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Events = () => {
   const searchParam = useSearchParams();
@@ -63,7 +63,7 @@ const Events = () => {
     }
   }, [page, size, searchQuery]);
 
-  useMemo(() => {
+  useEffect(() => {
     const loadEvents = async () => {
       setIsLoading(true);
       const res = (

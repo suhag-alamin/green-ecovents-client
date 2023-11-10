@@ -3,7 +3,7 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUpdateInfo } from "@/interfaces/global";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Flex, Modal } from "antd";
-import React, { ReactElement, ReactNode, useMemo, useState } from "react";
+import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 
 interface DetailsModalProps {
   detailsModalOpen: boolean;
@@ -27,7 +27,7 @@ const DetailsModal = ({
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [details, setDetails] = useState({});
 
-  useMemo(() => {
+  useEffect(() => {
     const loadDetails = async () => {
       if (detailsInfo) {
         const result = await (await axiosInstance.get(detailsInfo.api))?.data;

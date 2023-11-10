@@ -26,7 +26,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ManageUsers = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -46,7 +46,7 @@ const ManageUsers = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
-  useMemo(() => {
+  useEffect(() => {
     const loadUsers = async () => {
       setIsLoading(true);
       const res = (

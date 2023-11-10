@@ -16,7 +16,7 @@ import uploadImage from "@/utils/uploadImage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const AddEvent = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,7 +26,7 @@ const AddEvent = () => {
 
   const user = getUserInfo() as IUserInfo;
 
-  useMemo(() => {
+  useEffect(() => {
     const loadCategories = async () => {
       setIsLoading(true);
       const res = (await axiosInstance.get("/categories"))

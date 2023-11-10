@@ -8,7 +8,7 @@ import { IDeleteInfo, IFeedback, IUser } from "@/interfaces/global";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Flex } from "antd";
 import dayjs from "dayjs";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Feedbacks = () => {
   const [feedbacks, setFeedbacks] = useState<IFeedback[]>();
@@ -19,7 +19,7 @@ const Feedbacks = () => {
   const [deleteInfo, setDeleteInfo] = useState<IDeleteInfo>();
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
-  useMemo(() => {
+  useEffect(() => {
     const loadFeedbacks = async () => {
       setIsLoading(true);
       const res = (await axiosInstance.get("/feedbacks"))?.data as IApiResponse;

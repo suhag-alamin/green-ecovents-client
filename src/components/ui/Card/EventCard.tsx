@@ -119,7 +119,7 @@ const EventCard = ({ event, loading }: EventCardProps) => {
         level={4}
         type="success"
       >
-        ${event?.price}
+        ${event?.price} / person
       </Typography.Title>
       <Flex gap={screen.lg ? 4 : 2} align="center" justify="start" wrap="wrap">
         <p

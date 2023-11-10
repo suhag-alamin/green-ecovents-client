@@ -10,7 +10,7 @@ import { IApiResponse } from "@/interfaces/apiResponse";
 import { IUser } from "@/interfaces/global";
 import { Button, Flex, Grid, message } from "antd";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const { useBreakpoint } = Grid;
 
@@ -23,7 +23,7 @@ const AddAdmin = () => {
 
   const router = useRouter();
 
-  useMemo(() => {
+  useEffect(() => {
     const loadAdmin = async () => {
       setIsUsersLoading(true);
       const res = (await axiosInstance.get("/user/get-all"))

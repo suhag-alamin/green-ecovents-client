@@ -2,7 +2,6 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ActionBar from "@/components/ui/ActionBar";
-import PdfDocument from "@/components/ui/Event/PdfDocument";
 import GETable from "@/components/ui/GETable";
 import UpdateModal from "@/components/ui/UpdateModal";
 import axiosInstance from "@/helpers/axios/axiosInstance";
@@ -12,7 +11,6 @@ import {
   IBooking,
   IEvent,
   IMeta,
-  IPaymentDetails,
   IQuery,
   IUpdateInfo,
 } from "@/interfaces/global";
@@ -20,17 +18,16 @@ import { cancelBookingSchema } from "@/schemas/events";
 import { getUserInfo } from "@/services/auth.service";
 import {
   CloseOutlined,
+  FilePdfOutlined,
   ReloadOutlined,
   SearchOutlined,
-  StarOutlined,
   StarFilled,
-  FilePdfOutlined,
+  StarOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ManageUserBookings = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -50,7 +47,7 @@ const ManageUserBookings = () => {
 
   const user = getUserInfo() as any;
 
-  useMemo(() => {
+  useEffect(() => {
     const loadBookings = async () => {
       setIsLoading(true);
       const res = (

@@ -18,6 +18,7 @@ import {
   IEvent,
   IMeta,
   IQuery,
+  IReview,
   IUpdateInfo,
 } from "@/interfaces/global";
 import { updateEventSchema } from "@/schemas/events";
@@ -27,11 +28,12 @@ import {
   EyeOutlined,
   ReloadOutlined,
   SearchOutlined,
+  StarFilled,
 } from "@ant-design/icons";
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ManageEvents = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -52,7 +54,7 @@ const ManageEvents = () => {
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
   const [categories, setCategories] = useState<ICategory[]>();
 
-  useMemo(() => {
+  useEffect(() => {
     const loadCategories = async () => {
       setIsLoading(true);
       const res = (await axiosInstance.get("/categories"))
@@ -75,7 +77,7 @@ const ManageEvents = () => {
     }
   }
 
-  useMemo(() => {
+  useEffect(() => {
     const loadEvents = async () => {
       setIsLoading(true);
       const res = (
@@ -178,14 +180,28 @@ const ManageEvents = () => {
       },
       sorter: true,
     },
-    // {
-    //   title: "Reviews",
-    //   dataIndex: "reviews",
-    //   render: function (data: any) {
-    //     return data.length ? <span>{data?.length}</span> : <span>0</span>;
-    //   },
-    //   sorter: true,
-    // },
+
+    {
+      title: "Reviews",
+      dataIndex: "reviews",
+      render: function (data: IReview[]) {
+        const totalRating = data?.reduce((acc, review) => {
+          return acc + review?.rating;
+        }, 0);
+        let averageRating = 0;
+        if (totalRating === 0) {
+          averageRating = 0;
+        } else if (totalRating > 0) {
+          averageRating = totalRating / data?.length;
+        }
+        return (
+          <>
+            <StarFilled /> {averageRating} ({data?.length})
+          </>
+        );
+      },
+      sorter: true,
+    },
     {
       title: "Status",
       dataIndex: "status",

@@ -27,7 +27,7 @@ import {
 import { Button, Col, Flex, Row } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ManageBlogs = () => {
   const [query, setQuery] = useState<IQuery>();
@@ -47,7 +47,7 @@ const ManageBlogs = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<IUpdateInfo>();
 
-  useMemo(() => {
+  useEffect(() => {
     const loadBlogs = async () => {
       setIsLoading(true);
       const res = (

@@ -7,6 +7,7 @@ import EventContentDetails from "@/components/ui/Event/EventContentDetails";
 import Link from "next/link";
 import GEBreadCrumb from "@/components/ui/GEBreadCrumb";
 import type { Metadata, ResolvingMetadata } from "next";
+import EventReviews from "@/components/ui/Event/EventReviews";
 
 interface IEventDetailsProps {
   params: { id: string };
@@ -97,6 +98,11 @@ const EventDetails = async ({ params }: IEventDetailsProps) => {
               </Link>
             )}
           </Col>
+          {event?.reviews?.length > 0 && (
+            <Col xs={24} md={24}>
+              <EventReviews reviews={event?.reviews} />
+            </Col>
+          )}
         </Row>
       </div>
     </div>
