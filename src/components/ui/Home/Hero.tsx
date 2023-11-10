@@ -28,7 +28,7 @@ const Hero = async () => {
 
   return (
     <div className={styles.heroSection}>
-      <div className={`${styles.heroContent} container`}>
+      <div className={`container`}>
         <SwiperSlider events={data} />
       </div>
     </div>

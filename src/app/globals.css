@@ -45,9 +45,14 @@
   object-fit: cover;
 } */
 
+.hero-slider .swiper-button-next::after,
+.hero-slider .swiper-button-prev::after {
+  color: #edf4ed !important;
+  font-size: 20px !important;
+}
 .swiper-button-next::after,
 .swiper-button-prev::after {
-  color: #edf4ed !important;
+  color: #3ba27a !important;
   font-size: 20px !important;
 }
 

@@ -14,7 +14,7 @@ import { IPaymentDetails } from "@/interfaces/global";
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
-    backgroundColor: "#E4E4E4",
+    backgroundColor: "#fff",
     padding: 30,
   },
   header: {

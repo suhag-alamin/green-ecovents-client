@@ -27,7 +27,7 @@ const BlogCard = ({ blog, loading }: BlogCardProps) => {
       loading={loading}
       actions={[
         <Link key="view" href={`/blogs/${blog.id}`}>
-          <Button type="primary">View Details</Button>
+          <Button type="primary">Details</Button>
         </Link>,
       ]}
     >

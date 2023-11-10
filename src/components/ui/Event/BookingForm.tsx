@@ -90,8 +90,6 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
       const amountWithTax = (totalAmount + totalAmount * 0.1).toFixed(2);
       setTax(+totalAmount * 0.1);
 
-      // const totalAmount = (+amountWithTax * daysBooked).toFixed(2);
-
       setTotalAmount(+amountWithTax);
     }
   }, [adults, childrens, event, totalAmount, daysBooked]);
@@ -367,8 +365,6 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
             </div>
             <div
               style={{
-                width: "60%",
-                margin: "auto",
                 marginTop: 20,
               }}
             >
@@ -381,7 +377,6 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
                 htmlType="submit"
                 loading={isLoading}
               >
-                {/* Confirm Booking */}
                 Proceed to Payment
               </Button>
             </div>

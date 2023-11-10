@@ -11,6 +11,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { Button, Typography, message } from "antd";
+import Link from "next/link";
 import { useState } from "react";
 
 interface ICheckoutFormProps {
@@ -100,6 +101,20 @@ const CheckoutForm = ({ bookingInfo, prev }: ICheckoutFormProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <Typography.Text
+        style={{
+          fontSize: 14,
+          marginBottom: 16,
+          display: "inline-block",
+        }}
+        type="secondary"
+      >
+        Use Stripe test{" "}
+        <Link href="https://stripe.com/docs/testing" target="_blank">
+          Cards
+        </Link>{" "}
+      </Typography.Text>
+
       <PaymentElement />
 
       <Button

@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, Typography, message } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 interface FormValues {
@@ -161,7 +161,7 @@ const SignIn = () => {
                 style={{
                   marginTop: 20,
                 }}
-                xs={12}
+                xs={24}
                 md={8}
               >
                 <div>
@@ -182,11 +182,14 @@ const SignIn = () => {
                 style={{
                   marginTop: 20,
                 }}
-                xs={12}
+                xs={24}
                 md={8}
               >
                 <div>
                   <Button
+                    style={{
+                      width: "100%",
+                    }}
                     onClick={handleDemoUserSignIn}
                     size="large"
                     type="primary"

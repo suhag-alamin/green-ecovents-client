@@ -37,7 +37,7 @@ const EventCard = ({ event, loading }: EventCardProps) => {
       key="view"
       href={`/events/${event.id}`}
     >
-      <Button type="primary">View Details</Button>
+      <Button type="primary">Details</Button>
     </Link>,
   ];
 

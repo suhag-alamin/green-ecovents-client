@@ -29,11 +29,12 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
       modules={[Autoplay, Navigation]}
       navigation={true}
       slidesPerView={1}
+      className="hero-slider"
     >
       {events?.length &&
         events.map((event) => (
           <SwiperSlide className="container" key={event?.id}>
-            <Row gutter={30} align="middle">
+            <Row gutter={[20, 20]} align="middle">
               <Col xs={24} md={8}>
                 <Image
                   src={event?.image}
@@ -50,12 +51,12 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
                 xs={24}
                 md={16}
                 style={{
-                  textAlign: "left",
+                  textAlign: screen.lg ? "left" : "center",
                 }}
               >
                 <h2
                   style={{
-                    fontSize: screen.lg ? 48 : 30,
+                    fontSize: screen.lg ? 48 : screen.md ? 30 : 24,
                   }}
                 >
                   {event?.title}
@@ -63,12 +64,15 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
                 <Flex
                   gap={screen.lg ? 20 : 4}
                   align="center"
-                  justify="start"
+                  justify={screen.lg ? "flex-start" : "center"}
                   wrap="wrap"
+                  style={{
+                    margin: "10px 0",
+                  }}
                 >
                   <h4
                     style={{
-                      fontSize: screen.lg ? 34 : 20,
+                      fontSize: screen.lg ? 34 : screen.md ? 20 : 18,
                       fontWeight: "500",
                     }}
                   >
@@ -76,7 +80,8 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
                   </h4>
                   <h4
                     style={{
-                      fontSize: screen.lg ? 34 : 20,
+                      fontSize: screen.lg ? 34 : screen.md ? 20 : 18,
+
                       fontWeight: "500",
                     }}
                   >
@@ -84,7 +89,8 @@ const SwiperSlider = ({ events }: SwiperSliderProps) => {
                   </h4>
                   <h4
                     style={{
-                      fontSize: screen.lg ? 34 : 20,
+                      fontSize: screen.lg ? 34 : screen.md ? 20 : 18,
+
                       fontWeight: "500",
                     }}
                   >

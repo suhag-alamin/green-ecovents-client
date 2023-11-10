@@ -1,7 +1,7 @@
 "use client";
 import axiosInstance from "@/helpers/axios/axiosInstance";
 // import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Button, Grid, Typography, message } from "antd";
+import { Button, Grid, Spin, Typography, message } from "antd";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import PdfDocument from "./PdfDocument";
@@ -34,6 +34,21 @@ const BookingConfirm = () => {
     };
     loadDetails();
   }, [params]);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="container">
