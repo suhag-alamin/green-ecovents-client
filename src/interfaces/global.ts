@@ -175,16 +175,6 @@ export interface IUserInfo {
   iat: number;
   exp: number;
 }
-export enum EventStatus {
-  upcoming = "upcoming",
-  ongoing = "ongoing",
-  ended = "ended",
-}
-export enum BookingStatus {
-  pending = "pending",
-  confirmed = "confirmed",
-  canceled = "canceled",
-}
 
 export interface IBookingConfirm {
   id?: string;
@@ -203,4 +193,53 @@ export interface IPaymentDetails {
   email: string;
   name: string;
   bookingId: string;
+}
+
+/* 
+today
+ {
+            "hour": 0,
+            "totalBookings": 0,
+            "totalRevenue": 0
+        },
+7days
+            {
+            "date": "2023-11-02T18:00:00.000Z",
+            "totalBookings": 0,
+            "totalRevenue": 0
+        },
+        1month
+          {
+            "date": "2023-10-09T18:00:00.000Z",
+            "totalBookings": 0,
+            "totalRevenue": 0
+        },
+        year
+        {
+            "month": 0,
+            "totalBookings": 0,
+            "totalRevenue": 0
+        },
+*/
+export type ITimeRange = "today" | "7days" | "1month" | "year";
+
+export type IGetBookingsData = {
+  timeRange: ITimeRange;
+  year?: number;
+};
+export interface IBookingData {
+  label: string;
+  totalBookings: number;
+  totalRevenue: number;
+}
+
+export enum EventStatus {
+  upcoming = "upcoming",
+  ongoing = "ongoing",
+  ended = "ended",
+}
+export enum BookingStatus {
+  pending = "pending",
+  confirmed = "confirmed",
+  canceled = "canceled",
 }

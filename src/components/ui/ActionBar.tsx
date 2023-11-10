@@ -20,10 +20,10 @@ const ActionBar = ({ title, children }: ActionBarProps) => {
       <div
         style={{
           display: "flex",
-          margin: 10,
           justifyContent: "space-between",
           alignItems: "center",
           gap: 10,
+          flexWrap: "wrap",
         }}
       >
         {children}

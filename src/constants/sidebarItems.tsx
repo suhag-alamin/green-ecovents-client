@@ -103,9 +103,23 @@ export const SidebarItems = (role: string) => {
       ],
     },
     {
-      label: <Link href={`/dashboard/admin/bookings`}>Manage Bookings</Link>,
+      label: "Manage Bookings",
       key: `/dashboard/admin/bookings`,
       icon: <ScheduleOutlined />,
+      children: [
+        {
+          label: (
+            <Link href={`/dashboard/admin/bookings/summary`}>
+              Booking Summary
+            </Link>
+          ),
+          key: "/dashboard/admin/bookings/summary",
+        },
+        {
+          label: <Link href={`/dashboard/admin/bookings`}>Bookings</Link>,
+          key: "/dashboard/admin/bookings/manage",
+        },
+      ],
     },
     {
       label: "Contents",

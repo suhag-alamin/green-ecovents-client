@@ -17,6 +17,7 @@ interface SelectFieldProps {
   options: SelectOptions[];
   defaultValue?: SelectOptions;
   helperText?: string;
+  onFieldChange?: (value: string) => void;
 }
 
 const FormSelectField = ({
@@ -28,6 +29,7 @@ const FormSelectField = ({
   defaultValue,
   placeholder,
   helperText,
+  onFieldChange,
 }: SelectFieldProps) => {
   const {
     control,
@@ -55,7 +57,10 @@ const FormSelectField = ({
             style={{
               width: "100%",
             }}
-            onChange={onChange}
+            onChange={(value) => {
+              onChange(value);
+              onFieldChange ? onFieldChange(value) : null;
+            }}
             size={size}
             options={options}
             value={value}

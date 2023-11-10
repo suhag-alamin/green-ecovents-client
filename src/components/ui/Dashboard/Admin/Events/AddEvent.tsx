@@ -134,22 +134,7 @@ const AddEvent = () => {
                   options={categoryOptions}
                 />
               </Col>
-              {/* <Col xs={24} md={12}>
-                <FormDatePicker
-                  name="startDate"
-                  label="Start Date"
-                  // placeholder="Eco-Chic Garden Wedding"
-                  size="large"
-                />
-              </Col>
-              <Col xs={24} md={12}>
-                <FormDatePicker
-                  name="endDate"
-                  label="End Date"
-                  // placeholder="Eco-Chic Garden Wedding"
-                  size="large"
-                />
-              </Col> */}
+
               <Col xs={24} md={24}>
                 <FormRangePicker
                   name={["startDate", "endDate"]}

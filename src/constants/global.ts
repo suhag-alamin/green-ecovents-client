@@ -56,3 +56,21 @@ export const statusOptions = [
     value: "canceled",
   },
 ];
+export const bookingDataFilterOptions = [
+  {
+    label: "Today",
+    value: "today",
+  },
+  {
+    label: "7 Days",
+    value: "7days",
+  },
+  {
+    label: "1 Month",
+    value: "1month",
+  },
+  {
+    label: "Year",
+    value: "year",
+  },
+];

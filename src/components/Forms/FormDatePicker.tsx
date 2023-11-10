@@ -11,6 +11,8 @@ type GEDatePikerProps = {
   size?: "large" | "small";
   startDate?: Dayjs;
   endDate?: Dayjs;
+  picker?: "date" | "week" | "month" | "quarter" | "year";
+  isDisabled?: boolean;
 };
 
 const FormDatePicker = ({
@@ -21,6 +23,8 @@ const FormDatePicker = ({
   value,
   startDate,
   endDate,
+  picker,
+  isDisabled = false,
 }: GEDatePikerProps) => {
   const { control, setValue } = useFormContext();
 
@@ -86,8 +90,9 @@ const FormDatePicker = ({
             size={size}
             onChange={handleOnChange}
             style={{ width: "100%" }}
-            disabledDate={disabledDate}
-            disabledTime={disabledDateTime}
+            disabledDate={isDisabled ? disabledDate : undefined}
+            disabledTime={isDisabled ? disabledDateTime : undefined}
+            picker={picker}
           />
         )}
       />
