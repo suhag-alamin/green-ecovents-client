@@ -33,7 +33,6 @@ const DetailsModal = ({
         const result = await (await axiosInstance.get(detailsInfo.api))?.data;
 
         setDetails(result?.data);
-        console.log(result);
       }
     };
     loadDetails();

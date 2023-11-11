@@ -16,7 +16,6 @@ export async function generateMetadata(
     ?.data as IApiResponse;
   const event: IEvent = result?.data;
 
-  // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
   return {

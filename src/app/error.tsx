@@ -1,4 +1,4 @@
-"use client"; // Error components must be Client Components
+"use client";
 
 import { Button, Typography } from "antd";
 import { useEffect } from "react";

@@ -1,8 +1,8 @@
 "use client";
 import { Layout } from "antd";
+import BackToTop from "./BackToTop";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import BackToTop from "./BackToTop";
 import ShowCookieMessage from "./ShowCookieMessage";
 
 const { Content } = Layout;

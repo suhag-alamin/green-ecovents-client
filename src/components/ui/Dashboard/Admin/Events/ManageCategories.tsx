@@ -170,7 +170,7 @@ const ManageCategories = () => {
                 name="query"
                 type="search"
                 size="large"
-                placeholder="John"
+                placeholder="Search Categories"
                 suffix={
                   <Button type="primary" htmlType="submit">
                     <SearchOutlined />

@@ -12,7 +12,6 @@ interface EventReviewsProps {
 
 const EventReviews = ({ reviews }: EventReviewsProps) => {
   const screen = useBreakpoint();
-  console.log(reviews);
   return (
     <div
       style={{

@@ -102,15 +102,6 @@ const ManageUserBookings = () => {
     endDate: updateInfo?.data?.endDate,
   };
 
-  // const loadDetails = async (paymentId: string) => {
-  //   setIsLoading(true);
-  //   const response = await axiosInstance.get(
-  //     `/bookings/payment-details/${paymentId}`
-  //   );
-  //   setDetails(response.data.data);
-  //   setIsLoading(false);
-  // };
-
   const columns = [
     {
       title: "Event Title",
@@ -205,18 +196,10 @@ const ManageUserBookings = () => {
       title: "Action",
       dataIndex: "id",
       render: function (data: any, record: IBooking) {
-        // console.log(record);
-
-        // record.payments?.map((payment) => {
-        //   console.log(payment.bookingId === data);
-        // });
         const paymentInfo = record?.payments?.find(
           (payment) => payment.bookingId === data
         );
-        // if (paymentInfo?.paymentId) {
-        //   loadDetails(paymentInfo?.paymentId);
-        // }
-        // console.log(paymentInfo);
+
         return (
           <Flex gap={2} justify="flex-end">
             {paymentInfo?.paymentId && (

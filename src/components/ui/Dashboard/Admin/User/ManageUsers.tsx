@@ -55,7 +55,7 @@ const ManageUsers = () => {
         })
       )?.data as IApiResponse;
       setUsers(res?.data);
-      setMeta(res.meta);
+      setMeta(res?.meta);
       setIsLoading(false);
       setIsDeleted(false);
       setIsUpdated(false);

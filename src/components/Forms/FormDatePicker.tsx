@@ -59,13 +59,11 @@ const FormDatePicker = ({
   };
 
   const disabledDateTime = () => {
-    // if (value) {
     return {
       disabledHours: () => range(0, 24).splice(dayjs(value).hour(), 20),
       disabledMinutes: () => range(dayjs(value).minute(), 60),
       disabledSeconds: () => [55, 56],
     };
-    // }
   };
 
   return (

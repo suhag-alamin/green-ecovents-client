@@ -33,7 +33,7 @@ const BookingSummary = () => {
     if (data.year) {
       // get the year
       const year = dayjs(data.year).format("YYYY");
-      data.year = year;
+      data.year = parseInt(year);
     }
     if (data.timeRange) {
       setQuery(data);

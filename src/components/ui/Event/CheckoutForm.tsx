@@ -59,11 +59,9 @@ const CheckoutForm = ({ bookingInfo, prev }: ICheckoutFormProps) => {
 
     const book = await axiosInstance.post("/bookings/confirm", bookingData);
 
-    // const result = await axiosInstance.post("/bookings", bookingInfo);
     const response = book?.data;
     if (response?.statusCode === 200) {
       message.success(response.message);
-      // router.push("/dashboard/user/bookings");
 
       const result = await stripe.confirmPayment({
         elements,

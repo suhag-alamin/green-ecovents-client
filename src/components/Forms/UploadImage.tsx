@@ -41,7 +41,6 @@ const UploadImage = ({ name }: ImageUploadProps) => {
       return;
     }
     if (info.file.status === "done") {
-      // Get this url from response in real world.
       setValue(name, info.file.originFileObj);
       getBase64(info.file.originFileObj as RcFile, (url) => {
         setLoading(false);

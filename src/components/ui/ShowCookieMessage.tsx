@@ -1,11 +1,11 @@
 "use client";
-import { Button, Flex } from "antd";
 import cookie from "@/assets/cookie.png";
+import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
+import { CheckCircleOutlined } from "@ant-design/icons";
+import { Button, Flex } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { CloseCircleOutlined } from "@ant-design/icons";
-import { use, useEffect, useState } from "react";
-import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
+import { useEffect, useState } from "react";
 
 const ShowCookieMessage = () => {
   const [show, setShow] = useState(false);
@@ -34,30 +34,32 @@ const ShowCookieMessage = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          zIndex: 1000,
+          zIndex: 10,
           padding: "10px 20px",
           background: "#3BA27A",
           color: "#EDF4ED",
         }}
         justify="center"
-        align="center"
+        align="start"
         gap={20}
       >
         <Image src={cookie} alt="" width={32} height={32} />
-        <p style={{ marginRight: 10 }}>
-          We use cookies to ensure you get the best experience on our website.
-        </p>
-        <Link href="/privacy-policy" style={{ color: "#EDF4ED" }}>
-          Learn more
-        </Link>
-        <Button
-          type="text"
-          style={{
-            color: "#EDF4ED",
-          }}
-          onClick={handleClose}
-        >
-          <CloseCircleOutlined />
+        <div>
+          <h3>Cookie Notice</h3>
+          <Flex align="center">
+            <p style={{ marginRight: 10 }}>
+              We use cookies to ensure you get the best experience on our
+              website.
+            </p>
+            <Link href="/privacy-policy" style={{ color: "#EDF4ED" }}>
+              Learn more
+            </Link>
+          </Flex>
+        </div>
+
+        <Button type="dashed" onClick={handleClose}>
+          Accept
+          <CheckCircleOutlined />
         </Button>
       </Flex>
     </div>

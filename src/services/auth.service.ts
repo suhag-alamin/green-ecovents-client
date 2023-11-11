@@ -28,7 +28,9 @@ export const isLoggedIn = () => {
   return !!authToken;
 };
 
-export const removeUserInfo = (key: string) => {
+export const removeUserInfo = async (key: string) => {
+  await axiosInstance.post("/auth/logout");
+
   return localStorage.removeItem(key);
 };
 

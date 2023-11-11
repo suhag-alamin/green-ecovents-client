@@ -148,9 +148,6 @@ const BookingForm = ({ event, user, id }: IBookingFormProps) => {
       const response = result?.data;
 
       if (response?.statusCode === 200) {
-        // message.success(response.message);
-        // setIsLoading(false);
-        // router.push("/dashboard/user/bookings");
         const { id, totalAmount, email } = response?.data;
         const res = await axiosInstance.post(
           "bookings/create-payment-intents",
