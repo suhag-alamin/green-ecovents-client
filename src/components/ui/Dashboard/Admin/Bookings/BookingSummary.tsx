@@ -46,7 +46,11 @@ const BookingSummary = () => {
   return (
     <div className="container">
       <Form submitHandler={handleChartFilter}>
-        <ActionBar title="Bookings Summary">
+        <ActionBar
+          title={`
+          Booking Summary of ${query.timeRange}
+          `}
+        >
           <div>
             <FormSelectField
               name="timeRange"

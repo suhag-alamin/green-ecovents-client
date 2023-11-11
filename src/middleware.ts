@@ -60,18 +60,12 @@ export async function middleware(request: NextRequest) {
     }
 
     // if admin is trying to access user routes or super admin routes then redirect to login page
-    if (
-      user?.role === userRole.ADMIN &&
-      (userRoutes.includes(pathname) || superAdminRoutes.includes(pathname))
-    ) {
+    if (user?.role === userRole.ADMIN && userRoutes.includes(pathname)) {
       return NextResponse.redirect(url);
     }
 
     // if super-admin is trying to access user routes or admin routes then redirect to login page
-    if (
-      user?.role === userRole.SUPER_ADMIN &&
-      (userRoutes.includes(pathname) || adminRoutes.includes(pathname))
-    ) {
+    if (user?.role === userRole.SUPER_ADMIN && userRoutes.includes(pathname)) {
       return NextResponse.redirect(url);
     }
 
