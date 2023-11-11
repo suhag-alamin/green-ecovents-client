@@ -11,6 +11,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
+import Cookies from "js-cookie";
 
 interface FormValues {
   email: string;
@@ -28,6 +29,7 @@ const SignIn = () => {
 
     const response = result?.data;
     if (response?.statusCode === 200 && response?.data?.accessToken) {
+      Cookies.set("accessToken", response?.data?.accessToken);
       storeUserInfo(response?.data?.accessToken);
       message.success(response.message);
       setIsLoading(false);
@@ -56,6 +58,7 @@ const SignIn = () => {
 
     const response = result?.data;
     if (response?.statusCode === 200 && response?.data?.accessToken) {
+      Cookies.set("accessToken", response?.data?.accessToken);
       storeUserInfo(response?.data?.accessToken);
       message.success(response.message);
       setIsLoading(false);
@@ -84,6 +87,7 @@ const SignIn = () => {
 
     const response = result?.data;
     if (response?.statusCode === 200 && response?.data?.accessToken) {
+      Cookies.set("accessToken", response?.data?.accessToken);
       storeUserInfo(response?.data?.accessToken);
       message.success(response.message);
       setIsLoading(false);

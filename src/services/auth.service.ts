@@ -3,6 +3,7 @@ import axiosInstance from "@/helpers/axios/axiosInstance";
 import { IUserInfo } from "@/interfaces/global";
 import { decodedToken } from "@/utils/jwt";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
+import Cookies from "js-cookie";
 
 export const storeUserInfo = (accessToken: string) => {
   if (accessToken) {
@@ -29,6 +30,7 @@ export const isLoggedIn = () => {
 };
 
 export const removeUserInfo = async (key: string) => {
+  Cookies.remove(process.env.NEXT_PUBLIC_TOKEN as string);
   await axiosInstance.post("/auth/logout");
 
   return localStorage.removeItem(key);
