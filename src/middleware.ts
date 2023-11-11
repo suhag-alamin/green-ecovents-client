@@ -36,6 +36,7 @@ export async function middleware(request: NextRequest) {
   ];
 
   const superAdminRoutes = [
+    ...adminRoutes,
     "/dashboard/super-admin/admins",
     "/dashboard/super-admin/add-admin",
   ];
@@ -49,6 +50,10 @@ export async function middleware(request: NextRequest) {
     if (user?.exp < Date.now() / 1000) {
       url.pathname = "/signin";
       return NextResponse.redirect(url);
+    }
+
+    if (pathname === "/dashboard") {
+      return NextResponse.next();
     }
 
     // if user role is not admin and user is trying to access admin routes then redirect to login page
