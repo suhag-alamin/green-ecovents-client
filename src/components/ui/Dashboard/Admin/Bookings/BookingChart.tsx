@@ -47,7 +47,7 @@ const BookingChart = ({ bookingData }: IBookingChartProps) => {
         margin: "30px 0",
       }}
     >
-      <ResponsiveContainer>
+      <ResponsiveContainer width={"100%"} height={"100%"}>
         <AreaChart
           data={bookingData}
           margin={{
