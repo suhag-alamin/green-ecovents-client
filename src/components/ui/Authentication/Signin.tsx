@@ -7,11 +7,11 @@ import { storeUserInfo } from "@/services/auth.service";
 import styles from "@/styles/SignupSignin.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, Typography, message } from "antd";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { SubmitHandler } from "react-hook-form";
 import Cookies from "js-cookie";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { SubmitHandler } from "react-hook-form";
 
 interface FormValues {
   email: string;

@@ -3,6 +3,7 @@ import { authKey } from "@/constants/storageKey";
 import { getNewAccessToken, removeUserInfo } from "@/services/auth.service";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
   baseURL: baseApi,
@@ -36,6 +37,7 @@ axiosInstance.interceptors.request.use(
       const accessToken = response?.data?.data?.accessToken;
 
       config.headers.Authorization = accessToken;
+      Cookies.set(authKey, accessToken);
       setToLocalStorage(authKey, accessToken);
 
       return axiosInstance(config);

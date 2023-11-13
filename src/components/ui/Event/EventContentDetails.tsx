@@ -81,20 +81,22 @@ const EventContentDetails = ({ event }: EventDetailsProps) => {
           On {event?.location}
         </Typography.Title>
       </Flex>
-      <Flex align="center" gap={4}>
-        <Rate disabled value={averageRating} allowHalf />
-        <Typography.Title
-          key="rating"
-          style={{
-            fontSize: screen.lg ? 16 : 14,
-            margin: 0,
-          }}
-          level={4}
-          type="success"
-        >
-          ({event.reviews.length})
-        </Typography.Title>
-      </Flex>
+      {event.reviews.length > 0 && (
+        <Flex align="center" gap={4}>
+          <Rate disabled value={averageRating} allowHalf />
+          <Typography.Title
+            key="rating"
+            style={{
+              fontSize: screen.lg ? 16 : 14,
+              margin: 0,
+            }}
+            level={4}
+            type="success"
+          >
+            ({event.reviews.length})
+          </Typography.Title>
+        </Flex>
+      )}
     </div>
   );
 };

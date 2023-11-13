@@ -42,12 +42,13 @@ const ShowCookieMessage = () => {
         justify="center"
         align="start"
         gap={20}
+        wrap="wrap"
       >
         <Image src={cookie} alt="" width={32} height={32} />
         <div>
           <h3>Cookie Notice</h3>
-          <Flex align="center">
-            <p style={{ marginRight: 10 }}>
+          <Flex align="center" wrap="wrap">
+            <p style={{ marginRight: 5 }}>
               We use cookies to ensure you get the best experience on our
               website.
             </p>

@@ -37,8 +37,8 @@ export const sendMessageSchema = yup.object().shape({
   message: yup.string().required("Message is required"),
   phone: yup
     .string()
-    .matches(/^(?:\+\d{1,3}\s?)?\d{1,14}$/, "Phone number is not valid")
-    .required("Phone Number is required"),
+    .matches(/^(?:\+\d{1,3}\s?)?\d{11,14}$/, "Contact number is not valid")
+    .required("Contact Number is required"),
   source: yup.string().required("Where did you hear about us is required"),
 });
 

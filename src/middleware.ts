@@ -46,12 +46,6 @@ export async function middleware(request: NextRequest) {
 
     url.pathname = "/not-found";
 
-    // if token is expired then redirect to login page
-    if (user?.exp < Date.now() / 1000) {
-      url.pathname = "/signin";
-      return NextResponse.redirect(url);
-    }
-
     if (pathname === "/dashboard") {
       return NextResponse.next();
     }
