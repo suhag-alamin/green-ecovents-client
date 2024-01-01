@@ -111,3 +111,25 @@ export const updateAdminSchema = yup.object().shape({
     .oneOf(Object.values(Role), "Select valid role")
     .required("User role is required"),
 });
+
+export const forgetPasswordSchema = yup.object().shape({
+  email: yup.string().email().required("Email Address is required"),
+});
+
+export const resetPasswordSchema = yup.object().shape({
+  password: yup
+    .string()
+    .min(8, "Password is too short - should be 8 chars minimum.")
+    .max(16, "Password is too long - should be 16 chars maximum.")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!`~@#$%^&*()_+=[\]{}|\\;:'",<.>/?])[a-zA-Z\d!`~@#$%^&*()_+=[\]{}|\\;:'",<.>/?-]{8,16}$/,
+      "Password must include at least one number, one special character, one uppercase and one lowercase character."
+    )
+    .required("Password is required"),
+
+  confirmPassword: yup
+    .string()
+    // @ts-ignore
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Password confirmation is required"),
+});

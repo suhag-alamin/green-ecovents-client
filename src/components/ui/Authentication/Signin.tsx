@@ -140,6 +140,11 @@ const SignIn = () => {
                   size="large"
                 />
               </Col>
+              <Col xs={24}>
+                <Link href="/forget-password">
+                  <Typography.Link>Forget Password?</Typography.Link>
+                </Link>
+              </Col>
               <Col
                 style={{
                   marginTop: 20,
