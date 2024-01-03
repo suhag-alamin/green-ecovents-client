@@ -1,17 +1,17 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import logo from "@/assets/logo.png";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import { baseApi } from "@/config/api";
 import { resetPasswordSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, Typography, message } from "antd";
 import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { baseApi } from "@/config/api";
-import Link from "next/link";
-import Image from "next/image";
-import logo from "@/assets/logo.png";
 
 interface FormValues {
   email: string;
@@ -35,17 +35,17 @@ const ResetPassword = () => {
     delete data.password;
     delete data.confirmPassword;
 
-    console.log(data);
-
     try {
       const result = await axios.post(`${baseApi}/auth/reset-password`, data);
 
       const response = result?.data;
+      console.log(response);
       if (response?.statusCode === 200) {
         message.success(response.message);
         setIsLoading(false);
         router.replace("/signin");
       }
+
       // @ts-ignore
       else if (!result?.success) {
         setIsLoading(false);
@@ -55,7 +55,13 @@ const ResetPassword = () => {
         );
       }
     } catch (error) {
-      message.error("Something went wrong try again later");
+      // @ts-ignore
+      if (error.response.data.message === "jwt expired") {
+        message.error("Session Expired");
+        setIsLoading(false);
+      } else {
+        message.error("Something went wrong try again later");
+      }
     }
   };
 
