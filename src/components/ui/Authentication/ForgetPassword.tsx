@@ -8,6 +8,8 @@ import { Button, Col, Row, Typography, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
+import logo from "@/assets/logo.png";
+import Image from "next/image";
 
 interface FormValues {
   email: string;
@@ -44,6 +46,16 @@ const ForgetPassword = () => {
       >
         <Col xs={24} md={12}>
           <div>
+            <div
+              style={{
+                textAlign: "center",
+                marginBottom: 20,
+              }}
+            >
+              <Link href="/">
+                <Image src={logo} alt="logo" width={200} height={100} />
+              </Link>
+            </div>
             <Typography.Title
               level={3}
               style={{

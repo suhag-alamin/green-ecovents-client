@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 const ForgetPasswordPage = () => {
   return (
-    <>
+    <div>
       <ForgetPassword />
-    </>
+    </div>
   );
 };
 

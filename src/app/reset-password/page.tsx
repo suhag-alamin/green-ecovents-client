@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 };
 const ResetPasswordPage = () => {
   return (
-    <>
+    <div>
       <ResetPassword />
-    </>
+    </div>
   );
 };
 
